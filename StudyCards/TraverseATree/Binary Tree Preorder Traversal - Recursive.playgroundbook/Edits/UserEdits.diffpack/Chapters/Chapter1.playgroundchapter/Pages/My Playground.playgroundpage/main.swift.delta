@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Diff</key>
+	<array>
+		<dict>
+			<key>ModifiedContent</key>
+			<string>public class TreeNode {
+    public var val: Int
+    public var left: TreeNode?
+    public var right: TreeNode?
+    public init() { self.val = 0; self.left = nil; self.right = nil; }
+    public init(_ val: Int) { self.val = val; self.left = nil; self.right = nil; }
+    public init(_ val: Int, _ left: TreeNode?, _ right: TreeNode?) {
+        self.val = val
+        self.left = left
+        self.right = right
+    }
+}
+
+let tree = TreeNode(1, 
+                    TreeNode(2, 
+                             TreeNode(3, 
+                                      nil,
+                                      TreeNode(10, nil, nil)
+                             ), 
+                             nil), 
+                    TreeNode(20, nil, nil)
+)
+
+func preorderTraversal(_ root: TreeNode?) -&gt; [Int] {
+    var order: [Int] = []
+    startPreorder(root, order: &amp;order, position: "root")
+    return order
+}
+
+func startPreorder(_ node: TreeNode?, order: inout [Int], position: String) {
+    guard let node = node else { return }
+    print("\(position) with value: \(node.val)")
+    order.append(node.val)
+    startPreorder(node.left, order: &amp;order, position: "left")
+    startPreorder(node.right, order: &amp;order, position: "right")
+}
+
+preorderTraversal(tree)
+</string>
+			<key>ModifiedRange</key>
+			<string>{0, 1241}</string>
+			<key>OriginalContent</key>
+			<string>
+</string>
+			<key>OriginalRange</key>
+			<string>{0, 1}</string>
+		</dict>
+	</array>
+	<key>File</key>
+	<string>Chapters/Chapter1.playgroundchapter/Pages/My Playground.playgroundpage/main.swift</string>
+</dict>
+</plist>
