@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Diff</key>
+	<array>
+		<dict>
+			<key>ModifiedContent</key>
+			<string>public class TreeNode {
+    public var value: Int
+    public var left: TreeNode?
+    public var right: TreeNode?
+    public init() { self.value = 0; self.left = nil; self.right = nil; }
+    public init(_ value: Int) { self.value = value; self.left = nil; self.right = nil; }
+    public init(_ value: Int, _ left: TreeNode?, _ right: TreeNode?) {
+        self.value = value
+        self.left = left
+        self.right = right
+    }
+}
+
+let tree = TreeNode(1, 
+                    TreeNode(2, 
+                             TreeNode(3, 
+                                      nil,
+                                      TreeNode(10, nil, nil)
+                             ), 
+                             nil), 
+                    TreeNode(20, nil, nil)
+)
+
+func preorderTraversal(_ root: TreeNode?) -&gt; [Int] {
+    guard let root = root else { return [] }
+    var order: [Int] = []
+    var stack: [TreeNode] = []
+    stack.append(root)
+    
+    // The trick on this one is, you're doing right first then left because of the popLast, you want left to append last.
+    
+    while !stack.isEmpty {
+        if let currentNode = stack.popLast() {
+            order.append(currentNode.value)
+            
+            if let node = currentNode.right {
+                stack.append(node)
+            }
+            
+            if let node = currentNode.left {
+                stack.append(node)
+            }
+        }
+    }
+    
+    return order
+}
+let order = preorderTraversal(tree)
+if order == [1, 2, 3, 10, 20] {
+    print("Correct")
+} else { 
+    print("Failed \(order)")
+}
+
+
+
+</string>
+			<key>ModifiedRange</key>
+			<string>{0, 1568}</string>
+			<key>OriginalContent</key>
+			<string></string>
+			<key>OriginalRange</key>
+			<string>{0, 0}</string>
+		</dict>
+	</array>
+	<key>File</key>
+	<string>Chapters/Chapter1.playgroundchapter/Pages/My Playground.playgroundpage/main.swift</string>
+</dict>
+</plist>

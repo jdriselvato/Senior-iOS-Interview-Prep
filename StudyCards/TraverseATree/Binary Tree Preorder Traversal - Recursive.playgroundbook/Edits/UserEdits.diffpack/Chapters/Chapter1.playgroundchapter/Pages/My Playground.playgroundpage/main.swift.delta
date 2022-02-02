@@ -22,11 +22,15 @@
 let tree = TreeNode(1, 
                     TreeNode(2, 
                              TreeNode(3, 
-                                      nil,
-                                      TreeNode(10, nil, nil)
+                                      TreeNode(4, nil, 
+                                               TreeNode(10, 
+                                                        TreeNode(5, nil, nil), 
+                                                        nil)
+                                      ),
+                                      TreeNode(20, nil, nil)
                              ), 
                              nil), 
-                    TreeNode(20, nil, nil)
+                    TreeNode(30, nil, nil)
 )
 
 func preorderTraversal(_ root: TreeNode?) -&gt; [Int] {
@@ -46,7 +50,7 @@ func startPreorder(_ node: TreeNode?, order: inout [Int], position: String) {
 preorderTraversal(tree)
 </string>
 			<key>ModifiedRange</key>
-			<string>{0, 1241}</string>
+			<string>{0, 1497}</string>
 			<key>OriginalContent</key>
 			<string>
 </string>
