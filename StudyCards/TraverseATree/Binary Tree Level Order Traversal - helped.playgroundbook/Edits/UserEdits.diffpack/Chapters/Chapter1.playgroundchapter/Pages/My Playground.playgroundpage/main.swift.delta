@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Diff</key>
+	<array>
+		<dict>
+			<key>ModifiedContent</key>
+			<string>public class TreeNode {
+    public var val: Int
+    public var left: TreeNode?
+    public var right: TreeNode?
+    public init() { self.val = 0; self.left = nil; self.right = nil; }
+    public init(_ val: Int) { self.val = val; self.left = nil; self.right = nil; }
+    public init(_ val: Int, _ left: TreeNode?, _ right: TreeNode?) {
+        self.val = val
+        self.left = left
+        self.right = right
+    }
+}
+
+let tree = TreeNode(1, 
+                    TreeNode(2, 
+                             TreeNode(3, 
+                                      TreeNode(0, 
+                                               TreeNode(18, nil, nil)
+                                               , TreeNode(13, nil, nil)),
+                                      nil),
+                             nil), 
+                    TreeNode(30, 
+                             TreeNode(5, 
+                                      TreeNode(4, 
+                                                  TreeNode(29, nil, nil)
+                                                  , TreeNode(11, nil, nil))
+                                      , TreeNode(8, nil, nil)), 
+                             nil)
+)
+
+
+func levelOrder(_ root: TreeNode?) -&gt; [[Int]] {
+    guard let root = root else { return [] }
+    var order: [[Int]] = []
+    var queue: [TreeNode] = [root]
+    
+    if root.left == nil &amp;&amp; root.right == nil {
+        return [[root.val]]
+    }
+    
+    while !queue.isEmpty {
+        
+        var index = queue.count
+        var set = [Int]()
+        print(index)
+        
+        while index &gt; 0 {
+            guard let node = queue.first else { 
+                index = 0 
+                break
+            }
+            
+            index -= 1
+            set.append(node.val)
+            
+            if let left = node.left { 
+                queue.append(left) 
+                print("Index: \(index) added to q - left")
+            }
+            if let right = node.right { 
+                queue.append(right) 
+                print("Index: \(index) added to q - right")
+            }
+            
+            queue.removeFirst()
+        }
+        order.append(set)
+    }
+    
+    return order
+}
+
+let final = levelOrder(tree)
+if final == [[1], [2, 30], [3, 5], [0, 4, 8], [18, 13, 29, 11]] {
+    print("Success")
+} else {
+    print("Failed: \(final)")
+}
+/*
+ Post reflections:
+ My hang up was, i couldn't understand how to keep the siblings in the queue and how the while loop was able to append all of a siblings children for the next round.
+ 
+ 
+ 
+ 
+ */
+</string>
+			<key>ModifiedRange</key>
+			<string>{0, 2531}</string>
+			<key>OriginalContent</key>
+			<string>
+</string>
+			<key>OriginalRange</key>
+			<string>{0, 1}</string>
+		</dict>
+	</array>
+	<key>File</key>
+	<string>Chapters/Chapter1.playgroundchapter/Pages/My Playground.playgroundpage/main.swift</string>
+</dict>
+</plist>
