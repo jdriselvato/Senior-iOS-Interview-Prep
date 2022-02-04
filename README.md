@@ -1,2 +1,2 @@
 # leetcode
-My journey through leetcode to get global name job
+My journey through leetcode to get a FAANG+ job
