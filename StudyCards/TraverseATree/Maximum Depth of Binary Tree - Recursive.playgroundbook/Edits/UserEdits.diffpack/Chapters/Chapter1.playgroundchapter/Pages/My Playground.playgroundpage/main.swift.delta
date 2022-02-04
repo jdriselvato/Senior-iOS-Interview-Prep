@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Diff</key>
+	<array>
+		<dict>
+			<key>ModifiedContent</key>
+			<string>public class TreeNode {
+    public var val: Int
+    public var left: TreeNode?
+    public var right: TreeNode?
+    public init() { self.val = 0; self.left = nil; self.right = nil; }
+    public init(_ val: Int) { self.val = val; self.left = nil; self.right = nil; }
+    public init(_ val: Int, _ left: TreeNode?, _ right: TreeNode?) {
+        self.val = val
+        self.left = left
+        self.right = right
+    }
+}
+
+let tree = TreeNode(1, 
+                    TreeNode(2, 
+                             TreeNode(3, 
+                                      TreeNode(4, nil, 
+                                               TreeNode(10, 
+                                                        TreeNode(5, nil, nil), 
+                                                        nil)
+                                      ),
+                                      TreeNode(20, nil, nil)
+                             ), 
+                             nil), 
+                    TreeNode(30, nil, nil)
+)
+
+class Solution {
+    
+    var max: Int = 0
+    
+    func maxDepth(_ root: TreeNode?) -&gt; Int {
+        guard let root = root else { return 0 }
+        
+        startMaxDepth(root, depth: 1)
+        
+        return max
+    }
+    
+    private func startMaxDepth(_ root: TreeNode?, depth: Int) {
+        
+        if root?.left == nil &amp;&amp; root?.right == nil { // leaf
+            max = depth &gt; max ? depth : max
+            return
+        }
+        
+        startMaxDepth(root?.left, depth: depth+1)
+        startMaxDepth(root?.right, depth: depth+1)
+    }
+}
+
+Solution().maxDepth(tree)
+</string>
+			<key>ModifiedRange</key>
+			<string>{0, 1572}</string>
+			<key>OriginalContent</key>
+			<string>
+</string>
+			<key>OriginalRange</key>
+			<string>{0, 1}</string>
+		</dict>
+	</array>
+	<key>File</key>
+	<string>Chapters/Chapter1.playgroundchapter/Pages/My Playground.playgroundpage/main.swift</string>
+</dict>
+</plist>
