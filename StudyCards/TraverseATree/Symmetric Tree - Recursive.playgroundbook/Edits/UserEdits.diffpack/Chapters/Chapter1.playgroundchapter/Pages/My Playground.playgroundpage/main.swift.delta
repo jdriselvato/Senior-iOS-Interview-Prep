@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Diff</key>
+	<array>
+		<dict>
+			<key>ModifiedContent</key>
+			<string>public class TreeNode {
+    public var val: Int
+    public var left: TreeNode?
+    public var right: TreeNode?
+    public init() { self.val = 0; self.left = nil; self.right = nil; }
+    public init(_ val: Int) { self.val = val; self.left = nil; self.right = nil; }
+    public init(_ val: Int, _ left: TreeNode?, _ right: TreeNode?) {
+        self.val = val
+        self.left = left
+        self.right = right
+    }
+}
+
+let tree1 = TreeNode(1, 
+                    TreeNode(2, 
+                             TreeNode(3, nil, 
+                                      TreeNode(1, nil, 
+                                               TreeNode(1, 
+                                                        TreeNode(1, nil, nil)
+                                                        , nil)
+                                      )), nil), 
+                    TreeNode(2, 
+                             TreeNode(3, nil, 
+                                      TreeNode(1, nil, 
+                                               TreeNode(1, 
+                                                        TreeNode(1, nil, nil)
+                                                        , nil)
+                                      )), nil))
+
+let tree2 = TreeNode(1, 
+                     TreeNode(2, nil, TreeNode(3, nil, nil)), 
+                     TreeNode(2, TreeNode(3, nil, nil), nil)
+)
+
+class Solution {
+    func isSymmetric(_ root: TreeNode?) -&gt; Bool {
+        guard let root = root else { return false }
+        
+        return isMirrored(root.left, root.right)
+    }
+
+    private func isMirrored(_ node1: TreeNode?, _ node2: TreeNode?) -&gt; Bool {
+        
+        if node1 == nil &amp;&amp; node2 == nil { return true }
+        print("root 1: \(node1?.val) | root 2: \(node2?.val)")
+        print("root 1 - left: \(node1?.left?.val) | root 2 - right: \(node2?.right?.val)")
+        print("root 1 - right: \(node1?.right?.val) | root 2 - left: \(node2?.left?.val)")
+        
+        
+        if node1?.val == node2?.val &amp;&amp; 
+            isMirrored(node1?.left, node2?.right) &amp;&amp; isMirrored(node1?.right, node2?.left)
+            {
+            return true
+        }
+        print("Broke")
+        return false
+        
+    }
+}
+
+if Solution().isSymmetric(tree2) {
+    print("it is symmetric")
+} else {
+    print("Not symmetric")
+}
+</string>
+			<key>ModifiedRange</key>
+			<string>{0, 2300}</string>
+			<key>OriginalContent</key>
+			<string>
+</string>
+			<key>OriginalRange</key>
+			<string>{0, 1}</string>
+		</dict>
+	</array>
+	<key>File</key>
+	<string>Chapters/Chapter1.playgroundchapter/Pages/My Playground.playgroundpage/main.swift</string>
+</dict>
+</plist>
