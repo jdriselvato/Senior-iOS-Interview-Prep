@@ -50,19 +50,12 @@ class Solution {
     private func isMirrored(_ node1: TreeNode?, _ node2: TreeNode?) -&gt; Bool {
         
         if node1 == nil &amp;&amp; node2 == nil { return true }
-        print("root 1: \(node1?.val) | root 2: \(node2?.val)")
-        print("root 1 - left: \(node1?.left?.val) | root 2 - right: \(node2?.right?.val)")
-        print("root 1 - right: \(node1?.right?.val) | root 2 - left: \(node2?.left?.val)")
         
-        
-        if node1?.val == node2?.val &amp;&amp; 
-            isMirrored(node1?.left, node2?.right) &amp;&amp; isMirrored(node1?.right, node2?.left)
+        if node1?.val == node2?.val
             {
-            return true
+            return isMirrored(node1?.left, node2?.right) &amp;&amp; isMirrored(node1?.right, node2?.left)
         }
-        print("Broke")
         return false
-        
     }
 }
 
@@ -71,9 +64,19 @@ if Solution().isSymmetric(tree2) {
 } else {
     print("Not symmetric")
 }
+
+/*
+ Some how this got "Your runtime beats 99.74% of swift submissions" on Leetcode Accepted Solutions Runtime Distribution.
+ 
+ Post thoughts:
+ - I initially was going to Level-order Traversal which could have woried if the arrays also contained nil. but that felt like checking the entire array against another array would take too much time.
+ - What finally clicked was knowing left == right and right == left. and since we split the tree into two parts from the root, it make checking the value of each really easy.
+ - Unfortunately, I did need to look at a c++ variation briefly to give me the idea. But looking at theirs again, they return on the `isMirrored(node1?.left, node2?.right) &amp;&amp; isMirrored(node1?.right, node2?.left)` instead of auto returning true
+ 
+ */
 </string>
 			<key>ModifiedRange</key>
-			<string>{0, 2300}</string>
+			<string>{0, 2763}</string>
 			<key>OriginalContent</key>
 			<string>
 </string>
