@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Diff</key>
+	<array>
+		<dict>
+			<key>ModifiedContent</key>
+			<string>// Second attempt Bubble sort
+/* Bubble sort was easier than I expect but lets clean the 1st attempt up.
+ */
+
+func bubbleSort(data: [Int]) -&gt; [Int] {
+    var temp = data
+    var correctIndexs = -1
+    while correctIndexs != temp.count-1 {
+        var index = temp.count - 1
+        
+        while index &gt; 0 {
+            if temp[index] &lt; temp[index-1] {
+                temp.swapAt(index, index-1)
+            }
+            index -= 1 // subtrack
+        }
+        
+        correctIndexs += 1 // by 
+    }    
+    return temp
+}
+
+let shuffled = [11, 5, 3, 2, 1].shuffled()
+let sorted = bubbleSort(data: shuffled)
+
+print("Success: \(sorted == [1,2,3,5,11])")
+
+/* Thoughts:
+ - I don't know what is expected from the coding tests in an interview. Are variables for code readability recommended or should the code be simplified without variables were they are not needed?
+ */
+</string>
+			<key>ModifiedRange</key>
+			<string>{0, 871}</string>
+			<key>OriginalContent</key>
+			<string>
+</string>
+			<key>OriginalRange</key>
+			<string>{0, 1}</string>
+		</dict>
+	</array>
+	<key>File</key>
+	<string>Chapters/Chapter1.playgroundchapter/Pages/My Playground.playgroundpage/main.swift</string>
+</dict>
+</plist>

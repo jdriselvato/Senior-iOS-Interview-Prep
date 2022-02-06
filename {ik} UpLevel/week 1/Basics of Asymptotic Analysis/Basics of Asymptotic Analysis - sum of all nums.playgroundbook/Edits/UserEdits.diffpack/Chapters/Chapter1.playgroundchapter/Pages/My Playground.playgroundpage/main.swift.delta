@@ -92,9 +92,15 @@ func mathMinusSum(num: Int, z: Int) -&gt; Int {
 }
 
 print(mathMinusSum(num: 10, z: 1))
+/*
+ 
+ I'm a little confused on if im doing the loop ones correctly when the common difference between 10, 9, 8, 7 is 1, but my function returns an additional sum
+ 
+ 10 = 55 but it equals 66 on sum(10, with: 1)
+ */
 </string>
 			<key>ModifiedRange</key>
-			<string>{0, 1966}</string>
+			<string>{0, 2180}</string>
 			<key>OriginalContent</key>
 			<string>
 </string>

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Diff</key>
+	<array>
+		<dict>
+			<key>ModifiedContent</key>
+			<string>// First attempt Bubble sort
+/* My understanding of how it works:
+ - Similar to Selection sort but instead we work right to left swapping the smallest until it gets to it's final index.
+ - This swapping is called bubble sorting because it's "bubbling up the smallest to the top"
+ */
+
+// First Blocker:
+/* How to determine how to move the indexs around. What do we know?
+ - The smallest needs to swap
+ - do we need two indexs changing or can we just control it with one?
+ - How would we control it with one. Lets try that first.
+ */
+
+// Second Blocker:
+/* It makes sense on looping through the entire array and moving it as a first pass but we need to do it until the entire array is sorted
+ - What is our while loop checking besides if it made it to the end of the array? is sorted...
+ - the slide says "by repeated exchanges"
+ - since by the first pass, the first index WILL have the correct min we'd only need to do 1...array.length
+ */
+
+func bubbleSort(data: [Int]) -&gt; [Int] {
+    var temp = data
+    
+    // Some kind of loop on what?
+    // since it seems we don't hold on to one num the entire passthrough, the first loop should go through the entire array
+    var correctIndexs = -1
+    while correctIndexs != temp.count-1 { // loop until we hit the end but this only loops once.
+        var index = temp.count - 1 // the end of the array &amp; reset every new loop as we always start from end
+        
+        while index &gt; 0 {
+            // We need to go right to left so the first num to check should be the last in the index
+            var last = temp[index]
+            // next we need to check if last is smaller than the next element
+            var nextIndex = index-1 // (needs to be dynamic)
+            var next = temp[nextIndex]
+            if last &lt; next {
+                // Swap them
+                temp.swapAt(index, nextIndex)
+            }
+            index -= 1 // subtrack
+        }
+        correctIndexs += 1 // by 
+    }    
+    return temp
+}
+
+let shuffled = [11, 5, 3, 2, 1 , 0, 4, 10, 9, 1, 11].shuffled()
+let sorted = bubbleSort(data: shuffled)
+
+if sorted == [0, 1, 1, 2, 3, 4, 5, 9, 10, 11, 11] {
+    print("Success")
+} else {
+    print("Something went wrong: \(sorted)")
+}
+
+/* Thoughts:
+ - Cool I wrote my first bubble sorter from scratch. The trick here was the index had to reset every top level loop, which was the last line of code I had to move. 
+ */
+</string>
+			<key>ModifiedRange</key>
+			<string>{0, 2389}</string>
+			<key>OriginalContent</key>
+			<string>
+</string>
+			<key>OriginalRange</key>
+			<string>{0, 1}</string>
+		</dict>
+	</array>
+	<key>File</key>
+	<string>Chapters/Chapter1.playgroundchapter/Pages/My Playground.playgroundpage/main.swift</string>
+</dict>
+</plist>
