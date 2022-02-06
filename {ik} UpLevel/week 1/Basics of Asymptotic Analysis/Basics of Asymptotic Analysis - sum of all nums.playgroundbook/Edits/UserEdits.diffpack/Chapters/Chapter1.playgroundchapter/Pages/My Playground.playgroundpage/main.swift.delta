@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Diff</key>
+	<array>
+		<dict>
+			<key>ModifiedContent</key>
+			<string>// from the sum of 0 + 1 + 2 ... n
+
+// For loop way
+func sum(num: Int) -&gt; Int {
+    var total = 0
+    for i in 1 ... num {
+        total += i
+    }
+    
+    return total
+}
+
+// math version 
+func mathSum(num: Int) -&gt; Int {
+    let total = (num * (num+1))/2
+    return total
+}
+
+let total = sum(num: 10)
+let mathTotal = mathSum(num: 10)
+if total == 55 &amp;&amp; mathTotal == 55 {
+    print("Correct")
+} else {
+    print("Wrong")
+}
+
+// ================================= QUIZ =
+
+/*
+ What is the sum of the following arithmetic series: n-1 + n-2 + n-3 + … + 1 + 0? 
+ (Note: This arithmetic series is a decreasing arithmetic series, in which the “common difference” between consecutive terms is -1: e.g, (n-2)-(n-1) = -1, 1 - 2 = -1, 0 - 1 = -1. Such series frequently arise when analysing the running times of algorithms)
+ 
+ Answer: n(n-1)/2
+ 
+ Thoughts: Why is it n-1 in the above equation?
+ because we are subtracting 1? 
+ 
+ so 10(10-1)/2 = 45
+ which is the same as:
+ 9+8+7+6+5+4+3+2+1 = 45
+ */
+
+// n(n-1)/2
+func mathMinusSum(num: Int) -&gt; Int {
+    let total = (num*(num-1))/2
+    return total
+}
+
+print("Is Correct: \(mathMinusSum(num: 10) == 45)")
+
+// looped version of n(n-1)/2
+func minusSum(num: Int) -&gt; Int {
+    var total = 0
+    for i in 1 ... num-1 {
+        total += i
+    }
+    return total
+}
+
+print("Is Correct: \(minusSum(num: 10) == 45)")
+
+// Lets trying writing one with “common difference” between consecutive terms is "z"
+
+func sum(_ num: Int, with commonDiff: Int) -&gt; Int {
+    var total = 0
+    for i in 1...num+commonDiff {
+        total += i
+    }
+    return total
+}
+
+print("Is Correct: \(sum(10, with: -1) == 45)") // test with -1 since i know -1 already
+
+// 8+7+6+5+4+3+2+1 = 36
+print("Is Correct: \(sum(10, with: -2) == 36)") // z = -2
+
+print("Is Correct: \(sum(10, with: 0)) == 55)") // test with 0
+
+
+// Lets do n*(n+z)/2
+func mathMinusSum(num: Int, z: Int) -&gt; Int {
+    let total = (num*(num+z))/2
+    return total
+}
+
+print(mathMinusSum(num: 10, z: 1))
+</string>
+			<key>ModifiedRange</key>
+			<string>{0, 1966}</string>
+			<key>OriginalContent</key>
+			<string>
+</string>
+			<key>OriginalRange</key>
+			<string>{0, 1}</string>
+		</dict>
+	</array>
+	<key>File</key>
+	<string>Chapters/Chapter1.playgroundchapter/Pages/My Playground.playgroundpage/main.swift</string>
+</dict>
+</plist>
