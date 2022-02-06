@@ -51,9 +51,9 @@ class Solution {
         
         if node1 == nil &amp;&amp; node2 == nil { return true }
         
-        if node1?.val == node2?.val
+        if node1?.val == node2?.val &amp;&amp; isMirrored(node1?.left, node2?.right) &amp;&amp; isMirrored(node1?.right, node2?.left)
             {
-            return isMirrored(node1?.left, node2?.right) &amp;&amp; isMirrored(node1?.right, node2?.left)
+            return true
         }
         return false
     }
@@ -71,12 +71,11 @@ if Solution().isSymmetric(tree2) {
  Post thoughts:
  - I initially was going to Level-order Traversal which could have woried if the arrays also contained nil. but that felt like checking the entire array against another array would take too much time.
  - What finally clicked was knowing left == right and right == left. and since we split the tree into two parts from the root, it make checking the value of each really easy.
- - Unfortunately, I did need to look at a c++ variation briefly to give me the idea. But looking at theirs again, they return on the `isMirrored(node1?.left, node2?.right) &amp;&amp; isMirrored(node1?.right, node2?.left)` instead of auto returning true
- 
+ - Unfortunately, I did need to look at a c++ variation briefly to give me the idea. But looking at theirs again, they return on the `isMirrored(node1?.left, node2?.right) &amp;&amp; isMirrored(node1?.right, node2?.left)` instead of auto returning true. Which according to leetcode, puts me into the 42.27% of swift submissions. So I accidently created a quicker runtime.
  */
 </string>
 			<key>ModifiedRange</key>
-			<string>{0, 2763}</string>
+			<string>{0, 2888}</string>
 			<key>OriginalContent</key>
 			<string>
 </string>

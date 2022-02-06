@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Diff</key>
+	<array>
+		<dict>
+			<key>ModifiedContent</key>
+			<string>let shuffled = [5, 3, 2, 1 , 0, 4, 10, 9, 1].shuffled()
+
+func selectionSort(data: [Int]) -&gt; [Int] {
+    // array swapping current index if following num is smaller
+    var temp: [Int] = data
+    // array for the current index
+    for index in stride(from: 0, to: temp.count, by: 1) {
+        // array to check the next index
+        var smallestNum = temp[index]
+        var smallestNumIndex = index
+        
+        for index2 in stride(from: index+1, to: temp.count, by: 1) {
+            let currentNum2 = temp[index2]
+            
+            if smallestNum &gt; currentNum2 { // checking our current index to find smallest in row
+                smallestNum = currentNum2 // get new smallest
+                smallestNumIndex = index2 // store the smallest index
+            }
+        }
+        temp.swapAt(index, smallestNumIndex) // swap the nums at the index vs smallest index
+    }
+    
+    return temp // return the sorted
+}
+
+let sorted = selectionSort(data: shuffled)
+
+if sorted == [0, 1, 1, 2, 3, 4, 5, 9, 10] {
+    print("Success")
+} else {
+    print("Something went wrong: \(sorted)")
+}
+</string>
+			<key>ModifiedRange</key>
+			<string>{0, 1096}</string>
+			<key>OriginalContent</key>
+			<string>
+</string>
+			<key>OriginalRange</key>
+			<string>{0, 1}</string>
+		</dict>
+	</array>
+	<key>File</key>
+	<string>Chapters/Chapter1.playgroundchapter/Pages/My Playground.playgroundpage/main.swift</string>
+</dict>
+</plist>
