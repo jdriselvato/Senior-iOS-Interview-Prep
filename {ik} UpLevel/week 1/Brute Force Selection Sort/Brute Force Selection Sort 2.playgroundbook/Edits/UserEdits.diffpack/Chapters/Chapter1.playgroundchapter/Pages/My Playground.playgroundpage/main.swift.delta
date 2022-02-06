@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Diff</key>
+	<array>
+		<dict>
+			<key>ModifiedContent</key>
+			<string>let shuffled = [5, 3, 2, 1 , 0, 4, 10, 9, 1].shuffled()
+
+func selectionSort(data: [Int]) -&gt; [Int] {
+    // array swapping current index if following num is smaller
+    var temp: [Int] = data
+    // array for the current index
+    
+    var index = 0
+    while index &lt; temp.count {
+        // array to check the next index
+        var smallestNum = temp[index]
+        var smallestNumIndex = index
+        
+        var index2 = index+1
+        while index2 &lt; temp.count {
+            let currentNum2 = temp[index2]
+            
+            if smallestNum &gt; currentNum2 { // checking our current index to find smallest in row
+                smallestNum = currentNum2 // get new smallest
+                smallestNumIndex = index2 // store the smallest index
+            }
+            index2 += 1
+        }
+        temp.swapAt(index, smallestNumIndex) // swap the nums at the index vs smallest index
+        index += 1
+    }
+    
+    return temp // return the sorted
+}
+
+let sorted = selectionSort(data: shuffled)
+
+if sorted == [0, 1, 1, 2, 3, 4, 5, 9, 10] {
+    print("Success")
+} else {
+    print("Something went wrong: \(sorted)")
+}
+
+// turns out swift 3 dropped c for loops. Which meants I had to learn stride on the first version of this. but while loops is much easier for me to remember than the stride() function.
+</string>
+			<key>ModifiedRange</key>
+			<string>{0, 1317}</string>
+			<key>OriginalContent</key>
+			<string></string>
+			<key>OriginalRange</key>
+			<string>{0, 0}</string>
+		</dict>
+	</array>
+	<key>File</key>
+	<string>Chapters/Chapter1.playgroundchapter/Pages/My Playground.playgroundpage/main.swift</string>
+</dict>
+</plist>
