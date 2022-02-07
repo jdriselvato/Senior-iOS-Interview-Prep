@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Diff</key>
+	<array>
+		<dict>
+			<key>ModifiedContent</key>
+			<string>// Decrease and Conquer Insertion Sort
+/* My understanding of it
+ - Instead of swapping a bunch of numbers until the array is sorted, simply insert the last value to the place before the next smallest number.
+ - If we were using arrays that didn't easily mutate, we'd need to:
+ 1. store the nth num in a temp object
+ 2. shift all the numbs larger than temp to over one index
+ 3. at the index where temp is larger than the smallest, insert the number 
+ 4. and repeat
+ - INSERTION SORT REQUIRES the LEFT OF AN ARRAY TO BE SORTED ALREADY
+ 
+ - In swift we have an insert function at index as a helper
+ 
+ Notes about class: For some reason the video cut off before the programming bit and we never returned to it in the course. 
+ */
+
+// 1st hang up: I don't know how to cycle through and insert and remove without index out of scope..
+/*
+ 5 in an array
+ cycle from top to bottom 5, 4, 3, 2, 1 so it's `array.count - 1`
+ when we array.last (temp) greater than i, insert at i (meaning 6 in array) so...
+ remove last (array.last == temp), which means 5 in array.
+ */
+
+// 2nd hand up: the way i understood it from the lesson, we'd grab from the last entry until the solution resolved but... what happens when the largest number gets to the last position before the array is sorted?
+
+/* After watching the video again:
+ - turns out insertion sort only works when the left of an array is already sorted...
+ 
+ */
+
+var shuffled = [0,1,2,3,4,9,10,5]
+
+func sortInsert(array: [Int]) -&gt; [Int] {
+    var sortingArray = array
+    // determine an insert location
+    var index = sortingArray.count - 1
+    var correctedIndex = -1
+    
+    // compare if the temp is smaller until it's bigger than an number and get it's index.
+    guard let temp = sortingArray.last else { return [] }
+    print(temp)
+    while index &gt; 0 {
+        print("Temp:\(temp) | against \(sortingArray[index-1])")
+        if temp &gt; sortingArray[index-1] {
+            sortingArray.insert(temp, at: index)
+            sortingArray.popLast() // remove temp from last
+            print("Inserted: \(sortingArray)")
+            break
+        }    
+        index -= 1
+    }
+    return sortingArray
+}
+
+let sorted = sortInsert(array: shuffled) 
+print("Success: \(sorted == [0,1,2,3,4,5,9,10]) \(sorted))")
+/* Post thoughts:
+ - It's just inserting a new num into an array... I spent an hour trying to insert the entire array from the last index.
+ 
+ */
+</string>
+			<key>ModifiedRange</key>
+			<string>{0, 2397}</string>
+			<key>OriginalContent</key>
+			<string>
+</string>
+			<key>OriginalRange</key>
+			<string>{0, 1}</string>
+		</dict>
+	</array>
+	<key>File</key>
+	<string>Chapters/Chapter1.playgroundchapter/Pages/My Playground.playgroundpage/main.swift</string>
+</dict>
+</plist>
