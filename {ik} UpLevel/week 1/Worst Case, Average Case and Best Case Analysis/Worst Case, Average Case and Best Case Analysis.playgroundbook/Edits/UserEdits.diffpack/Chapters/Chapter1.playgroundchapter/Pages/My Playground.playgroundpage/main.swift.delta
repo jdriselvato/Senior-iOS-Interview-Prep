@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Diff</key>
+	<array>
+		<dict>
+			<key>ModifiedContent</key>
+			<string>// Worst Case, Average Case and Best Case Analysis
+/* My understanding of it
+ - All sorting functions are going to be variable in time so we look at these three cases.
+ - The worst case is going to be the one that takes the longest - ie the array is in reverse sort
+ - Average - from what I've seen is nearly going to be the same as best case
+ - bast case seems to be like if the array is already sorted O(n)
+ */
+
+// This is the sortInsert but independent from managers
+
+// 50th hang up: I can't figure out how to do it with insert(numb:at:) so lets try it with shifting
+
+var shuffled = [99,0,30,2,100,20]
+
+/*
+ [99,0,30,2,100,20] // skip
+ [0,99,30,2,100,20] // at 0
+ [0,30,99,2,100,20] // at 1
+ [0,1,30,99,100,20] // at 1
+ [0,1,30,99,100,20] // at 4 - this stays
+ [0,1,20,30,99,100] // at 2
+ */
+
+func sortInsert(array: [Int]) -&gt; [Int] {
+    var sortedArray = array
+    
+    for i in 1 ..&lt; sortedArray.count {
+        let temp = sortedArray[i] // this is the item that will be inserted
+        
+        var redIndex = i // the remaining sorted indexes
+        
+        while redIndex &gt; 0 &amp;&amp; // because there's no negative index
+                temp &lt; sortedArray[redIndex - 1] { // check temp against the previous index num
+
+            sortedArray[redIndex] = sortedArray[redIndex - 1] // this is the shifting
+            
+            redIndex -= 1
+        }
+        print("Inserting at \(redIndex)")
+        sortedArray[redIndex] = temp
+    }
+    
+    return sortedArray
+}
+
+
+let sorted = sortInsert(array: shuffled) 
+print("Success: \(sorted == [0,1,2,3,4,5,9,10]) \(sorted))")
+
+    /* POST THOUGHTS:
+ - I don't understand the shifting. Let try to understand it:
+ 
+ For  [99,0,30,2,100,20], 
+ We know this is true:  [0,99,30,2,100,20] // "0" inserts at 0
+ So the shifting code is:
+ 
+ `sortedArray[redIndex] = sortedArray[redIndex - 1] // this is the shifting`
+ 
+ At his point in the loop `redIndex` is 1
+ 
+ the num at index 1 is now equal to sortedArray[redIndex - 1]
+ which means
+ the num at index 1 is now equal to num at index 0
+ which means
+ num at index 1 is now 99 so it shifted over one
+ 
+ then we redIndex-- so redIndex is now 0
+ 
+ sortArray[redIndex] = temp // we put the temp into the empty spot.
+ 
+ */
+</string>
+			<key>ModifiedRange</key>
+			<string>{0, 2214}</string>
+			<key>OriginalContent</key>
+			<string></string>
+			<key>OriginalRange</key>
+			<string>{0, 0}</string>
+		</dict>
+	</array>
+	<key>File</key>
+	<string>Chapters/Chapter1.playgroundchapter/Pages/My Playground.playgroundpage/main.swift</string>
+</dict>
+</plist>
