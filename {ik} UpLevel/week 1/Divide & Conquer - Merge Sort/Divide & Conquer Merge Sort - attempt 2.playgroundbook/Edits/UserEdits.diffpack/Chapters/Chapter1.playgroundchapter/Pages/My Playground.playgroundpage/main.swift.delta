@@ -23,7 +23,7 @@
 //    - I had: `while array[i] &lt;= mid &amp;&amp; array[j] &lt;= end {` instead of `while i &lt;= mid &amp;&amp; j &lt;= end {`
 //    - After fixing the above everything worked as expected
 
-let shuffled = [10, 20, 40, 23, 40, 22, 3, 10, 33, 90, 3, 1, 2]
+let shuffled = [1, -1, 9, 4, 20].shuffled()
 
 // Takes a shuffled array and returns a sorted one
 func mergeSort(_ array: [Int]) -&gt; [Int] {
@@ -58,14 +58,11 @@ func helper(_ array: inout [Int], start: Int, end: Int) {
     }
     // gather the rest and append to tempArray
     // since we know the above while look sorted until final end index, the remaining i or j is already sorted and can be appended to the tempArray
-    print("Gather:\n\ti: \(i) w/ mid:\(mid)\n\tj: \(j) w/ end: \(end)")
-    while i &lt;= mid {
-        tempArray.append(array[i])
-        i += 1
-    }
-    while j &lt;= end {
-        tempArray.append(array[j])
-        j += 1
+    if i &lt;= mid {
+        tempArray.append(contentsOf: array[i ... mid])
+}
+    if j &lt;= end {
+        tempArray.append(contentsOf: array[j ... end])
     }
     
     // now we replace the start ... end in original array with our tempArray values
@@ -83,11 +80,12 @@ print("Final: \(mergeSort(shuffled))")
 /* 3 tips for next time:
  *    1. Read each line of code line by line and explain it before compiling
  *    2. Comments are good and helps me explain what I'm doing but be specific on variable naming / calls to ensure what you are writing or what you are thinking are the same
- *    3. Can the grouping section be simplified without a while loop?
+ *    3. Can the grouping section be simplified without a while loop? 
+ *     - yes it can with array[boundStart ... boundsEnd]
  */
 </string>
 			<key>ModifiedRange</key>
-			<string>{0, 2809}</string>
+			<string>{0, 2775}</string>
 			<key>OriginalContent</key>
 			<string>
 </string>

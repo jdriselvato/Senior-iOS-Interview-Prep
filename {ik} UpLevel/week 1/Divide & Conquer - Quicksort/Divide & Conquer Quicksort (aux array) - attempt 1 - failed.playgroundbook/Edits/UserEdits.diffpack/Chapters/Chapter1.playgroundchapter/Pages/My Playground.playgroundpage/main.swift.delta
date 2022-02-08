@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Diff</key>
+	<array>
+		<dict>
+			<key>ModifiedContent</key>
+			<string>// Divide &amp; Conquer: Quicksort
+/* How I understand it:
+ - Merge sort gave all the power to the mangers to figure it out by dividing the array in half. while the last step was sorting the last part of the array with merge.
+ - Quicksort, does the sorting by a "pivot" number to separate the array and then giving it to the managers to sort. It's recursive like merge sort but an initial sort is done before it's giving to the manager.
+ */
+
+/* What I don't understand
+ - What happens after the managers had their turn? Does the array completely return sorted? Seems like it should.
+ *    ANSWER:
+ *
+ */ 
+
+// HANG UP 1: How it ends
+// - my misunderstanding was the sub managers took the entire array. no they take a left or right section but not the pivot
+
+// HANG UP 2: since the two sections are uneven.. the for loop breaks if we're doing start to end because at some point end is going to get larger then start
+// -    SOLUTION:
+// -        
+
+func quickSort(_ array: [Int]) -&gt; [Int] {
+    var sortingArray = array
+    helper(&amp;sortingArray, 0, sortingArray.count - 1)
+    return sortingArray
+}
+
+func helper(_ array: inout [Int], _ start: Int, _ end: Int) {
+    if start == end || start &gt; end { return }
+    let pivot = array[0]
+    
+    var tempLeft = [Int]()
+    var tempRight = [Int]()
+    // start+1 because we hold [0] in pivot
+    print("\(start) to \(end) - \(array) with pivot: \(pivot)")
+    for i in start+1 ... end { // ‼️ not the array value to int value
+        print("\(i)")
+        if array[i] &lt; pivot {
+            tempLeft.append(array[i])
+        } else {
+            tempRight.insert(array[i], at: 0) // insert in the front of the array
+        }
+    }
+    
+    /// thought 1: -- nope
+    // now we have two sides and a middle pivot, what do we do?
+    // we need the next level to take tempLeft to pivot-1 &amp; pivot+1 to end and sort again
+    // but we need to pass &amp;array not the two sides. So does that mean...
+    
+    /// thought 2:
+    // instead lets use start and end to enter the new values into &amp;array
+    let tempArray = tempLeft + [pivot] + tempRight
+    print("temp: \(tempArray.count) vs \(array.count)")
+    print("\(tempLeft) + \([pivot]) + \(tempRight)")
+    var j = 0
+    for i in start ... end {
+        array[i] = tempArray[j]
+        j += 1
+    }
+    
+    print("--- end sorting \(array)")
+    helper(&amp;array, 0, tempLeft.count-1)
+    // not pivot+1 it needs to be the index of pivot+1 so tempLeft.count+1 cause count would be pivot + 1 = 0 of right
+    helper(&amp;array, tempLeft.count, tempLeft.count+1+(tempRight.count-1))
+}
+
+let shuffled = [2,5,3,7,10,11,33,22,15].shuffled()
+print(quickSort(shuffled))
+
+/// THOUGHTS:
+/* - I gave up on solving it after more than an 1.5 hours being here.
+ * the part 2 says we should be able to do it without an aux array. Seems maybe my mistake here is splitting it into two arrays. 
+ * I feel angry because I wasted probably 4 hours now learning Quicksort by trying to program it without seeing them program it and I still don't understand Quicksort.
+ * So I need to be able to learn better than this. Do I try to solve it within 30 minutes and then see the answer (that's if they even teach how to program it) or do I waste endless hours trying to resolve it. Does it even help to spend endless hours when there's so many hours of course material to go over.
+ */
+</string>
+			<key>ModifiedRange</key>
+			<string>{0, 3336}</string>
+			<key>OriginalContent</key>
+			<string>
+</string>
+			<key>OriginalRange</key>
+			<string>{0, 1}</string>
+		</dict>
+	</array>
+	<key>File</key>
+	<string>Chapters/Chapter1.playgroundchapter/Pages/My Playground.playgroundpage/main.swift</string>
+</dict>
+</plist>
