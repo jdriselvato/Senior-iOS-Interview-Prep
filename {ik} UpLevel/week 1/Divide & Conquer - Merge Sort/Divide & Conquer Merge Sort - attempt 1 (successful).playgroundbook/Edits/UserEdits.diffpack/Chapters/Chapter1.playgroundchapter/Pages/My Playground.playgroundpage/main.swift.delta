@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Diff</key>
+	<array>
+		<dict>
+			<key>ModifiedContent</key>
+			<string>// Divide &amp; Conquer: Merge Sort
+/*
+ After the lesson, he gave us a clue. This is really a tree. So although at the moment I don't know how to do a recursive func to merge sort a tree, I can make a tree out an array for the first time.
+ */
+
+// Hang up: 
+/*
+ - How do I get the other left or right since the array is linear?
+ - I guess a queue, but what am I queuing if things are nil.
+ 
+ After half way of lesson:
+ - maybe we don't ever need to create a tree structure because recursion done twice handles it for you if you divide the array in half each time.
+ 
+ func helper(array, start, end) {
+ 
+ helper(array, start, mid)
+ helper(array, mid+1, end)
+ #sort
+ }
+ */
+
+
+// helper func
+// when a / b return they are sorted 
+// so all we need to do is merge sort the two together
+
+// What does merge sort look like
+/* pointers on both sections increase after adding to a temp array
+ * 
+ * if a[i] &gt;= b[j] { 
+ *    append into temp array
+ * if a[i] &gt; b[j]
+ *    append into temp array
+ * then if one of the pointers extends its bounds, just fill the rest into the temp array
+ * return temp array
+ */
+
+// HANG UP 1
+/*
+ Due to the recursion, the index at some point is beyond the size of the array. but why?
+ - I looked at it for about 30 minutes and couldn't figure it out, so returning to the lesson.
+ 😔 Reason:
+ *    - watching the lesson for far, there is no a or b returned and they are not against a[i] or b[j] but he also doesn't return tempArray = helper(...) but... how does the recursion work?
+ *     - Since he doesn't return the array, I think it has something to do with address since I think the psuedo code is prob c. So maybe inout on array? but that didn't work first attemp. Might be one more thing missing. It's changing the array but in some weird order not sorted.
+ *    - ‼️ So turns out, replacing the entire address of the array with sorted was wrong. I needed to replace the specific start and end points of the newly sorted. `array[start+index] = sortedArray[index]`
+ *    - additionally, see the final result sorted actually made me want to cry. 
+ */
+func helper(_ array: inout [Int], start: Int, end: Int) {
+    if start == end { return }
+    
+    var mid: Int = Int((start + end)/2)
+    print("🤞Helper called\n\tstart:\(start) &amp; end: \(end) |\n\tmid: \(mid) |\n\tArray: \(array)")
+    
+    helper(&amp;array, start: start, end: mid)
+    helper(&amp;array, start: mid+1, end: end)
+    
+    var i = start
+    var j = mid+1
+    
+    var sortedArray: [Int] = []
+    
+    while i &lt;= mid &amp;&amp; j &lt;= end {
+        print("🚟i: \(i) | j: \(j)")
+//        print("Entered while loop with i: \(i) &amp; j: \(j) | a: \(a) &amp; b: \(b)")
+        if array[i] &lt;= array[j] {
+            sortedArray.append(array[i])
+            i += 1
+        } else { // array[i] &gt; array[j]
+            sortedArray.append(array[j])
+            j += 1
+        }
+    }
+    
+    // fill the rest 
+    while i &lt;= mid {
+        sortedArray.append(array[i])
+        i += 1
+    }
+    while j &lt;= end {
+        sortedArray.append(array[j])
+        j += 1
+    }
+    print("✨Sorted: \(sortedArray)")
+    for index in 0 ... sortedArray.count - 1 {
+        array[start+index] = sortedArray[index]
+    }
+}
+
+// returns final sorted array
+func mergeSort(_ array: [Int]) -&gt; [Int] {
+    var tempArray = array
+    helper(&amp;tempArray, start: 0, end: array.count-1)
+    return tempArray
+}
+
+let shuffled = [10, 4, 3, 6, 2, 1, 0, 8]
+print("🥲 Final: \(mergeSort(shuffled))")
+
+// Post thoughts:
+/* When I do the swift specific classes, we gotta find out if inout is recommended or not.
+ */
+</string>
+			<key>ModifiedRange</key>
+			<string>{0, 3537}</string>
+			<key>OriginalContent</key>
+			<string>
+</string>
+			<key>OriginalRange</key>
+			<string>{0, 1}</string>
+		</dict>
+	</array>
+	<key>File</key>
+	<string>Chapters/Chapter1.playgroundchapter/Pages/My Playground.playgroundpage/main.swift</string>
+</dict>
+</plist>
