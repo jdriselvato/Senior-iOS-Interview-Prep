@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Diff</key>
+	<array>
+		<dict>
+			<key>ModifiedContent</key>
+			<string>// Divide &amp; Conquer: Merge Sort - attempt 2
+/* it felt great to finally resolve the hang up after almost an hour of programming merge sort
+ * but I want to program it from scratch in one go to reiterate the solution as well as see what hang up occurs the second time.
+ */
+
+// 1st Hang up:
+// - I didn't increase i or j in their respective if statements
+
+// 2nd hang up:
+// - don't for get at replacing part to do tempArray.count - 1 or else it'll out of bounds index
+
+// 3rd hang up:
+// - everything ran but then the return is not in order
+// Why:
+//    - I had: `while array[i] &lt;= mid &amp;&amp; array[j] &lt;= end {` instead of `while i &lt;= mid &amp;&amp; j &lt;= end {`
+//    - After fixing the above everything worked as expected
+
+let shuffled = [10, 20, 40, 23, 40, 22, 3, 10, 33, 90, 3, 1, 2]
+
+// Takes a shuffled array and returns a sorted one
+func mergeSort(_ array: [Int]) -&gt; [Int] {
+    var tempArray = array
+    helper(&amp;tempArray, start: 0, end: tempArray.count - 1)
+    return tempArray
+}
+
+func helper(_ array: inout [Int], start: Int, end: Int) {
+    if start == end { return }
+    
+    // merge sort so get the mid of the array
+    let mid = Int((start + end) / 2) 
+    
+    helper(&amp;array, start: start, end: mid) // 1st half
+    helper(&amp;array, start: mid+1, end: end) // 2nd half
+    
+    // once we get here the previous array is sorted so now we do the final sort
+    
+    var i = start
+    var j = mid+1
+    
+    var tempArray: [Int] = []
+    while i &lt;= mid &amp;&amp; j &lt;= end { // swap until one of the bounds hits it's final index ie, end
+        if array[i] &lt;= array[j] {
+            tempArray.append(array[i])
+            i += 1
+        } else {
+            tempArray.append(array[j])
+            j += 1
+        }
+    }
+    // gather the rest and append to tempArray
+    // since we know the above while look sorted until final end index, the remaining i or j is already sorted and can be appended to the tempArray
+    print("Gather:\n\ti: \(i) w/ mid:\(mid)\n\tj: \(j) w/ end: \(end)")
+    while i &lt;= mid {
+        tempArray.append(array[i])
+        i += 1
+    }
+    while j &lt;= end {
+        tempArray.append(array[j])
+        j += 1
+    }
+    
+    // now we replace the start ... end in original array with our tempArray values
+    
+    for index in 0 ... tempArray.count - 1{
+        array[start + index] = tempArray[index] 
+    }
+    
+    // now everything is sorted between for a given start and end
+}
+
+print("Final: \(mergeSort(shuffled))")
+
+/// POST THOUGHTS
+/* 3 tips for next time:
+ *    1. Read each line of code line by line and explain it before compiling
+ *    2. Comments are good and helps me explain what I'm doing but be specific on variable naming / calls to ensure what you are writing or what you are thinking are the same
+ *    3. Can the grouping section be simplified without a while loop?
+ */
+</string>
+			<key>ModifiedRange</key>
+			<string>{0, 2809}</string>
+			<key>OriginalContent</key>
+			<string>
+</string>
+			<key>OriginalRange</key>
+			<string>{0, 1}</string>
+		</dict>
+	</array>
+	<key>File</key>
+	<string>Chapters/Chapter1.playgroundchapter/Pages/My Playground.playgroundpage/main.swift</string>
+</dict>
+</plist>
