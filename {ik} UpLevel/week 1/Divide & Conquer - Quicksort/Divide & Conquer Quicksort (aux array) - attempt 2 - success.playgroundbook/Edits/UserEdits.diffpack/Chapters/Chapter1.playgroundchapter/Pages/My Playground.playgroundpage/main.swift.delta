@@ -30,20 +30,21 @@ func quickSort(_ array: [Int]) -&gt; [Int] {
     helper(&amp;sortingArray, 0, sortingArray.count - 1)
     return sortingArray
 }
-
+var numRan = 0
 func helper(_ array: inout [Int], _ start: Int, _ end: Int) {
-    if start == end || start &gt; end { return }
-    let pivot = array[0]
+    if start &gt;= end || numRan &gt;= 20 { return }
+    numRan += 1
+    let pivot = array[start] // the pivot "divider"
     
-    var tempLeft = [Int]()
-    var tempRight = [Int]()
+    var tempLeft = [Int]() // left of pivot
+    var tempRight = [Int]() // right of pivot
     // start+1 because we hold [0] in pivot
     print("\(start) to \(end) - \(array) with pivot: \(pivot)")
-    for i in start+1 ... end { // ‼️ not the array value to int value
-        print("\(i)")
-        if array[i] &lt; pivot {
+    for i in start+1 ... end { // Starting from start+1 because pivot is already in temp memory
+        print("\(i)") 
+        if array[i] &lt; pivot { // if the num is less than pivot put in left array as it's left of pivot
             tempLeft.append(array[i])
-        } else {
+        } else { // if it's great or same, put it to the right of pivot
             tempRight.insert(array[i], at: 0) // insert in the front of the array
         }
     }
@@ -55,22 +56,29 @@ func helper(_ array: inout [Int], _ start: Int, _ end: Int) {
     
     /// thought 2:
     // instead lets use start and end to enter the new values into &amp;array
-    let tempArray = tempLeft + [pivot] + tempRight
+    let tempArray = tempLeft + [pivot] + tempRight // make new array order with pivot in center
+    
     print("temp: \(tempArray.count) vs \(array.count)")
     print("\(tempLeft) + \([pivot]) + \(tempRight)")
     var j = 0
-    for i in start ... end {
+    for i in start ... end { // go through the &amp;array and replace with tempArray sorted info
         array[i] = tempArray[j]
         j += 1
     }
     
+    // ‼️ the problem is i don't know the pivot index in regards to the &amp;array. Start and end are in regards to array
+    let pivotIndex = (start + tempLeft.count) // why? cause we know start is somewhere in the &amp;array and pivot is at tempLeft.count (or tempLeft.count-1 + 1)
+    
     print("--- end sorting \(array)")
-    helper(&amp;array, 0, tempLeft.count-1)
+    print("proposed new left helper on \(array),\n\t\(start), \(pivotIndex)")
+    helper(&amp;array, start, pivotIndex) // from original start to before pivot
+    
     // not pivot+1 it needs to be the index of pivot+1 so tempLeft.count+1 cause count would be pivot + 1 = 0 of right
-    helper(&amp;array, tempLeft.count, tempLeft.count+1+(tempRight.count-1))
+    print("proposed new right helper on \(array),\n\t\(pivotIndex+1), \(end)")
+    helper(&amp;array, pivotIndex+1, end) // from after pivot to end original end
 }
 
-let shuffled = [2,5,3,7,10,11,33,22,15].shuffled()
+let shuffled = [3, 33, 11, 2, 5, 10, 22, 7, 15]
 print(quickSort(shuffled))
 
 /// THOUGHTS:
@@ -81,7 +89,7 @@ print(quickSort(shuffled))
  */
 </string>
 			<key>ModifiedRange</key>
-			<string>{0, 3336}</string>
+			<string>{0, 4180}</string>
 			<key>OriginalContent</key>
 			<string>
 </string>

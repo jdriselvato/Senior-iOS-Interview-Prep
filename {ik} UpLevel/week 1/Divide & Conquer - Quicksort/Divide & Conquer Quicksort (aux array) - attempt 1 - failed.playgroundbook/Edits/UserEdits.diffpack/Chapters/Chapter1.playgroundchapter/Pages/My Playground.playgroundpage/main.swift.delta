@@ -15,35 +15,36 @@
 /* What I don't understand
  - What happens after the managers had their turn? Does the array completely return sorted? Seems like it should.
  *    ANSWER:
- *
+ *        - 🔥the if start &gt;= end { return } does it
  */ 
 
 // HANG UP 1: How it ends
-// - my misunderstanding was the sub managers took the entire array. no they take a left or right section but not the pivot
+// - [wrong] my misunderstanding was the sub managers took the entire array. no they take a left or right section but not the pivot
+// - 🔥the above is wrong. We pass the entire array but the start and end is the focus. That's what the pivotIndex was so important with dividing it up again
 
 // HANG UP 2: since the two sections are uneven.. the for loop breaks if we're doing start to end because at some point end is going to get larger then start
 // -    SOLUTION:
-// -        
+// -       🔥 this was wrong thinking but if start &gt;= end { return } would protect against that.
 
 func quickSort(_ array: [Int]) -&gt; [Int] {
     var sortingArray = array
     helper(&amp;sortingArray, 0, sortingArray.count - 1)
     return sortingArray
 }
-
+var numRan = 0 // just to prevent playgrounds from crashing
 func helper(_ array: inout [Int], _ start: Int, _ end: Int) {
-    if start == end || start &gt; end { return }
-    let pivot = array[0]
+    if start &gt;= end || numRan &gt;= 100 { return }
+    numRan += 1
+    let pivot = array[start] // the pivot "divider"
     
-    var tempLeft = [Int]()
-    var tempRight = [Int]()
+    var tempLeft = [Int]() // left of pivot
+    var tempRight = [Int]() // right of pivot
     // start+1 because we hold [0] in pivot
     print("\(start) to \(end) - \(array) with pivot: \(pivot)")
-    for i in start+1 ... end { // ‼️ not the array value to int value
-        print("\(i)")
-        if array[i] &lt; pivot {
+    for i in start+1 ... end { // Starting from start+1 because pivot is already in temp memory
+        if array[i] &lt; pivot { // if the num is less than pivot put in left array as it's left of pivot
             tempLeft.append(array[i])
-        } else {
+        } else { // if it's great or same, put it to the right of pivot
             tempRight.insert(array[i], at: 0) // insert in the front of the array
         }
     }
@@ -55,33 +56,42 @@ func helper(_ array: inout [Int], _ start: Int, _ end: Int) {
     
     /// thought 2:
     // instead lets use start and end to enter the new values into &amp;array
-    let tempArray = tempLeft + [pivot] + tempRight
+    let tempArray = tempLeft + [pivot] + tempRight // make new array order with pivot in center
+    
     print("temp: \(tempArray.count) vs \(array.count)")
     print("\(tempLeft) + \([pivot]) + \(tempRight)")
     var j = 0
-    for i in start ... end {
+    for i in start ... end { // go through the &amp;array and replace with tempArray sorted info
         array[i] = tempArray[j]
         j += 1
     }
     
+    // ‼️ the problem is i don't know the pivot index in regards to the &amp;array. Start and end are in regards to array
+    let pivotIndex = (start + tempLeft.count) // 🔥 why? cause we know start is somewhere in the &amp;array and pivot is at tempLeft.count (or tempLeft.count-1 + 1)
+    
     print("--- end sorting \(array)")
-    helper(&amp;array, 0, tempLeft.count-1)
-    // not pivot+1 it needs to be the index of pivot+1 so tempLeft.count+1 cause count would be pivot + 1 = 0 of right
-    helper(&amp;array, tempLeft.count, tempLeft.count+1+(tempRight.count-1))
+    print("proposed new left helper on \(array),\n\t\(start), \(pivotIndex)")
+    helper(&amp;array, start, pivotIndex) // from original start to pivot index
+    
+    print("proposed new right helper on \(array),\n\t\(pivotIndex+1), \(end)")
+    helper(&amp;array, pivotIndex+1, end) // from after pivot to end original end
 }
 
-let shuffled = [2,5,3,7,10,11,33,22,15].shuffled()
+let shuffled = [3, 33, 33, 100, 11, 2, 5, 10, 22, 7, 3, 15].shuffled()
 print(quickSort(shuffled))
 
-/// THOUGHTS:
-/* - I gave up on solving it after more than an 1.5 hours being here.
- * the part 2 says we should be able to do it without an aux array. Seems maybe my mistake here is splitting it into two arrays. 
- * I feel angry because I wasted probably 4 hours now learning Quicksort by trying to program it without seeing them program it and I still don't understand Quicksort.
- * So I need to be able to learn better than this. Do I try to solve it within 30 minutes and then see the answer (that's if they even teach how to program it) or do I waste endless hours trying to resolve it. Does it even help to spend endless hours when there's so many hours of course material to go over.
+/// POST THOUGHTS
+/* the problem was I wasn't getting the pivotIndex and so the end or start (for left or right) wasn't properly recursively sorting because it never had the right bounds to sort.
+ * How do prevent this in the future?
+ *    - it seems obvious now but I think what caught me off guard was it worked the first time when we set end or start (for left or right) when using the aux array to determine it. I suppose when we do the in-place array, this wouldn't have happened. 
+ *    - see the "proposed" print helped me understand that it was the start/end that was breaking but playground kept crashing because of inf loops. Adding the `numRun` also helped me debug
+ *
+ *    - in-place array might be better in the end because there's less variables to keep track of.
+ *    - it even works with duplicate numbers unlike the example in lesson. So that's a success
  */
 </string>
 			<key>ModifiedRange</key>
-			<string>{0, 3336}</string>
+			<string>{0, 4592}</string>
 			<key>OriginalContent</key>
 			<string>
 </string>
