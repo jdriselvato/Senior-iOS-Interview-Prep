@@ -6,19 +6,14 @@
 	<array>
 		<dict>
 			<key>ModifiedContent</key>
-			<string>// Divide &amp; Conquer: Quicksort - in-place array aka Lomuto
-/* Video notes:
- * - So first thing we are seeing is we should swap the pivot ([0]) with the last [i] of partition A
- * - 
- */
+			<string>// Binary Heap Operations &amp; Heapsort
 </string>
 			<key>ModifiedRange</key>
-			<string>{0, 186}</string>
+			<string>{0, 37}</string>
 			<key>OriginalContent</key>
-			<string>
-</string>
+			<string></string>
 			<key>OriginalRange</key>
-			<string>{0, 1}</string>
+			<string>{0, 0}</string>
 		</dict>
 	</array>
 	<key>File</key>

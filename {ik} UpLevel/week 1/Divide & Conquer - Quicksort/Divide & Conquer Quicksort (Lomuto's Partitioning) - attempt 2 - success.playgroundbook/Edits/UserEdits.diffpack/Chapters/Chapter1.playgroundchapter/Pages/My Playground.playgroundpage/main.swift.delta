@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Diff</key>
+	<array>
+		<dict>
+			<key>ModifiedContent</key>
+			<string>// Divide &amp; Conquer: Quicksort - in-place array aka Lomuto
+/* My understanding of it
+ *
+ */
+
+func quickSort(_ array: [Int]) -&gt; [Int] {
+    var sortingArray = array
+    helper(&amp;sortingArray, 0, sortingArray.count - 1)
+    return sortingArray
+}
+
+var numRan = 0 // to initially prevent stackoverflows
+
+func helper(_ array: inout [Int], _ start: Int, _ end: Int) {
+    if start &gt;= end || numRan &gt;= 100 { return }
+    numRan += 1
+    
+    var smaller = start
+    
+    for bigger in start+1 ... end {
+        if array[bigger] &lt;= array[start] {
+            smaller += 1
+            array.swapAt(smaller, bigger)
+        }
+    }
+    
+    array.swapAt(start, smaller)
+    
+    helper(&amp;array, start, smaller)
+    helper(&amp;array, smaller+1, end)
+}
+
+let shuffled = [3, 33, 11, 2, 5, 10, 22, 1, 15].shuffled()
+print("Original: \(shuffled)\n Sorted:  \(quickSort(shuffled))")
+</string>
+			<key>ModifiedRange</key>
+			<string>{0, 861}</string>
+			<key>OriginalContent</key>
+			<string>
+</string>
+			<key>OriginalRange</key>
+			<string>{0, 1}</string>
+		</dict>
+	</array>
+	<key>File</key>
+	<string>Chapters/Chapter1.playgroundchapter/Pages/My Playground.playgroundpage/main.swift</string>
+</dict>
+</plist>

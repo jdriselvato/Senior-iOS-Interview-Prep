@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Diff</key>
+	<array>
+		<dict>
+			<key>ModifiedContent</key>
+			<string>// Divide &amp; Conquer: Quicksort - in-place array aka Lomuto
+/* My understanding of it
+ *    - This is an in-place algo meaning there isn't an aux array to move data into. So instead, we partition the array into two parts keeping track of their pointers.
+ *    - Question: are we swapping or how does that work?
+ *        ❌ guess-1: i think we are going to host the pivot outside and use the pivot space as a moving spot for the left side and move up from there but then the second half needs to decrease in pointer, but i think this naturally means it'll move all the elements until there's a gap between both and that is where the pivot element will sit.
+ *        ❓ seems they want to set up the partition first then insert the pivot in between the two parts
+ */
+
+func quickSort(_ array: [Int]) -&gt; [Int] {
+    var sortingArray = array
+    helper(&amp;sortingArray, 0, sortingArray.count - 1)
+    return sortingArray
+}
+
+var numRan = 0 // to initially prevent stackoverflows
+
+func helper(_ array: inout [Int], _ start: Int, _ end: Int) {
+    if start &gt;= end || numRan &gt;= 5 { return }
+    numRan += 1
+    
+    print("✨ start: \(start) | end: \(end) w/ \(array)")
+    let pivot = array[start] // the pivot "divider"
+    
+    var tempLeftPointer: Int = 0
+    var tempRightPointer: Int = end
+    
+    var i = start+1 // index
+    while tempLeftPointer &lt;= tempRightPointer {
+        if array[i] &lt;= pivot {
+            print("\(array[i]) - left")
+            
+            tempLeftPointer += 1 // increase the left of array
+            i += 1
+            
+        } else {
+            print("\(array[i]) - right")
+            
+            let temp = array[i]
+            array.insert(temp, at: end)
+            //            print(array)
+            array.remove(at: i)
+            //            print(array)
+            
+            tempRightPointer -= 1 // decrease from right of array
+        }
+    }
+    
+    print("Divided: \(array) w/ end of left: \(tempLeftPointer) &amp; start of right: \(tempRightPointer)")
+    // Swap start index with last of tempLeftPointer because that'll put the pivot in between both sides
+    array.swapAt(start, tempLeftPointer)
+    
+    
+    let pivotIndex = (start + tempLeftPointer) 
+    
+    helper(&amp;array, start, pivotIndex) // from original start to before pivot
+    helper(&amp;array, pivotIndex+1, end) // from after pivot to end original end
+}
+
+let shuffled = [3, 33, 11, 2, 5, 10, 22, 1, 15]
+print("Original: \(shuffled)")
+print("Sorted:  \(quickSort(shuffled))")
+
+// This is wrong because instead of checking the array directly in the loop, we just checked against the pivot.
+</string>
+			<key>ModifiedRange</key>
+			<string>{0, 2601}</string>
+			<key>OriginalContent</key>
+			<string>
+</string>
+			<key>OriginalRange</key>
+			<string>{0, 1}</string>
+		</dict>
+	</array>
+	<key>File</key>
+	<string>Chapters/Chapter1.playgroundchapter/Pages/My Playground.playgroundpage/main.swift</string>
+</dict>
+</plist>
