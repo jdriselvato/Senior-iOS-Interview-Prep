@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Diff</key>
+	<array>
+		<dict>
+			<key>ModifiedContent</key>
+			<string>import Foundation
+
+// Binary Heap Operations &amp; Heapsort
+// What makes it a binary heap?
+//     Answer: The parent priority &gt;= child priority
+
+let shuffled: [Int] = [1,33,4,2,3,9,30,12]
+
+/*
+ *                    33
+ *                 /      \
+ *               30        12
+ *             /   \      /   \
+ *            9     4    3     2
+ *          /   \
+ *         1     X
+ *
+ *   maxHeapArray = [nil, 33, 12, 9, 4, 3, 2, 1, X]
+ */ 
+
+// Takes an array and max heapifies it
+/* Example: 
+ * Original = [nil,1,33,4,2,3,9,30,12]
+ * Heapified = [nil, 33, 12, 9, 4, 3, 2, 1, ]
+ */
+
+// the parent can't be smaller than the child priority
+// First we need the height of the tree else we can't do integer math to order it
+
+/* How to find height of a heap / binary tree?
+ *    - If we were creating a phyiscal tree with classes, we could loop until bottom left/right node but we have math.
+ *    - ceil( (lg(N+1) - 1) ) 
+ */
+
+func height(of array: [Int]) -&gt; Int {
+    let n = array.count
+    let height = ceil(log2(CGFloat(n + 1)) - 1)
+    print(height, array.count)
+    
+    // seems sometimes array.count is even we height = log2(i)
+    //    for i in 0 ... 100 {
+    //        let a = ceil(log2(CGFloat(i + 1)) - 1)
+    //        var b = ceil(log2(CGFloat(i))) 
+    //        
+    //        if a != b {
+    //            print("\(a) != \(b) Different @ N=\(i)")
+    //        }
+    //    }
+    
+    return Int(height)
+}
+
+// from bottom up, swapping left or right up if parent is &gt; child
+func heapify(_ array: inout [Int?]) {
+    
+    var currentNode = array.count - 1
+    
+    while currentNode &gt;= 0 {
+        let parent = Int(floor(Double(currentNode/2))) // parent of smallest
+        let leftChild = (2 * parent) + 2
+        let rightChild = (2 * parent + 1) + 1
+        
+        print("parent: index: \(parent) value: \(array[parent])")
+        print("leftChild: index: \(leftChild) value: \(array[safe: leftChild] ?? nil)")
+        print("rightChild: index: \(rightChild) value: \(array[safe: rightChild] ?? nil)")
+        
+        break
+        
+        if array[safe: parent] &lt; array[safe: leftChild] {
+            
+            print("LEFT: \(array) | swapAt(\(parent), \(leftChild)) | \(array[parent]), \(array[leftChild])")
+            array.swapAt(parent, leftChild)
+        }
+        if array[safe: parent] &lt; array[safe: rightChild] {
+            print("\(array) | swapAt(\(parent), \(rightChild)) | \(array[parent]), \(array[rightChild])")
+            
+            array.swapAt(parent, rightChild)
+        }
+        currentNode -= 1
+    }
+    
+}
+
+func start(_ array: [Int?]) -&gt; [Int?] {
+    var temp = array
+    heapify(&amp;temp)
+    return temp
+}
+
+print("Shuffled: \(shuffled)\nOrdered:\(start(shuffled))")
+
+extension Collection where Indices.Iterator.Element == Index {
+    public subscript(safe index: Index) -&gt; Iterator.Element? {
+        return (startIndex &lt;= index &amp;&amp; index &lt; endIndex) ? self[index] : nil
+    }
+}
+</string>
+			<key>ModifiedRange</key>
+			<string>{0, 2923}</string>
+			<key>OriginalContent</key>
+			<string>
+</string>
+			<key>OriginalRange</key>
+			<string>{0, 1}</string>
+		</dict>
+	</array>
+	<key>File</key>
+	<string>Chapters/Chapter1.playgroundchapter/Pages/My Playground.playgroundpage/main.swift</string>
+</dict>
+</plist>
