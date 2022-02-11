@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Diff</key>
+	<array>
+		<dict>
+			<key>ModifiedContent</key>
+			<string>/// Counting Sort
+/* My understanding:
+ *    - If you have a small range of numbers you can count how many are in the array and sort them n(0) quickly
+ *    - If you need to keep order (stability), you can store the object in the array n(0) but I'm still hazy on how it's n(0)
+ */
+
+let shuffled = [1,5,9,1,4,3,2,2,1,2,5,6,4,3,6,4,2,3,5,9]
+
+func countingSort(_ array: [Int?], max: Int) -&gt; [Int] {
+    
+    var auxArray = [Int](repeating: 0, count: max)
+    
+    // Create aux count array
+    for i in 1 ... max {
+        shuffled.forEach({
+            if i == $0 {
+                auxArray[i-1] = auxArray[i-1] + 1
+            }
+        })
+    }
+    
+    print(auxArray)
+    
+    // Create new sorted array
+    var sorted = [Int]()
+    for i in 0 ... auxArray.count - 1 {
+        if auxArray[i] &gt; 0 {
+            for _ in 1 ... auxArray[i] {
+                sorted.append(i+1)
+            }
+        }
+    }
+    
+    return sorted
+}
+
+print(countingSort(shuffled, max: 10))
+</string>
+			<key>ModifiedRange</key>
+			<string>{0, 971}</string>
+			<key>OriginalContent</key>
+			<string>
+</string>
+			<key>OriginalRange</key>
+			<string>{0, 1}</string>
+		</dict>
+	</array>
+	<key>File</key>
+	<string>Chapters/Chapter1.playgroundchapter/Pages/My Playground.playgroundpage/main.swift</string>
+</dict>
+</plist>
