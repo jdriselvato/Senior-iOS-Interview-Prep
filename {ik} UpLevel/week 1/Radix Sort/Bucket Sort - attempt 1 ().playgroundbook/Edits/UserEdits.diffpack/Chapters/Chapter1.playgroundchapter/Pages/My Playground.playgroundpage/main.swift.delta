@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Diff</key>
+	<array>
+		<dict>
+			<key>ModifiedContent</key>
+			<string>// Radix Sort
+
+func radixSort(_ array: inout [Int]) {
+    let base: Int = 10 // sorting base 10 integers
+    var currentDigit: Int = 1 // ones, tens, hundreds, thousands
+    
+    var done = false
+    // least significant digit formula = (num/currentDigit)%base 
+    while !done {
+        var bucket = [[Int]](repeating: [], count: base)
+        done = true
+        array.forEach({
+            if $0/currentDigit &gt; 0 { done = false }
+            let digit = ($0/currentDigit)%base
+            bucket[digit].append($0)
+        })
+
+        currentDigit *= base // increase base
+        array = bucket.flatMap({$0}) // flat the array back in order since radix sort is stable
+    }
+}
+
+var shuffled = [3,-1]
+radixSort(&amp;shuffled)
+print(shuffled)
+</string>
+			<key>ModifiedRange</key>
+			<string>{0, 739}</string>
+			<key>OriginalContent</key>
+			<string></string>
+			<key>OriginalRange</key>
+			<string>{0, 0}</string>
+		</dict>
+	</array>
+	<key>File</key>
+	<string>Chapters/Chapter1.playgroundchapter/Pages/My Playground.playgroundpage/main.swift</string>
+</dict>
+</plist>
