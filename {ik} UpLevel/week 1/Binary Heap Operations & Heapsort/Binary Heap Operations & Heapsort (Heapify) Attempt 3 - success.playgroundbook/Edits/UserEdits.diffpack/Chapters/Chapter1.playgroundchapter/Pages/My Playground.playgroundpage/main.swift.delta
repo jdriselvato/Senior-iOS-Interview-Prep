@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Diff</key>
+	<array>
+		<dict>
+			<key>ModifiedContent</key>
+			<string>import Foundation
+
+// Binary Heap Operations &amp; Heapsort - attempt 3
+/* Purpose of this attempt
+ * I had to use countless videos and blogs to finally understand Binary Heaps and Heapify.
+ * So let see if I understand it strong enough to program it from scratch.
+ */
+
+let shuffled = [12,2,11,3,20,4,-1,50]
+
+print("Original:", shuffled)
+print("Sorted:  ", helper(shuffled))
+
+func helper(_ array: [Int]) -&gt; [Int] {
+    var temp = shuffled
+    for i in (0 ... (temp.count/2)).reversed() {
+        maxHeap(&amp;temp, i: i)
+    }
+    return temp
+}
+
+// i is the parent
+func maxHeap(_ array: inout [Int], i: Int) {
+    let left = 2 * i // left node
+    let right = 2 * i + 1 // right node
+    var max = 0
+
+    // check if a[left] is larger than a[i]
+    if left &lt;= array.count-1 &amp;&amp; array[left] &gt; array[i] {
+        max = left
+    } else {
+        max = i
+    }
+    
+    //    check if a[right] is larger than a[max]
+    if right &lt;= array.count-1 &amp;&amp; array[right] &gt; array[max] {
+        max = right
+    }
+    
+    if max != i { // if i (parent) is not the max swap
+        array.swapAt(i, max)
+        maxHeap(&amp;array, i: max)
+    }
+    
+}
+
+// The hang up
+// The right / left &lt; array.count-1 needs to happen before accessing elements in an array
+</string>
+			<key>ModifiedRange</key>
+			<string>{0, 1230}</string>
+			<key>OriginalContent</key>
+			<string>
+</string>
+			<key>OriginalRange</key>
+			<string>{0, 1}</string>
+		</dict>
+	</array>
+	<key>File</key>
+	<string>Chapters/Chapter1.playgroundchapter/Pages/My Playground.playgroundpage/main.swift</string>
+</dict>
+</plist>

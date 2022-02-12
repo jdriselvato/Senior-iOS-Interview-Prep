@@ -99,7 +99,7 @@ func heapify(_ array: inout [Int], i: Int) {
 
 func helper(_ array: [Int]) -&gt; [Int] {
     var temp = array
-    for i in (0 ... (array.count/2)-1).reversed() {
+    for i in (0 ... (array.count/2)).reversed() {
         print("i =", i)
         heapify(&amp;temp, i: i)
     }
@@ -108,10 +108,11 @@ func helper(_ array: [Int]) -&gt; [Int] {
 
 print("parents", Int(shuffled.count/2))
 print("count", shuffled.count)
-print("Original:", shuffled, "\nMaxHeap:", helper(shuffled))
+
+print("Original:", shuffled, "\nMaxHeap:", helper([12,2,11,3,22,19,2,1,50]))
 </string>
 			<key>ModifiedRange</key>
-			<string>{0, 3033}</string>
+			<string>{0, 3048}</string>
 			<key>OriginalContent</key>
 			<string></string>
 			<key>OriginalRange</key>

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Diff</key>
+	<array>
+		<dict>
+			<key>ModifiedContent</key>
+			<string>import Foundation
+
+// Binary Heap Operations &amp; Heapsort - attempt 3
+/* Purpose of this attempt
+ * I had to use countless videos and blogs to finally understand Binary Heaps and Heapify.
+ * So let see if I understand it strong enough to program it from scratch.
+ */
+
+let shuffled = [11,10,12,2]
+
+print("Original:", shuffled)
+
+helper(shuffled) // start
+
+func helper(_ array: [Int]) -&gt; [Int] {
+    var temp = array
+    // heapify
+    for i in (0 ... temp.count/2).reversed() {
+        heapify(&amp;temp, i: i)
+    }
+    print("Sorted:  ", temp)
+    
+    insert(&amp;temp, value: 12)
+    print("Insert:  ", temp)
+    
+    
+    return temp
+}
+
+func insert(_ array: inout [Int], value: Int) {
+    array.append(value)
+    for i in (0 ... array.count/2).reversed() {
+        heapify(&amp;array, i: i)
+    }
+}
+
+// Returns a max heap array
+// i is the parent
+func heapify(_ array: inout [Int], i: Int) {
+    let left = 2 * i // left node
+    let right = 2 * i + 1 // right node
+    var max = 0
+    
+    print("For parent i: [\(i)] = \(array[i])")
+    print("    left \(left) | right \(right)")
+    
+    
+    // check if a[left] is larger than a[i]
+    if left &lt;= array.count-1 &amp;&amp; array[left] &gt; array[i] {
+        max = left
+    } else {
+        max = i
+    }
+    
+    //    check if a[right] is larger than a[max]
+    if right &lt;= array.count-1 &amp;&amp; array[right] &gt; array[max] {
+        max = right
+    }
+    
+    if max != i { // if i (parent) is not the max swap
+        array.swapAt(i, max)
+        heapify(&amp;array, i: max)
+    }
+}
+</string>
+			<key>ModifiedRange</key>
+			<string>{0, 1507}</string>
+			<key>OriginalContent</key>
+			<string>
+</string>
+			<key>OriginalRange</key>
+			<string>{0, 1}</string>
+		</dict>
+	</array>
+	<key>File</key>
+	<string>Chapters/Chapter1.playgroundchapter/Pages/My Playground.playgroundpage/main.swift</string>
+</dict>
+</plist>
