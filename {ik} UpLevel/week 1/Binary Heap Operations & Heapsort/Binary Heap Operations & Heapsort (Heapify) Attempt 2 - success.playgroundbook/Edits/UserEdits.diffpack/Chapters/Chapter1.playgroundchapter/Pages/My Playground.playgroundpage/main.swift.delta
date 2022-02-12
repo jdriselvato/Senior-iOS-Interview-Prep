@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Diff</key>
+	<array>
+		<dict>
+			<key>ModifiedContent</key>
+			<string>import Foundation
+
+// Binary Heap Operations &amp; Heapsort
+
+/* What makes it a binary heap?
+ *     Answer: a sorted binary tree
+ */
+
+/* What makes it a binary max heap?
+ *    Answer: The parent priority &gt;= child priority
+ */
+
+/* What is the difference between a Heap &amp; a priority Queue?
+ *    Answer: A heap is a data structure while a priority queue is the abstract data type (ADT). 
+ *         A Heap makes it easier to manage the priority of deleted or inserted elements.
+ */
+
+/* Why not use a linked list or array to implement a priority queue?
+ *    Answer: Heap is the only implementation that has both insert and delete time complexity of O(log n)
+ *         Linked list / array can do insert or delete O(1) but the other would be O(n). O(log n) is the better time complexity
+ */
+
+/* What is the time complexity of heap insert / delete ?
+ *    Answer: A heap insert / delete has a time complexity of O(log n) for both.
+ */
+
+/* What is the time complexity of getting the min or max in a heap?
+ *    Answer: N(1)
+ */
+
+let shuffled: [Int] = [1,33,4,2,3,9,30,12,3,14,15,16,17,16,1]
+
+/*
+ *                    33
+ *                 /      \
+ *               30        12
+ *             /   \      /   \
+ *            9     4    3     2
+ *          /   \
+ *         1     X
+ *
+ *   maxHeapArray = [nil, 33, 12, 9, 4, 3, 2, 1, X]
+ */ 
+
+// Takes an array and max heapifies it
+/* Example: 
+ * Original = [nil,1,33,4,2,3,9,30,12]
+ * Heapified = [nil, 33, 30, 12, 9, 4, 3, 2, 1, ]
+ */
+
+// the parent can't be smaller than the child priority
+// First we need the height of the tree else we can't do integer math to order it
+
+/* How to find height of a heap / binary tree?
+ *    - If we were creating a phyiscal tree with classes, we could loop until bottom left/right node but we have math.
+ *    - ceil( (lg(N+1) - 1) ) 
+ */
+
+func heapSort(_ array: [Int]) {
+    
+}
+
+// Pass the array &amp; i is the (count-1 / 2) why?
+func heapify(_ array: inout [Int], i: Int) {
+    print("Starting on \(i)", array)
+    let left = 2*i // left node
+    let right = 2*i+1 // right node
+    var max = 0 // the max number currently
+    
+    // if left less than array.count
+    // array[left] greater than array[i]
+    if (left &lt;= array.count-1) &amp;&amp; (array[left] &gt; array[i]) {
+        max = left
+        print("Max is now \(array[max]) from left")
+    } else {
+        max = i
+        print("Max is now \(array[max]) from i")
+    }
+    
+    if (right &lt;= array.count-1) &amp;&amp; (array[right] &gt; array[max]) {
+        max = right
+        print("Max is now \(array[max]) from right")
+    }
+    
+    if max != i {
+        print("Swapping: \(array[i]) \(array[max]) @ \(i) w/ \(max)")
+        array.swapAt(i, max)
+        heapify(&amp;array, i: max)
+    }
+}
+
+func helper(_ array: [Int]) -&gt; [Int] {
+    var temp = array
+    for i in (0 ... (array.count/2)-1).reversed() {
+        print("i =", i)
+        heapify(&amp;temp, i: i)
+    }
+    return temp
+}
+
+print("parents", Int(shuffled.count/2))
+print("count", shuffled.count)
+print("Original:", shuffled, "\nMaxHeap:", helper(shuffled))
+</string>
+			<key>ModifiedRange</key>
+			<string>{0, 3033}</string>
+			<key>OriginalContent</key>
+			<string></string>
+			<key>OriginalRange</key>
+			<string>{0, 0}</string>
+		</dict>
+	</array>
+	<key>File</key>
+	<string>Chapters/Chapter1.playgroundchapter/Pages/My Playground.playgroundpage/main.swift</string>
+</dict>
+</plist>
