@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Diff</key>
+	<array>
+		<dict>
+			<key>ModifiedContent</key>
+			<string>import Foundation
+
+// Attend Meetings
+
+/* 
+ * Given a list of meeting intervals where each interval consists of a start and an end time, check if a person can attend all the given meetings such that only one meeting can be attended at a time.
+ *    A new meeting can start at the same time the previous one ended.
+ *    1 &lt;= number of intervals &lt;= 105
+ *    0 &lt;= start time &lt; end time &lt;= 109
+ * Example:
+ *     1: { "intervals": [[1, 5], [5, 8], [10, 15]] }
+ *     2: { "intervals": [[1, 5], [4, 8]] }
+ *
+ * Output:
+ *     1: 1 
+ *     2: 0
+ */
+
+class Solution {
+    func can_attend_all_meetings(intervals: [[Int]]) -&gt; Int {
+        let flatIntervals = intervals.flatMap({$0})
+        for i in (0 ... flatIntervals.count - 1).reversed() {
+            let start = i - 1 // 10
+            let startPrev = i - 3 // 5
+            let endPrev = i - 2 // 8
+            if start &gt; 0 &amp;&amp; endPrev &gt; 0 &amp;&amp;
+                start &gt; startPrev &amp;&amp; flatIntervals[start] &lt; flatIntervals[endPrev] {
+                return 0
+            } else if start &gt; 0 &amp;&amp; endPrev &gt; 0 &amp;&amp; startPrev &gt; 0 &amp;&amp;
+                        start &lt; startPrev &amp;&amp;
+                        flatIntervals[start] &lt; flatIntervals[endPrev] {
+                return 2
+            }
+        }
+
+        return 1
+    }
+}
+
+let intervals = [[105, 110], [90, 100], [110, 1000000000]]
+//let intervals = [[1, 5], [5, 8], [10, 15]]
+//let intervals = [[1, 5], [4, 8]]
+let sorted = Solution().can_attend_all_meetings(intervals: intervals)
+print(sorted)
+/// Helpers
+
+func calculateTime(block : (() -&gt; Void)) {
+    let start = DispatchTime.now()
+    block()
+    let end = DispatchTime.now()
+    let nanoTime = end.uptimeNanoseconds - start.uptimeNanoseconds
+    let timeInterval = Double(nanoTime) / 1_000_000_000
+    print("Time: \(timeInterval) seconds")
+}
+</string>
+			<key>ModifiedRange</key>
+			<string>{0, 1791}</string>
+			<key>OriginalContent</key>
+			<string>
+</string>
+			<key>OriginalRange</key>
+			<string>{0, 1}</string>
+		</dict>
+	</array>
+	<key>File</key>
+	<string>Chapters/Chapter1.playgroundchapter/Pages/My Playground.playgroundpage/main.swift</string>
+</dict>
+</plist>
