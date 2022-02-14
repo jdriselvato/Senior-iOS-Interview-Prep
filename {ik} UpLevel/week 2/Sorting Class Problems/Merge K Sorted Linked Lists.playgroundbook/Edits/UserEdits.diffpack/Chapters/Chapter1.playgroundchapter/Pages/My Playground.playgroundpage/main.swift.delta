@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Diff</key>
+	<array>
+		<dict>
+			<key>ModifiedContent</key>
+			<string>import Foundation
+
+// Merge K Sorted Linked Lists
+
+/* 
+ * Given k linked lists where each one is sorted in the ascending order, merge all of them into a single sorted linked list.
+ *
+ * Example:
+ *     { "lists": [ [1, 3, 5], [3, 4], [7] ] }
+ * Output:
+ *     [1, 3, 3, 4, 5, 7]
+ */
+
+// Hang ups: I don't know anything about Linked Lists. I understand they are connected but I don't know how to properly cycle through them.
+// This must be a type of merge sort question, as the parts of the list are already sorted.
+
+    // recursive
+func countNodes(in list: LinkedListNode?) -&gt; Int { // for fun, let's see how to count the number of nodes in a given linked list
+    var count: Int = 0
+    if list != nil  {
+        count += countNodes(in: list?.next)
+    }
+    return count
+}
+
+// Iterative - iterative is faster than recursive by more than half
+/*
+ Recursive Time: 0.00205254 seconds
+ Iterative Time: 0.000942633 seconds
+ */
+func countNodes2(in list: LinkedListNode) -&gt; Int { // for fun, let's see how to count the number of nodes in a given linked list
+    var count: Int = 0
+    var current: LinkedListNode? = list
+    
+    while current != nil {
+        count += 1
+        current = current?.next
+    }
+
+    return count
+}
+
+final class LinkedListNode {
+    var value: Int
+    var next: LinkedListNode?
+    
+    public init(value: Int) {
+        self.value = value
+    }
+}
+
+let linkedList = LinkedListNode(value: 0)
+linkedList.next = LinkedListNode(value: 1)
+linkedList.next?.next = LinkedListNode(value: 2)
+
+let linkedList1 = LinkedListNode(value: 3)
+linkedList1.next = LinkedListNode(value: 4)
+linkedList1.next?.next = LinkedListNode(value: 5)
+
+let lists = [linkedList, linkedList1]
+//     { "lists": [ [1, 3, 5], [3, 4], [7] ] }
+
+class Solution {
+    func merge_k_lists(lists: [LinkedListNode?]) -&gt; LinkedListNode? {
+        
+        var temp: [Int] = []
+        
+        for list in lists {
+            var current = list
+            while current != nil {
+                temp.append(current!.value)
+                current = current?.next
+            }
+        }
+        
+        temp.sort() // O(nlogn)
+        
+        var head: LinkedListNode = LinkedListNode(value: temp[0]) 
+        var node: LinkedListNode = head
+        for i in 1 ... temp.count - 1 {
+            node.next = LinkedListNode(value: temp[i])
+            node = node.next!
+        }
+        
+        return head
+    }
+}
+
+let sorted = Solution().merge_k_lists(lists: lists)
+print(sorted)
+/// Helpers
+
+func calculateTime(block : (() -&gt; Void)) {
+    let start = DispatchTime.now()
+    block()
+    let end = DispatchTime.now()
+    let nanoTime = end.uptimeNanoseconds - start.uptimeNanoseconds
+    let timeInterval = Double(nanoTime) / 1_000_000_000
+    print("Time: \(timeInterval) seconds")
+}
+</string>
+			<key>ModifiedRange</key>
+			<string>{0, 2772}</string>
+			<key>OriginalContent</key>
+			<string>
+</string>
+			<key>OriginalRange</key>
+			<string>{0, 1}</string>
+		</dict>
+	</array>
+	<key>File</key>
+	<string>Chapters/Chapter1.playgroundchapter/Pages/My Playground.playgroundpage/main.swift</string>
+</dict>
+</plist>
