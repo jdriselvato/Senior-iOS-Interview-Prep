@@ -60,7 +60,7 @@ func helper(_ array: inout [Int], start: Int, end: Int) {
     // since we know the above while look sorted until final end index, the remaining i or j is already sorted and can be appended to the tempArray
     if i &lt;= mid {
         tempArray.append(contentsOf: array[i ... mid])
-}
+    }
     if j &lt;= end {
         tempArray.append(contentsOf: array[j ... end])
     }
@@ -85,7 +85,7 @@ print("Final: \(mergeSort(shuffled))")
  */
 </string>
 			<key>ModifiedRange</key>
-			<string>{0, 2775}</string>
+			<string>{0, 2779}</string>
 			<key>OriginalContent</key>
 			<string>
 </string>
