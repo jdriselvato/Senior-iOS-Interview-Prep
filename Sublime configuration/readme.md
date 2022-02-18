@@ -37,6 +37,6 @@ I've been programming with vim and xcode for so long, I have missed how beautifu
 	{ "keys": ["super+v"], "command": "paste_and_indent" },
 ]
 ```
-#### Preview
+## Preview
 
 ![Preview](./preview.png "Preview")
