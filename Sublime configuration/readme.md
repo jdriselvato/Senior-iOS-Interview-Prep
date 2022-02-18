@@ -1,5 +1,3 @@
-![Preview](./preview.png "Preview")
-
 # About
 
 I've been programming with vim and xcode for so long, I have missed how beautiful another IDE can be. As I configure Sublime to fit my needs, I'll update this file.
@@ -39,3 +37,6 @@ I've been programming with vim and xcode for so long, I have missed how beautifu
 	{ "keys": ["super+v"], "command": "paste_and_indent" },
 ]
 ```
+#### Preview
+
+![Preview](./preview.png "Preview")
