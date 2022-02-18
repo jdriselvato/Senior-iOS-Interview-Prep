@@ -27,38 +27,41 @@ Solution is only allowed to use constant extra memory
 
 
 func dutch_flag_sort(balls: [Character]) -> [Character] {
-    guard !balls.isEmpty else { return [] }
 
-    var ballsArr = balls
+    var temp:[Character] = balls
+
+    var rIndex = -1
+    var gIndex = -1
     var index = 0
-    var green = 0
-    var blue = ballsArr.count-1
-    
-    while index <= blue {
-        if ballsArr[index] == "R" {
-            ballsArr.swapAt(index, green)
-            // ballsArr[index] = "G"
-            // ballsArr[green] = "R"
 
-            green += 1
-            index += 1
+    while index <= temp.count-1 {
 
-        } else if ballsArr[index] == "G" {
-            index += 1
-
-        } else {
-            ballsArr[index] = ballsArr[blue-1]
-            ballsArr[blue-1] = "B"
-
-            blue -= 1
-
+        if temp[index] == "G" {
+            gIndex += 1 // because swap with blue
+            print("G gIndex = ", gIndex)
+            temp.swapAt(index, gIndex)
+            print("G swap:", temp)
         }
+
+        if temp[index] == "R" {
+            gIndex += 1 // because swap with blue
+            print("R gIndex = ", gIndex)
+            temp.swapAt(index, gIndex)
+            rIndex += 1
+            print("R rIndex = ", rIndex)
+            temp.swapAt(gIndex, rIndex)
+            print("R swap:", temp)
+        }
+
+        index += 1
+
     }
-        
-    return ballsArr
+
+    return temp
+
 }
 
-let flag: [Character] = ["G", "B", "R","G", "B", "R","G", "B", "R","G", "B", "R","G", "B", "R","G", "B", "R","G", "B", "R","G", "B", "R","G", "B", "R" ]
+let flag: [Character] = ["G", "B", "R", "G", "B", "R", "G", "B", "R", "G", "B", "R", "G", "B", "R", "G", "B", "R", "G"]
 
 let result = dutch_flag_sort(balls: flag)
 print(result)
