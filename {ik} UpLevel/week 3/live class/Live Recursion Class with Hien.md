@@ -325,12 +325,8 @@ Questions:
 
 ``` swift
 
-func driver(input: [Int]) -> [[String]] {
-
-}
-
 func helper(number: [Int], index: Int, slate: [Character]) {
-	if input.isEmpty { print(slate) return }
+	if number.isEmpty { print(slate) return }
 
 	// exclude
 	helper(number, index+1, slate)
@@ -346,18 +342,125 @@ func helper(number: [Int], index: Int, slate: [Character]) {
 
 #### Time Complexity
 
-```
-T(n) = O(2^n * n)
-```
+`T(n) = O(2^n * n)`
+
+`2^n` nodes with `n` amount per helper
 
 #### Space Complexity
 
-Since we are not collecting, just printing, so no implicit space. The max size of `slate` at any given point is `n` or number of digits in the array
+Since we are not collecting, just printing, so no implicit space. The max size of `slate` at any given point is `n` or number of digits in the array:
 
-`S(n) = O(n)` 
+`S(n) = O(n)`
 
+
+If we were collecting slate in an array:
+
+`T(n) = O(2^n * n)`
+
+#### Implicit space
+
+Only discuss implicit space if the interviewer asks. Implicit space is the time combinding certain tasks are done, such as combining two strings, as string+string creates a copy. 
+
+In the above case there isn't implicit space because we have a buffer [character]. 
+
+If there was a string+string, per node, it's n * n or 2^n
 
 -----
 
 # Permutations
 
+Generate permutations - rearrange the members of a set into a sequence & order matters
+
+Formal definition:
+	- the number od different ways that a certain number of objects that can be arranged in order from a larger number of objects
+
+![alt text](./faces.png)
+
+1. 3 faces what are the different permutations?
+
+Questions to ask:
+1. How many blanks? 3; 3 faces blue, yellow, red
+2. number of choices? that's what we are trying to solve
+
+>> Do this problem on your own
+
+2. Given a string of characters, print all possible permutations.
+
+```
+	Example:
+		input: HAT
+
+```
+
+1. How many blanks? 3; 3 letters
+2. What are our choices?
+```
+Example:
+	H__ -> HA_ or HT_ -> HAT or HTA
+```
+
+![alt text](./HAT.png)
+
+!Important: Once you pick that letter, you cannot pick it again.
+
+>> Look up permutation for cubing and see if it releases
+
+``` swift
+
+func helper(input: inout [Character], index: Int, slate: inout [Character]) {
+    if index == input.count {
+        print(String(slate))
+    }
+    
+    for i in index ... input.count-1 { // choices
+        input.swapAt(index, i)
+        
+        slate.append(input[index])
+        helper(input: &input, index: index+1, slate: &slate)
+        slate.removeLast()
+        
+        input.swapAt(index, i) // restore state
+    }
+}
+
+var original: [Character] = ["H", "A", "T"]
+var slate: [Character] = []
+helper(input: &original, index: 0, slate: &slate)
+
+```
+
+>> Something live the above but it's not working. 
+
+#### Time Complexity
+
+`T(n) = O(n! * n)`
+
+The number of choices are 1 less each time we go down, so `n!` because each layer is `n-1` as seen here:
+
+![alt text](./HATTimeComplexity.png)
+
+
+#### Space Complexity
+
+`S(n) = O(n! * n)`
+
+
+-----
+
+# Permutations with Duplications
+
+1. Given a string of characters, print all possible permutations so that there are no duplicates if the string has duplicate characters or numbers
+	- Output should have unique permutation
+
+![alt text](./permDuplicates.png)
+
+
+Pseudocode:
+
+![alt text](./permDuplicates2.png)
+
+
+
+# Leetcode #17
+
+https://leetcode.com/problems/letter-combinations-of-a-phone-number/
