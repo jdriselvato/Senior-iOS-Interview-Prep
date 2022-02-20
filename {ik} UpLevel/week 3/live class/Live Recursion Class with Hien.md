@@ -256,3 +256,108 @@ print(result)
 ```
 
 The slate in the buffer version should be `[Character]` because we can easily append and then `toString` it.
+
+------
+
+3. **print** all decimal number with n digits in ascending order
+
+```
+Example:
+
+	n = 2
+
+		00, 01, 02, ... 99
+
+```
+
+When a question asks `all` it's a Combinatorial
+
+Questions to ask:
+1. How many blanks? 2 because n = 2
+2. What are the choices at each blank? 0 to 9 or 10 choices
+3. How to represent the partial solution?
+
+``` swift
+
+func driver(digits: Int) {
+    var slate: [Character] = []
+    helper(&slate, digits: digits)
+}
+
+func helper(_ slate: inout [Character], digits: Int) {
+    if digits == 0 { print(String(slate)); return }
+    
+    for i in 0 ... 9 {
+        slate.append(Character("\(i)"))
+        helper(&slate, digits: digits-1)
+        slate.removeLast()
+    }
+    
+}
+
+driver(digits: 2)
+```
+
+------ Class Break
+
+
+# Combinatorial - Generate Powerset
+
+!important: A must know classical combinatorial structure
+
+1. Given a set of distinct integers, return `all` subsets
+	- a subset can be empty or all the integers
+	- an integer can be a part of or not a part of a subset
+
+```
+	Example:
+		input [1, 2, 3]
+		output: {} {1} {2} {3} {1,2} {1,3} {2,3} {1,2,3}
+```
+
+Questions:
+1. What are the blanks? 3; ---, 1--, -2-, --3, etc
+2. What are the choices for each blank? 2 choice; do we want it in the output or do we not
+3. 
+
+![alt text](./generatePowerset.png)
+
+
+``` swift
+
+func driver(input: [Int]) -> [[String]] {
+
+}
+
+func helper(number: [Int], index: Int, slate: [Character]) {
+	if input.isEmpty { print(slate) return }
+
+	// exclude
+	helper(number, index+1, slate)
+
+	// include
+	slate.append(Character(number[index]))
+	helper(number, index+1, slate)
+	slate.removeLast()
+
+}
+
+```
+
+#### Time Complexity
+
+```
+T(n) = O(2^n * n)
+```
+
+#### Space Complexity
+
+Since we are not collecting, just printing, so no implicit space. The max size of `slate` at any given point is `n` or number of digits in the array
+
+`S(n) = O(n)` 
+
+
+-----
+
+# Permutations
+
