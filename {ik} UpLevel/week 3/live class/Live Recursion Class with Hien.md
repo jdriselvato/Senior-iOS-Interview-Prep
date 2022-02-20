@@ -463,4 +463,254 @@ Pseudocode:
 
 # Leetcode #17
 
+>> Try out this related question
+
 https://leetcode.com/problems/letter-combinations-of-a-phone-number/
+
+
+-----
+
+# Backtracking
+
+- find one or all possible solutions that meet a certain set of constraints
+- incrementally build andidates to solutions
+- Abandon a candidate solution as soon as it can't satisfy the given constrainsts
+
+Example questions:
+1. n-queen
+2. sodaku
+
+### General approach
+
+**incremental approach**
+	- perform exhaustive search w/o constraints
+	- apply the constraints
+		- add the backtracking steps at the appropriate places
+
+**Runtime & space complexity**
+	- still exponential in worst case
+
+Psuedocode
+```
+
+helper(sub problem, partial solution)
+	if ciolate consttraint // backtracking case
+
+
+	if no more sub problems
+
+```
+
+>> Come back to this part of the video 12:22pm
+
+1. Backtracking problem - setset size
+
+Given two integers n and k, return all possible combinations of k numbers out of 1 ... n
+
+```
+Example:
+	Input: n = 4, k = 2
+	Output:
+		[
+			[2, 4],
+			[3, 4],
+			[2, 3],
+			[1, 2],
+			[1, 3],
+			[1, 4]
+		]
+```
+
+2. Backtrack problem - subset sum
+
+Print all subset of a set of distinct integers - [1,2,3]
+	- with sum equals to K = 2
+
+What questions should we ask about the integers?
+	1. All positive integers
+	2. all positive integers with 0
+	3. positive, 0 and negative
+
+3. Backtract Problem - Dice Roll Sum
+
+Given number of dice to roll and a desired sum, print all combinations of dice values that add up to the given sums (must roll all dice)
+- each dice has 6 values
+
+```
+Example:
+	Dice = 2 Sum -7
+
+		{1,6}{2,5}{3,4}{4,3}{5,2}{6,1}
+```
+
+What is the approach?
+- how many blanks to iterative over? 3 blanks; 3 dice
+- what ar the choices of each? 6; 6 sided dice
+- what is the base case?
+- what does the recursion tree look like?
+
+``` swift
+
+func diceSum(_ numDice: Int, runningSum: Int, targetSum: Int, slate: inout [Int]) {
+    // backtracking case
+    if runningSum > targetSum {
+        return // don't need to go further cause it's larger than targetSum
+    }
+    
+    // base case
+    if (numDice == 0) {
+        if runningSum == targetSum {
+            print(slate)
+        }
+        return
+    }
+    
+    for i in 1...6 {
+        slate.append(i)
+        diceSum(numDice-1, runningSum: runningSum + i, targetSum: targetSum, slate: &slate)
+        slate.removeLast()
+    }
+    
+        
+}
+
+var slate: [Int] = []
+diceSum(2, runningSum: 0, targetSum: 7, slate: &slate)
+
+
+```
+
+### Time complexity 
+
+The running time: O(n * 6^n)
+
+>> Challenge, don't include duplicates
+
+-----
+
+# Backtrack problem - generate parentheses
+
+Given n pairs of parenthese - generate all combo of well formed parentheses.
+
+[parentheses](./parentheses.png)
+
+```
+for example:
+	- N=1 ["()"]
+	- N=2 [ "(())", "()()"]
+```
+
+### Questions:
+1. how many blanks? n
+2. how many choices? 2; ( & )
+3. What are the constraints? when to apply them? when a pair is well-formed
+
+
+### Insights
+
+```
+if () { // if starting with ) isn't valid
+    return
+}
+
+if () {} // if ((( isn't valid at n = 4
+
+if () {} // if ()) isn't valid at n = 4
+```
+
+All of the above can be simplified to:
+
+```
+if () {} // if ) is great than (
+```
+
+start specific and keep going down until it's general. Would have never known the previous 3 to come to that conclusion.
+
+
+## Solution 1:
+
+Using a counter to ensure your equation == 0.
+
+```
+Example:
+( = +
+) = -
+
+so (()) = 1+1-1-1 = 0 so valid
+```
+
+```
+Example:
+( = +
+) = -
+
+so ()() = 1-1+1-1 = 0 so valid
+```
+
+```
+Example:
+( = +
+) = -
+
+so (()( = 1+1-1+1 = 1 so invalid
+```
+
+
+## Solution 2: 
+
+Using a remaining solution by
+
+(())
+( remaining 1, ( remaining 2, ) remaining 1 ) remaining 0
+
+```
+func parenthesePairs(_ rOpen: Int, _ rClose: Int, _ slate: inout [Character]) {
+    // backtracking case
+    if (rOpen > rClose) { return } // if ) is great than ( 
+    
+    // base case
+    if (rOpen == 0 && rClose == 0) {
+        print(String(slate))
+    }
+    
+    // choices
+    if rOpen > 0 {
+        slate.append(Character("("))
+        parenthesePairs(rOpen-1, rClose, &slate)
+        slate.removeLast()
+    }    
+    
+    if rClose > 0 {
+        slate.append(Character(")"))
+        parenthesePairs(rOpen, rClose-1, &slate)
+        slate.removeLast()
+    } 
+    
+}
+
+var slate = [Character]()
+let n = 2
+parenthesePairs(n, n, &slate)
+```
+
+### Time complexity 
+
+O(2^n) because we only care about worse case
+
+
+------
+
+Summary of this call
+
+- identify the problem type
+	- is it a permutation
+	- or a combination
+- visualize by drawing a recursion tree
+- id the number of blanks and their choices
+	- how to represent the subproblems
+	- how to represent the partial solution
+- Apply the solution templay
+	- backtrack case
+	- base case
+	- recursive case
+	- apply the constraints if needed - abstract out the utility / helper func
