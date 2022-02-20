@@ -26,5 +26,5 @@ class OptionOne {
 }
 
 let one = OptionOne()
-one.comboHelper("", chars: ["a", "b", "c", "d", "e"])
+one.comboHelper("", chars: ["a", "b", "c"])
 print(one.perms, "\n", one.perms.count)
