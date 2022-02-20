@@ -177,6 +177,7 @@ if it is a letter:
 
 >> Why is a letter only `O(n)` if we are calling it twice in else?
 **A:** `n` because we append the final result to the array, which is taking O(n) time
+>> My understand now; because each helper only take n time there's no for loop or something. Just n time.
 
 #### Space complexity + Implicit space
 
@@ -219,7 +220,7 @@ Using a buffer append instead of creating of passing a new string
 
 ``` pseudocode
 
-func lowUpper(_ input: String, _ index: Int, slate: String, output: inout [String]) {
+func lowUpper(_ input: String, _ index: Int, slate: [Character], output: inout [String]) {
 	
 	if index == input.count { // base case
 		output.append(slate.toString()); return // leaf level
@@ -236,14 +237,14 @@ func lowUpper(_ input: String, _ index: Int, slate: String, output: inout [Strin
 	} else { // letter
 
 		// two choices; lowercase & uppercase
-		slate.append(currentChar.toLower)
+		slate.append(currentChar.toLower) // append to the string it's not an array
 		lowUpper(input, index+1, slate: slate, output)
 		slate.removeLast // currentChar
 
 		slate.append(currentChar.toUpper)
 		lowUpper(input, index+1, slate: slate, output)
 		slate.removeLast // currentChar
-		
+
 	}
 
 }
@@ -254,3 +255,4 @@ print(result)
 
 ```
 
+The slate in the buffer version should be `[Character]` because we can easily append and then `toString` it.
