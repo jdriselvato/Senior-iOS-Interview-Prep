@@ -473,7 +473,7 @@ https://leetcode.com/problems/letter-combinations-of-a-phone-number/
 # Backtracking
 
 - find one or all possible solutions that meet a certain set of constraints
-- incrementally build andidates to solutions
+- incrementally build candidates to solutions
 - Abandon a candidate solution as soon as it can't satisfy the given constrainsts
 
 Example questions:
@@ -494,7 +494,7 @@ Psuedocode
 ```
 
 helper(sub problem, partial solution)
-	if ciolate consttraint // backtracking case
+	if violate constraint // backtracking case
 
 
 	if no more sub problems
@@ -700,7 +700,7 @@ O(2^n) because we only care about worse case
 
 ------
 
-Summary of this call
+Summary of this class
 
 - identify the problem type
 	- is it a permutation
