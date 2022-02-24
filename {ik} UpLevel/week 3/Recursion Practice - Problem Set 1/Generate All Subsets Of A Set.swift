@@ -59,10 +59,10 @@ func generate_all_subsets(s: String) -> [String] {
     		return
     	}
 
-    	// // include
-    	// helper(s, index: index+1, slate: &slate)
-
     	// // exclude
+    	helper(s, index: index+1, slate: &slate)
+
+    	// // include
     	slate.append(s[index])
     	helper(s, index: index+1, slate: &slate)
     	slate.removeLast()

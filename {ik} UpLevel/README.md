@@ -12,4 +12,5 @@
 
 #### Week 3
 1. Generate All Subsets Of A Set - practice this one because it's common
-2. 
+2. Permute Array Of Integers Duplicates Allowed - the allowed part is tricky
+3. Subsets With Duplicate Characters - I was really close but had to look up the answer
