@@ -37,29 +37,29 @@
 //       /
 //     (2)
 //    /
-// (1)
-
+// (1) [3,2,1]	
+	
 //    (3)
 //   /
 // (1)
 //    \
-//    (2)
+//    (2) [3,1,2]
 
 // (1)
 //    \
 //     (2)
 //       \
-//        (3)
+//        (3) [1,2,3]
 
 // (1)
 //    \
 //     (3)
 //    /
-// (2)
+// (2) [1,3,2]
 
 //    (2)
 //   /   \
-// (1)    (3)
+// (1)    (3) [2,1,3]
 // Notes
 
 // Constraints:
@@ -80,40 +80,37 @@
 // O(n^2) according to Google.
 
 
-// func how_many_bsts(n: Int) -> Int {
-// 	let count = n
-//     return count
-// }
-
-// func helper() {
-// 	if n == 1 || n == 0 { return n }
-//     // Write your code here.
-
-//     var count = 0
-//     for i in 1 ... n-1 {
-//     	count = how_many_bsts(n: i)*how_many_bsts(n: n-i)
-
-//     }
-// }
-
-
 // hang up. I have no clue how to sort an array as a BST with creating a BST and I don't want to create a BST object.
 
 // So lets break it down one step at a time. I don't know how to create a simple BST. So instead of doing this problem. Let's create a BST of a single root.
 
-func makeBST(n: Int) -> [Int] {
-
+func makeBST(n: Int) {
+	print("here")
 	var bstArr = [Int]()
-	for i in 1 ... n {
-
+	for i in 0...n-1 {
+		print(i)
+		// create tree with initial parent
 		if bstArr.isEmpty {
 			bstArr.append(i)
-			return
+			continue
 		}
+		
+		// this is how you get the left or right but we wouldn't have a l/r yet
+		// let left = 2 * i // left node
+		// let right = 2 * i + 1 // right node
 
-		if i < bstArr[i-1]
 
+	    // if i is less than arr[i-1] mean it's on the left
+		if i < bstArr[i-1] {
+			bstArr.append(i)
+		}
+		// if i is greater than arr[i-1] it's on the right
+		if i > bstArr[i-1] {
+			bstArr.append(i)
+		}
 	}
 
-
+	print("Answer:", bstArr)
 }
+
+// makeBST(n: 4)

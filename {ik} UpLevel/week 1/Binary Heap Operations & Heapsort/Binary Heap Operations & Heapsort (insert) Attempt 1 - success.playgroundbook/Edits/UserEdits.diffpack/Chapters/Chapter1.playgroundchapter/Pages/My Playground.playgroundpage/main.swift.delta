@@ -14,7 +14,7 @@
  * So let see if I understand it strong enough to program it from scratch.
  */
 
-let shuffled = [11,10,12,2]
+let shuffled = [100,40,50,10,15,50]
 
 print("Original:", shuffled)
 
@@ -28,7 +28,7 @@ func helper(_ array: [Int]) -&gt; [Int] {
     }
     print("Sorted:  ", temp)
     
-    insert(&amp;temp, value: 12)
+    insert(&amp;temp, value: 40)
     print("Insert:  ", temp)
     
     
@@ -72,7 +72,7 @@ func heapify(_ array: inout [Int], i: Int) {
 }
 </string>
 			<key>ModifiedRange</key>
-			<string>{0, 1507}</string>
+			<string>{0, 1515}</string>
 			<key>OriginalContent</key>
 			<string>
 </string>
