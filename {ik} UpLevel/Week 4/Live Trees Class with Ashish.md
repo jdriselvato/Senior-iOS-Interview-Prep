@@ -18,7 +18,7 @@ Hash tables
 - Has order
 
 #### Two borad ways of traversing trees:
-- BFS
+- BFS (queue)
 - DFS
 
 #### DFS Traversals
@@ -136,6 +136,7 @@ Constraints:
 
 This is the same question as the previous but instead we cycle through the array of children instead of left and right.
 
+
 ## 107. Binary Tree Level Order Traversal II
 
 Given the root of a binary tree, return the bottom-up level order traversal of its nodes' values. (i.e., from left to right, level by level from leaf to root).
@@ -147,6 +148,7 @@ Output: [[15,7],[9,20],[3]]
 ```
 
 This is the same as 102 but we can just reverse the array
+
 
 ## 199. Binary Tree Right Side View
 
@@ -172,3 +174,110 @@ Interview tip:
 Solution:
 - The same as the previous 3 using BFS and then use the last element from each array.
 
+How to have intuitively know to do it this way?
+- There are only two types of traversal methods
+	1. DFS
+	2. BFS
+- So from there we need to decide which one makes sense.
+
+
+## 103. Binary Tree Zigzag Level Order Traversal
+
+Given the root of a binary tree, return the zigzag level order traversal of its nodes' values. (i.e., from left to right, then right to left for the next level and alternate between).
+
+
+Example:
+```
+Input: root = [3,9,20,null,null,15,7]
+Output: [[3],[20,9],[15,7]]
+```
+
+Constraints:
+
+The number of nodes in the tree is in the range [0, 2000].
+-100 <= Node.val <= 100
+
+My idea of how to solve it:
+- I think we can just do the same BFS but mod the level determine which variation of the zigzag we are on
+- Another student suggested a boolean that toggles each append to result
+- Maybe it just makes sense to reversed() 
+
+Solution:
+- The teacher uses a reversed 
+
+```
+func zigzag(root: TreeNode) {
+	guard let root = root else { return [] }
+
+	var ltor = true // left to right
+	while q.count > 0 {
+		numNodes = q.count
+		temp = []
+		while node > 0 {
+			node = q.first
+			temp.append(node.val)
+			if let left = node.left {
+				q.append(node.left)
+			}
+
+			if let right = node.right {
+				q.append(node.right)
+			}
+		}
+		if !ltor {
+			temp.reverse()
+		}
+		ltor = !ltor
+
+		result.append(temp)
+	}
+	return result
+}
+```
+# Tree DFS Template
+
+Template:
+
+```
+def dfs(node):
+	if node.left is not None:
+		dfs(node.left)
+	if node.right is not None:
+		dfs(node.right)
+```
+
+Template with basecase:
+
+```
+def dfs(node):
+	if node.left is None and node.right is None:
+		# Base case answer generated here
+
+	# recursive case: Internal node
+	if node.left is not None:
+		dfs(node.left)
+	if node.right is not None:
+		dfs(node.right)
+```
+
+
+## 112. Path Sum
+
+Given the root of a binary tree and an integer targetSum, return true if the tree has a root-to-leaf path such that adding up all the values along the path equals targetSum.
+
+A leaf is a node with no children.
+
+Example 1:
+```
+nput: root = [5,4,8,11,null,13,4,7,2,null,null,null,1], targetSum = 22
+Output: true
+Explanation: The root-to-leaf path with the target sum is shown.
+```
+
+Explaination
+- This is top down DFS
+
+```
+func dfs(node: TreeNode?, target: Int) {
+
+}
