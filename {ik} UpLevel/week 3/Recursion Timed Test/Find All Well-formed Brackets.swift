@@ -4,9 +4,15 @@ func find_all_well_formed_brackets(n: Int) -> [String] {
     var result = [String]()
     var slate = [Character]()
     
+    var count = 0
+
     func helper(n: Int, index: Int, slate: inout [Character]) {
+        count += 1
+        if slate.count > 0 && slate[0] == Character(")") {
+            return
+        }
+
         if index == n {
-            if slate[0] == Character(")") { return }
             if slate[n-1] == Character("(") { return }
             if isValid(slate: String(slate)) {
                 result.append(String(slate))
@@ -24,7 +30,7 @@ func find_all_well_formed_brackets(n: Int) -> [String] {
     }
     
     helper(n: length, index: 0, slate: &slate)
-    
+    print(count)
     return result
 }
 
