@@ -108,7 +108,7 @@ func bfs(root: TreeNode?) -> [Int] {
 }
 ```
 
-but the above doesn't print it level by level as a list array, see [swift 102.\ Binary\ Tree\ Level\ Order\ Traversal.swift](./swift 102.\ Binary\ Tree\ Level\ Order\ Traversal.swift)
+but the above doesn't print it level by level as a list array, see [swift 102.\ Binary\ Tree\ Level\ Order\ Traversal.swift]("./swift 102.\ Binary\ Tree\ Level\ Order\ Traversal.swift")
 
 ------
 
