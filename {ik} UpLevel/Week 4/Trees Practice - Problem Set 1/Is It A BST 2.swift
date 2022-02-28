@@ -27,14 +27,14 @@ func is_bst(root: BinaryTreeNode?) -> Bool {
 	guard let root = root else { return true }
 
 	func helper(_ root: BinaryTreeNode?, _ min: Int, _ max: Int) -> Bool {
-		guard let root = root else { return true } // if it makes it to a leaf without returning false, it's a valid BST
+		guard let root = root else { return true }
 
-		if let min = min, root.value < min { // if has a min (node.value) && current.value is less than min it's false
-			return false // because parent should have a val larger than min
+		if let min = min, root.value < min {
+			return false
 		}
 
-		if let max = max, root.value > max { // if has a max (node.value) && current.value is greater than max it's false
-			return false // because parent should have a smaller val than max
+		if let max = max, root.value > max {
+			return false
 		}
 
 		return helper(root.left, min, root.value) && helper(root.right, root.value, max)
