@@ -21,7 +21,7 @@ let tree = TreeNode(3,
 
 class Solution {
 	func levelOrder(_ root: TreeNode?) -> [[Int]] {
-		guard let root = root else { return [}
+		guard let root = root else { return [] }
 
 		if root.left == nil && root.right == nil {
 			return [[root.val]]
@@ -63,3 +63,5 @@ class Solution {
 
 let solution = Solution().levelOrder(tree)
 print(solution)
+
+
