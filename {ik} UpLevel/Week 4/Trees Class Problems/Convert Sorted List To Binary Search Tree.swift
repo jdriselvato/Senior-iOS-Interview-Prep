@@ -23,22 +23,30 @@ final class BinaryTreeNode {
 }
 
 func sorted_list_to_bst(head: LinkedListNode?) -> BinaryTreeNode? {
-    if head == nil { return nil }
+    guard var head = head else { return nil }
 
     // create an array from the LinkedList
     var listNode = head
     var array = [Int]()
 
-    func helper(_ node: LinkedListNode?) {
-    	guard let node = node else { return }
+    // With helper
+    // func helper(_ node: LinkedListNode?) {
+    // 	guard let node = node else { return }
 
-    	array.append(node.value)
-    	if node.next != nil {
-    		helper(_: node.next)
-    	}
+    // 	array.append(node.value)
+    // 	if node.next != nil {
+    // 		helper(_: node.next)
+    // 	}
+    // }
+    // helper(head)
+
+    // Without helper
+    array.append(head.value)
+    while let next = head.next {
+    	array.append(next.value)
+    	head = next
     }
 
-    helper(head)
     print(array.count, array)
 
     if array.count == 1 {
