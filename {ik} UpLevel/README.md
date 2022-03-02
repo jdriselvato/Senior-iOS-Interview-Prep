@@ -17,3 +17,4 @@
 
 #### Week 4
 1. Print All Paths That Sum To K - Read the instructions fully next time
+2. Single Value Tree - Brute force method failed
