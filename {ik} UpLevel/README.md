@@ -19,5 +19,6 @@
 1. Print All Paths That Sum To K - Read the instructions fully next time
 2. Single Value Tree - Brute force method failed
 3. Lowest Common Ancestor - Had to look up the answer
-4. ostOrder Traversal Without Recursion - Had to look up the answer
+4. postOrder Traversal Without Recursion - Had to look up the answer
 5. Upside Down - I was close but I was doing one to many recursions
+6. Merge Two BSTs - Mine was 4x slower than the rest of the class but I figured it out off the top of my head
