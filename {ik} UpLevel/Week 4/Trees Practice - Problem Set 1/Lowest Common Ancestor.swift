@@ -35,19 +35,6 @@ final class BinaryTreeNode {
     }
 }
 
-
-/*
-For your reference:
-final class BinaryTreeNode {
-    var value: Int
-    var left: BinaryTreeNode?
-    var right: BinaryTreeNode?
-
-    public init(value: Int) {
-        self.value = value
-    }
-}
-*/
 func lca(root: BinaryTreeNode?, a: BinaryTreeNode?, b: BinaryTreeNode?) -> Int {
     guard let treeNode = root, let a = a, let b = b else { return 0 }
     return leastCommonAncester(treeNode: treeNode, a: a, b: b) ?? 0
