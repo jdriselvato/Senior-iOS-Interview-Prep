@@ -31,7 +31,8 @@ graph {
 
 ```
 
-In termainl 
+In termainl:
+
 ```
 dot example1.dot -Tpdf > example1.pdf
 ```
@@ -47,15 +48,15 @@ File: `example2.dot`
 ```
 digraph {
 	John -> Roman;
-	Roman <- Steve;
+	Roman -> Steve;
 	Steve -> Eric;
 	Eric -> Roman;
-	Eric <- John;
+	Eric -> John;
 }
-
 ```
 
-In termainl 
+In termainl:
+
 ```
 dot example2.dot -Tpdf > example2.pdf
 ```
