@@ -25,6 +25,6 @@ final class BinaryTreeNode {
 }
 */
 func binary_tree_diameter(root: BinaryTreeNode?) -> Int {
-    // Write your code here.
+
     return 0
 }
