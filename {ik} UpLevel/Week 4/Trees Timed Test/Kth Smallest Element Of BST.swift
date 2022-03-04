@@ -57,3 +57,33 @@ func kth_smallest_element(root: BinaryTreeNode?, k: Int) -> Int {
 
     return array[k-1]
 }
+
+// an improvement on this would to use the fact that it is a BST and using inorder to get it sorted already.
+
+// inorder is always sorted on a BST
+
+func kth_smallest_element(root: BinaryTreeNode?, k: Int) -> Int {
+    guard let root = root else { return 0 }
+    if root.left == nil && root.right == nil {
+        return root.value
+    }
+    
+    var array: [Int] = []
+    func helper(_ root: BinaryTreeNode?) {
+        guard let root = root else { return }
+        
+        if let left = root.left {
+            helper(left)
+        }
+
+        array.append(root.value) // in-order!
+        
+        if let right = root.right {
+            helper(right)
+        }
+    }
+    
+    helper(root)
+    
+    return array[k-1]
+}
