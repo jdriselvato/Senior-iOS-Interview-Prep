@@ -37,6 +37,7 @@ dot example1.dot -Tpdf > example1.pdf
 ```
 
 Output:
+
 ![Example 1](example1.png)
 
 ### Digraph
@@ -60,4 +61,5 @@ dot example2.dot -Tpdf > example2.pdf
 ```
 
 Output:
+
 ![Example 2](example2.png)
