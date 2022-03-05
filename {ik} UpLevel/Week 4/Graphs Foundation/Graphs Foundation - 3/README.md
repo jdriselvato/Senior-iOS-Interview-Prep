@@ -78,7 +78,7 @@ Helpful for finding how many hops until reaching "S"
 
 Modify the template pseudocode for BFS
 
-``` swift
+``` c++
 class Graph {
 	func search(s: Int) {
 		// captured and parent init to 0 & nil
@@ -95,7 +95,7 @@ class Graph {
 			guard let v = q.first else { return }
 			captured[v] = 1
 
-			for w in adjlist[v]{
+			for w in adjlist[v] {
 				if visted[w] == 0 {
 					visited[w] == 1
 					parent[w] == v
@@ -107,6 +107,14 @@ class Graph {
 }
 ```
 
+### Example:
 
+Breadth-First Search - Exploring the world with a bird's eye view
+
+![graph2BFSTree](./graph2BFSTree.png)
+
+- Every cross edge has a cycle in a BFS tree
 
 ----
+
+## DFS and the need for a LIFO Stack
