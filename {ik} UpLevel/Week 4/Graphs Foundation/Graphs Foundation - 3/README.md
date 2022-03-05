@@ -78,7 +78,7 @@ Helpful for finding how many hops until reaching "S"
 
 Modify the template pseudocode for BFS
 
-``` c++
+``` swift
 class Graph {
 	func search(s: Int) {
 		// captured and parent init to 0 & nil
@@ -95,12 +95,13 @@ class Graph {
 			guard let v = q.first else { return }
 			captured[v] = 1
 
-			for w in adjlist[v]:
+			for w in adjlist[v]{
 				if visted[w] == 0 {
 					visited[w] == 1
 					parent[w] == v
 					q.append(w)
 				}
+			}
 		}
 	}
 }
