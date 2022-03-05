@@ -22,7 +22,7 @@ There's two types of graphs
 graph {
 	John -- Joe;
 	Jake -- Jim;
-  Jim -- John;
+	Jim -- John;
 }
 
 ```
@@ -43,10 +43,10 @@ File: `example2.dot`
 
 ```
 digraph {
-	John -> Joe;
-	Jake -> Jim;
+  John -> Joe;
+  Jake -> Jim;
   Jim -> John;
-  Jake-> John;
+  Jake -> John;
 }
 ```
 
