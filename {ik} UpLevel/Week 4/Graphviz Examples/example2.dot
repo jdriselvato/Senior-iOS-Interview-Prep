@@ -1,7 +1,6 @@
 digraph {
-	John -> Roman;
-	Roman -> Steve;
-	Steve -> Eric;
-	Eric -> Roman;
-	Eric -> John;
+	John -> Joe;
+	Jake -> Jim;
+	Jim -> John;
+	Jake-> John;
 }

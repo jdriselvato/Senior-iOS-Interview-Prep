@@ -18,28 +18,24 @@ There's two types of graphs
 
 ### Graph
 
-File: `example1.dot`
-
 ```
 graph {
-	John -- Roman;
-	Roman -- Steve;
-	Steve -- Eric;
-	Eric -- Roman;
-	Eric -- John;
+	John -- Joe;
+	Jake -- Jim;
+  Jim -- John;
 }
 
 ```
 
-In termainl:
+In terminal:
 
 ```
-dot example1.dot -Tpdf > example1.pdf
+dot example1.dot -Tpng > example1.png
 ```
 
 Output:
 
-![Example 1](example1.png)
+![example1](./example1.png)
 
 ### Digraph
 
@@ -47,20 +43,20 @@ File: `example2.dot`
 
 ```
 digraph {
-	John -> Roman;
-	Roman -> Steve;
-	Steve -> Eric;
-	Eric -> Roman;
-	Eric -> John;
+	John -> Joe;
+	Jake -> Jim;
+  Jim -> John;
+  Jake-> John;
 }
 ```
 
-In termainl:
+In terminal:
 
 ```
-dot example2.dot -Tpdf > example2.pdf
+dot example2.dot -Tpng > example2.png
 ```
 
 Output:
 
-![Example 2](example2.png)
+![example2](./example2.png)
+
