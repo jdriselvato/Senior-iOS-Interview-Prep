@@ -245,3 +245,7 @@ We can tag in the array a different `Int` as seen below:
 
 ![differentGraphs](./differentGraphs.png)
 
+- the highest number in the array would tell you the number of components. 
+
+NOTE: ==We could do this with BFS as well==
+
