@@ -155,7 +155,7 @@ Adjacency Map is the best of both worlds
 
 # ==Step By Step Process==
 
-1. can it be modeled as a grpah?
+1. can it be modeled as a graph?
 2. would a simple traversal help us?
 3. what extensions on top of that do we need?
 4. Code it up
@@ -166,6 +166,103 @@ Adjacency Map is the best of both worlds
 3. code the base BFS or DFS algo
 4. code the extensions
 
+
+
 ## 323. Number of connected components in an undirected graph
 
 [Read notes here](<./323. Number of connected components in an undirected graph.swift>)
+
+## 261. Graph Valid Tree
+
+[Read notes here](<./261. Graph Valid Tree.swift>)
+
+## 785. Bipartite Graph
+
+1. Can it be modeled as a grpah?
+	- say's it's a graph.
+	- bipartite, we can split the graph into two subsets, A | B.
+		- IS: `a->b->c` would be because we can zigzag.
+		- NOT: `a->b->c->a` isn't because it's the same group.
+		- NOT: If the cycle is odd, it'll ref a node in the same group. 
+2. Would a simple traversal help us?
+	- As we traverse the graph we assign subsets
+	- if we saw something again, we question it's subset. 
+		- if it's a different group, it's ok.
+		- if it's in the same group, it's not a bipartites
+3. what extensions on top of that do we need?
+	- visit all nodes and count # of traversals
+
+# Time Complexity O(N+M)
+DFS: m (build adj list) + n (for loop) + 2m (neighbors loop == edges & DFS)
+BFS: m (build adj list) + n (for loop) + 2m (neighbors loop == edges & BFS)
+
+# Space Complexity: O(N+M)
+DFS: n+2m (adjList) + n (visited) + n (queue) + 1
+BFS: n+2m (adjList) + n (visited) + n (recursive call stack) +1
+
+[Read notes here](<./785. Bipartite Graph.swift>)
+
+# 886. Possible Bipartition
+
+Exact same problem as [785. Bipartite Graph](<./785. Bipartite Graph.swift>)
+
+
+# 200. Number of Islands
+
+- vary famous questions. Amazon - online assessments
+- Very similar question to [323. Number of connected components in an undirected graph](<./323. Number of connected components in an undirected graph.swift>)
+
+Given an m x n 2D binary grid grid which represents a map of '1's (land) and '0's (water), return the number of islands.
+
+An island is surrounded by water and is formed by connecting adjacent lands horizontally or vertically. You may assume all four edges of the grid are all surrounded by water.
+
+ 
+
+Example 1:
+
+Input: grid = [
+  ["1","1","1","1","0"],
+  ["1","1","0","1","0"],
+  ["1","1","0","0","0"],
+  ["0","0","0","0","0"]
+]
+Output: 1
+
+1. Can this be a graph?
+	- doesn't seem to have cirlces or edges but "connecting and adjacent" are edge and vertex words
+	- `node` = land
+	- `edge` = connecting horizontally or vertically
+
+2. Should we traverse?
+	- yes because we are trying to count the conncections.
+	- Very similar question to 323. Number of connected components in an undirected graph
+	- but we can do BFS
+
+Neighbor:
+	1. land
+	2. up, down, left or right
+	3. in bounds
+
+3. extension
+	- the graph is different. Getting the Neighbors are different.
+
+Code it up:
+
+1. build the graph?
+	- we build graphs whne we need an easy way to get neighbors of any node
+	- NO, the input is already a graphs
+2. Do we need a loop?
+	- YES, we have multiple islands
+3. BFS
+4. Add extension
+
+
+
+# Space: `O(r*c)`
+- r*c (vsisted) + r*c (queue) + constants
+
+# Time: `O(r*c)`
+- r*c*4 (up,down,left,right)
+
+[Read notes here](<./200. Number of Islands.swift>)
+

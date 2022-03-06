@@ -57,7 +57,7 @@ func numConnectedComponents(n: Int, edges: [[Int]]) -> Int {
 
 	for src, dst in edges {
 		//
-		adjList[src].append(1) // 0 has 1 in it's list
+		adjList[src].append(dst) // 0 has 1 in it's list
 		adjList[dst].append(src) // 1 has 0 in it's list
 	}
 
