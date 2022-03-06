@@ -153,20 +153,20 @@ Adjacency Map is the best of both worlds
 
 # How to approach Leetcode problems
 
-# ==Step By Step Process==
+## ==Step By Step Process==
 
 1. can it be modeled as a graph?
 2. would a simple traversal help us?
 3. what extensions on top of that do we need?
 4. Code it up
 
-# ==Steps to code it up==
+## ==Steps to code it up==
 1. before we traverse we need to represent the grpah. Do we need to build the graph?
 2. Do we need an outer loop? - do we need multiple traversals 
 3. code the base BFS or DFS algo
 4. code the extensions
 
-
+-----
 
 ## 323. Number of connected components in an undirected graph
 
@@ -258,11 +258,119 @@ Code it up:
 
 
 
-# Space: `O(r*c)`
+### Space: `O(r*c)`
 - r*c (vsisted) + r*c (queue) + constants
 
-# Time: `O(r*c)`
+### Time: `O(r*c)`
 - r*c*4 (up,down,left,right)
 
 [Read notes here](<./200. Number of Islands.swift>)
 
+- seen in The Flood Fill problem https://leetcode.com/problems/flood-fill/
+
+----
+----
+
+# Directed Graphs
+
+**Q:** Is it straightforward to detect if a directed graph has a cylce by looking at the BFS tree? No
+**Q:** When would you do a BFS on a directed graphy? Shorted path
+
+# 909. Snakes and Ladders - BFS
+
+Given a snake and ladder game, find the minimum number of throws (dice rolls 1-6) required to win the game.
+
+- IMPORTANT: Shortest path is always DFS !!!
+	and shortest path questions are super popular
+
+
+[Read notes here](<./909. Snakes and Ladders.swift>)
+
+----
+
+**Q:** What about DFS on a directed graph?
+
+# 207. Course Schedule
+
+- This is a cycle detection on a directed graph
+- use the idea of bookkeeping...
+	- the use of arrival and departure on the stack call
+
+Time & space: `O(n+m)`
+
+[Read notes here](<./207. Course Schedule.swift>)
+
+# 210. Course Schedule II
+
+Same problem but return the course schedule instead of if it's possible
+
+[Read notes here](<./210. Course Schedule II.swift>)
+
+^ Top sort.
+
+- Alternative to Topological sort is Kahn
+
+--
+
+## Kahn's method
+- Calculate and maintain an in-degree array for each vertex. KEep all vertices with zero in-degree in a queue or stack. 
+- IF graph is a DAG, there must exist a vertex with 0 indegree.
+- make the first vertex in the topological sort and delete all its outgoing edges
+	- means update in degree array by decrementing the in-degree counts
+- if any new vertex with in-degree count 0 is found, add it to the queue stack.
+- Repeat until all vertices in the graph are sorted
+- Time: O(V+E)
+
+```
+func kahns(n, edges) -> [Int] {
+	# return a topological sort
+
+	# Do we need an adjList?
+	# 	Yes to decrement neighboring indegrees
+
+	algList = [[] of i in range(n)]
+	inDegree = [0] * n
+
+	for src, dst in edges {
+		adjList[src].append(dst)
+		inDegree[dist]++
+	}
+
+	q = [Int]()
+
+	for i in range(n) {
+		if inDegree[i] == 0 {
+			q.push(i)
+		}
+	}
+
+	topsort = []
+
+	while !q.isEmpty {
+		current = q.pop()
+		topsort.append(curr)
+
+		# we decrement the neighboring 
+
+		for neighbor in adjList[curr] {
+			inDegree[neighboor]--
+			if inDegree[neighbor] == 0
+				q.push(neighbor)
+		}
+	}
+
+	if len(topsort) != n { // because it's a cycle?
+		return []
+	}
+
+	return topsort
+}
+```
+
+### Google Problem
+Can be solved with bookkeeping or kahns
+- Flight Itinerary problem
+	given a bunch of airline tickets with [from, to] for example [MUC, LHR], [CDG, MUC], [SFO, SJC], [LHR, SFO] reconstruct the itinerary in order
+Answer: [CDG, MUC, LHR, SFO, SJC]
+
+// tickets can be represented 
