@@ -49,8 +49,10 @@ func courseSchedule(n, course) -> Bool{
 		}
 	}
 
-	return topSort
+	return topSort.reversed() // since leaf nodes departure first in DFS
 }
+
+// the leaf nodes depart first in DFS
 
 func dfs(node) {
 	visited[node] = 1
@@ -73,5 +75,6 @@ func dfs(node) {
 	}
 
 	departure[node] = time++
+	topSort.append(node)
 	return true
 }

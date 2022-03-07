@@ -161,7 +161,7 @@ Adjacency Map is the best of both worlds
 4. Code it up
 
 ## ==Steps to code it up==
-1. before we traverse we need to represent the grpah. Do we need to build the graph?
+1. before we traverse we need to represent the graph. Do we need to build the graph?
 2. Do we need an outer loop? - do we need multiple traversals 
 3. code the base BFS or DFS algo
 4. code the extensions
@@ -374,3 +374,17 @@ Can be solved with bookkeeping or kahns
 Answer: [CDG, MUC, LHR, SFO, SJC]
 
 // tickets can be represented 
+
+-------
+
+# Interview tips for Graphs
+
+- Make sure DFS and BFS are solid
+	- DFS for shortest path
+	- Cycle detection
+	- What is the traversal doing? will it help me with that problem?
+- Read the first 100 problems and figure out what type of question it is 
+	- Identifying problems
+- Union find is becoming popular
+
+
