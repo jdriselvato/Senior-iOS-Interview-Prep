@@ -93,7 +93,7 @@ func bfs(_ i: Int, _ j: Int) { // base BFS but for 2D array
 }
 
 func getNeighbors(_ i: Int, j: Int, maps, rows, columns) -> [(Int, Int)] { // returns neighbor of up, down, left or right
-	var neighbors = [(Int, Int)] // list of tuples / coordinates
+	var neighbors = [(Int, Int)]() // list of tuples / coordinates
 
 	// up
 	if i - 1 >= 0 && map[i-1][j] == 1 {
