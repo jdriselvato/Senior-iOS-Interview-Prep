@@ -129,7 +129,7 @@ Adjacency Map is the best of both worlds
 ----
 
 |Adj matrix 	|	vs 	|	adj map |
------------------------------------
+|----------------|-------|---------|
 |n^2 	|	space complexity - storage connectivity		|	n+2m |
 
 - When to use which depends on the problem
