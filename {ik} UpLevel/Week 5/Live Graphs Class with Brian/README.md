@@ -219,14 +219,15 @@ An island is surrounded by water and is formed by connecting adjacent lands hori
  
 
 Example 1:
-
+```
 Input: grid = [
   ["1","1","1","1","0"],
   ["1","1","0","1","0"],
   ["1","1","0","0","0"],
   ["0","0","0","0","0"]
 ]
-Output: 1
+```
+Output: `1`
 
 1. Can this be a graph?
 	- doesn't seem to have cirlces or edges but "connecting and adjacent" are edge and vertex words
