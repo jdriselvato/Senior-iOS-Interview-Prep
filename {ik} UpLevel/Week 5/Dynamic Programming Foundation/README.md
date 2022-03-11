@@ -46,6 +46,9 @@ func fib(n: Int) -> Int {
 </details>
 
 
+
+
+
 ## Top-down Memoization
 
 <details>
@@ -161,7 +164,7 @@ I got Q-2 wrong, so here's an examply of all the `T(n)`
 Simplest example:
 
 ``` swift
-let memo = [Int: Int]()
+var memo = [Int: Int]()
 
 func dfs(_ n: Int) -> Int {
 	if let val = memo[n] { return val }
@@ -174,6 +177,10 @@ func dfs(_ n: Int) -> Int {
 ```
 
 </details>
+
+
+
+
 
 ## Bottom up Tabulation
 
@@ -209,6 +216,134 @@ func fib(n: Int) -> Int {
 
 ![dai2](./dai2.png)
 
-Stopped @ 5:30
+**Topological Sort:** When we have a `DAG` we can sort the vertices of the graph so that the edges are going in a single direct (left to right).
+
+**Steps:**
+1. Calculate the values of `Fib()` in `Top sort order`
+2. Then cache them
+3. Then return table[n]
+
+![dai3](./dai3.png)
+
+- Now we can calculate this iteratively, bottom up
+
+``` js
+func fib(_ n: Int) -> Int {
+    if n == 0 || n == 1 { return n } // base case
+    
+    // Initialize cache
+    var table = [Int?](repeating: nil, count: n+1)
+    table[0] = 0 // constants
+    table[1] = 1 // constants
+    
+    for i in 2...n { // loop
+        guard let a = table[i-1], let b = table[i-2] else { continue }
+        table[i] = a + b
+    }
+    return table[n]!
+}
+```
+
+**Time Complexity:** `O(n)` the for loop
+
+**Space Complexity:** `O(n)` cause O(n) space to cache results
+
+---
+**Thoughts**
+
+It feels the Top sort variation is really complicated since swift requires optional checks in order to assign a `table[i]`.
+
+I ran a speed test agains both Top sort and memoization and memoization comes on top as well: [Speed test](<./memoize\ vs\ top\ sort\ fib.swift>)
+
+Regardless, from my bits of research, it seems the reason top sort or bottom up versions are better is because it is more stable. The problem with memoization is it requires stack space and is prone to stack overflow since we are using DFS.
+
+|	| Pros| Cons |
+|----|--------------------|-----|
+|Memoization / Top down / (DFS) | Simple to write. | requires stack space. prone to stackoverflow.|
+|Top sort / bottom up | allocate exact memory usage | complicated to write in swift |
+
+---
+
+**Additional efficiency**
+
+- What if we were able to limit the caching size? 
+	- We know since it's top up we can limit the amount of memory required after passing data forward
+
+1. Initially we have:
+`[fib(0)][fib(1)][fib(2)]`
+
+2. For `fib(3)` we only need `[fib(1)]` & `[fib(2)]`
+
+fib(3) can be stored at index 0:
+`[fib(3)][fib(1)][fib(2)]`
+
+3. for `fib(4)` we need `[fib(3)]` & `[fib(2)]`
+
+fib(4) can be stored at index 1:
+
+`[fib(3)][fib(4)][fib(2)]`
+
+4. then for `fib(5)` we need `[fib(3)]` & `[fib(4)]` and we can store it at i = 2
+
+`[fib(3)][fib(4)][fib(5)]`
+
+5. etc
+
+The pattern is as such:
+1. Index-0: multiples of 3 or `i % 3 = 0`
+2. Index-1: if `i % 3 = 1`
+3. Index-2: if `i % 3 = 2`
+
+``` js
+func fib(_ n: Int) -> Int {
+    if n == 0 || n == 1 { return n } // base case
+    
+    // Initialize cache
+    var table = [Int?](repeating: nil, count: 3) // only 3
+    table[0] = 0 // constants
+    table[1] = 1 // constants
+    
+    for i in 2...n { // loop
+        guard let a = table[(i-1)%3], let b = table[(i-2)%3] else { continue }
+        table[i%3] = a + b
+    }
+    return table[n%3]!
+}
+```
+
+**Time Complexity:** `O(n)` the for loop
+
+**Space Complexity:** `O(1)` cause table size is 3 or constant, 1
+
+### Bottom-up Tabulation Quiz 
+
+> **Q-1:** The nth Tribonacci number can be calculated in O(n) time and using no more than O(n) space. 
+
+**A:** True
+
+> **Q-2:** The nth Tribonacci number can be calculated in O(n) time and using only O(1) space. 
+
+**A:** True
+
+> **Q-3:** Bottom-up tabulation works by
+
+**A:** Transforming recursive calls to a loop. Instead of a recursive implementation of f(n), we have a for loop. 
+
+
+### End of section summary:
+
+1. Top Sort / Bottom up is faster when limiting cache size (it seems)
+2. Bottom up is safer because recursion is prone to stack space stackoverflows
+3. With limiting cache size we can have constant space complexity
+
+</details>
+
+
+
+
+## Climbing n stairs
+
+<details>
+  <summary>View Notes</summary>
 
 </details>
