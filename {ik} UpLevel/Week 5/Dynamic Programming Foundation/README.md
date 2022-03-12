@@ -1,6 +1,6 @@
 # Dynamic Programming Foundation
 
-This course notes contains two sections:
+These course notes are broken up into two sections:
 
 1. [Counting problems](#counting-problems)
 2. [Optimization problems](#optimization-problems)
@@ -955,13 +955,149 @@ If the rows were smaller than the number of columns, this wouldn't be as efficie
 
 # Optimization problems
 
-## Maximum path sum - optimization
+## Maximum path sum
 
 <details>
   <summary>View Notes</summary>
 
 ### Recap
+
 1. we started with counting problems
 2. now we will look at optimization problems
+
+Optimization problems can consist of two variations:
+
+1. minimize - some overall value
+2. maximize - some overall value
+
+DP was original created for this kind of problems.
+
+---
+
+Back to the problem where the robot could move left or down. In the optimization problem version, each grid will have a value. For example, how much it will collect of an item at each block.
+
+![dai13](./dai13.png)
+
+- The value of the path is the sum of all the steps taken in that path.
+
+We want to find the maximum path - which path collects more? and can we keep track of the path?
+
+- computing the value of each one is bad because it'll be exponential there has to be a better way.
+
+### Let's try a decrease and conquer method again:
+
+- the movement is the same from top and from left
+- the value of top is x and the vlaue of left is y, we can compute the max path of the bottom right cell:
+
+![dai14](./dai14.png)
+
+We can make the following claim (This is called optimal substructure):
+
+- if `S ---> E` is the best path
+- `S ---> an arbitrary T` is the best path to `T`
+- then any prefix of it is also the best path
+	- the best path to T is a prefix to the best path of E from S
+
+What does optimal substructure allow us to do?
+
+- If i know the opt path to both of me neighbors, I can extend it by 1 more step
+- compute:
+	- x + points in my cell
+	- y + points in my cell
+	- then compare the two. Which ever gives a large number, we take that path
+
+In a simple solution, we'll have a lot of repitions:
+
+``` swift
+func maxPath(grid: [[Int]]) -> Int {
+    let m = grid.count
+    let n = grid[0].count
+    var table: [[Int?]] = Array(repeating: 
+                                    Array(
+                                        repeating: nil, 
+                                        count: (n) // n
+                                    ), 
+                                count: (m) // m
+    )
+    
+    // Initialization
+    
+    // table[i][j] will store the value of the max path from (0,0) to (i,j)
+    table[0][0] = grid[0][0] // start at "s"
+    
+    for j in 1...n-1 { // all the values in row 0 will include their best path values
+        table[0][j] = grid[0][j-1] + grid[0][j]
+    }
+    
+    for i in 1...m-1 { // all the values in column 0 will include their best path value
+        table[i][0] = grid[i-1][0] + grid[i][0]
+    }
+    
+    // we did these two for loops because they don't have a max only calculating from above it
+    
+    // traverse through the entire matrix row by row (left to right)
+    
+    for row in 1...m-1 {
+        for col in 1...n-1 {
+            // fill in value of table[row][col]
+            table[row][col] = // the optimal value
+                grid[row][col] + // my points
+                max(table[row-1][col]!, table[row][col-1]!) // pick the best value between the top or left
+        }
+    }
+    
+    return table[m-1][n-1]! // optimal value for m/n (bottom right most point)
+}
+
+```
+
+- we can view each cell as a vertex and edges as the left or top:
+
+![dai15](./dai15.png)
+
+**Time Complexity:** `O(mn)` because of the for loop
+
+**Space Complexity:** `O(mn)` because of the table matrix
+
+What if we had to return the optimal path itself?
+
+- we'd need to keep a record from the value in max():
+
+What if we wanted to get the min collected value?
+
+- we'd use the `min(table[row-1][col]!, table[row][col-1]!)` instead
+
+---
+
+1. Let's try it on the sample grid:
+
+![dai16](./dai16.png)
+
+2. the optimal value for the edges:
+
+![dai17](./dai17.png)
+
+3. the optimal value for the first max from left or top:
+
+![dai18](./dai18.png)  
+
+4. Final solution:
+
+![dai19](./dai19.png)  
+
+
+### Maximum path sum Quiz
+
+- I went through them but trying speed up study so paste these in later: https://uplevel.interviewkickstart.com/resource/rc-resourcecollection-205600-491360-164-910
+
+### End of section summary:
+
+- Optimization problems related to min and max problems
+- Using a matrix seems to be the proper way to path sum
+- We could have used a copy of the graph and manipulated it there
+- We used a decrease and conquer method in this problem
+- if S-->E is the best path, S-->T or T-->E where T is optimal is a prefix to the path
+- max and min on the movement gives max or min of the path
+- Timecomplext and space complexity (currently) are the same as previous O(nm)
 
 </details>
