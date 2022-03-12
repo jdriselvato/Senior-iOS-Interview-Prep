@@ -23,15 +23,16 @@ func fib(n: Int) -> Int {
 
 ![fib tree](./fibTree.png)
 
-- We can notice that in this tree there is repeating fib(3), feb(2), etc
+- We can notice that in this tree there is repeating fib(1), feb(2), etc
 - Many sub-problems appear multiple times
 
-**Goal:** Avoid repeated work; each subproblem must be evaluated only once
+**Goal:** Avoid repeated work; each unique subproblem must be evaluated only once
 
 **Expectations:** The naive recursive implementation took exponential time
-	- because of the repeated work. 
-	- Avoiding the repeating work should make execution much faster
-	- Current state: expontial time
+
+- because of the repeated work. 
+- Avoiding the repeating work should make execution much faster
+- Current state: expontial time
 
 ### Introduciton Quiz:
 > The Tribonacci sequence Tn is defined as follows:
@@ -458,6 +459,7 @@ This type of counting subsets of size k is visually seen as `c(n,k)` or `n choos
 `c(n,k) = c(n-1) + c(n-1, n-k)`
 
 **Refresher on pascals triangle**
+
 - To get any value in the triangle, you add the previous two above it.
 
 In the above diagram, `c(4, 2) = c(3, 1) + c(3, 1)` or `6 = 3 + 3`
@@ -481,6 +483,7 @@ func c(_ n: Int, _ k: Int) -> Int {
 ---
 
 We can see in the diagram that:
+
 - the outside edge has `1` going all the way down both sides.
 - the repition of `3` & `4` are visible
 - there is probably a battern with middle even numbers `2` and `6`, lets try it
@@ -496,6 +499,7 @@ We can see in the diagram that:
 ```
 
 There might even be a pattern in counting:
+
 - cause we can see a 1's on the left and right edge
 - then the second diagonal from left to right || right to left shows: `1, 2, 3, 4, 5 6`
 - but the line after seems to have a weird pattern `1,3,6,10,50`
@@ -505,6 +509,190 @@ There might even be a pattern in counting:
 
 - Seeing the pattern is important but also identifying the time complexity inorder to explain the benefit of DP.
 
+</details>
 
+
+
+
+## Counting subsets of size k using DP
+
+<details>
+  <summary>View Notes</summary>
+
+Previously in the recursion class we were able to get the c(n,k) func down to `O(n)` by using factorial
+
+```
+c(n,k) = n! / k!(n-k)!
+```
+
+- The problem with this is large numbers will cause stackoverflows
+
+With DP we can get this down to `O(nk)`
+
+`c(n,k) = c(n-1, k) + c(n-1, k-1)`
+
+How many subproblems in the above formula?
+
+- the first parameter is n which can vary:
+	- n, n-1 .... 0
+	- which mean n+1 choices
+- the second parameter is k which can vary:
+	- k, k-1 .... 0
+	- which mean k+1 choices
+- so: `(n+1)*(k+1)` which is polynomial
+
+**Q:** Why is it n+1 and k+1 choices? where does the +1 come from?
+**A:** The +1 is for the 0 because in subsets, the empty set is also considered a subset
+
+**Prithu's comment:**
+
+- +1 is for the 0. So (1,2,3...n) which is 'n' choices plus the 0
+- If you see the pascals triangle in the previous video, it shows the choices for n and k
+- When finding subsets, an empty set is also considered a subset.
+
+
+If we compute each subproblem once, we should improve the time complexity with less repition.
+
+---
+
+In this problem we create a dependency graph:
+
+![dai7](./dai7.png)
+
+Ultimately, we want to solve the red circled `c(n,k)`.
+
+**Q:** Where is c(n-1, k)? Where is c(n-1, k-1)?
+
+- in the graph it's obvious to see
+
+**Q:** What does this look like in the graph?
+
+![dai8](./dai8.png)
+
+This is the entry point in repeating patterns for our bottom up approach
+
+- This will become form of topological sort
+
+---
+
+We know `c(n, 0) = 1` & `(n,n) = 1` where `k = n`
+
+- the fact that `(n,n)` means there'll be a diagonal that goes all the way down to `(k,k)``
+	- but this doesn't mean `(n,k)` is where `(n,k)` ends
+	- anything above the diagonal are not useful, as seen in red below
+
+![dai9](./dai9.png)
+
+Topological sort order would be left to right as seen in blue
+- at the very end we'd reach `(n,k)` and have our solution.
+
+``` swift
+func c(n,k) {
+	// base case
+	if k == 0 || k == n {
+		return 1 // as we saw above
+	}
+
+	// a 2D array of size (n+1)*(k*1)
+	var table: [Int?] = Array(repeating: nil, count: (n+1)*(k*1))
+
+	for row in 0...n {
+		table[row][0] = 1 // column 0 is all 1
+	}
+
+	for col in 0 to k {
+		table[col][col] = 1 // the diagonal where (n,n)
+	}
+
+	for row in 2...n { // starting at 2 because 1 & 2 are already populated
+		for col in 1...min(row, k) { // why? see below
+
+			table[row][column] = // c(n,k) = c(n-1, k) + c(n-1, k-1)
+				table[row-1][col] + // from the original formula
+				table[row-1][col-1] // form the original formula
+
+		}
+	}
+	return table[n][k] // solution will exist now
+}
+```
+
+**Q:** I'm hazy on the `for col in 1...min(row, k)`, why?
+
+- What is the right most column? 
+	- for layer 0 it's column 0 
+	- for layer 1 it's column 1
+	- for layer 2 it's column 2
+	- as seen in the dia below (green to yellow circle):
+
+![dai9](./dai9.png)
+
+- Why not just be row number? well if the row number passes k (it's getting closer and closer to `n`) once the number exceeds `k` it should be capped at k
+	- Still don't understand
+		- if n = 5 & k = 4
+			- layers go from: 		0, 1, 2, 3, 4, 5 (n+1) row
+			- columns (k) go from:	0, 1, 2, 3, 4, 5 (k+1) column
+		- So in this example k=4, but we get a 5th column, so min it at constant k=4 cause we don't care about larger than k
+
+
+---
+
+**Time Complexity:** `O(nk)` because of the for loop
+
+**Space Complexity:** `O(nk)` because of the table matrix
+
+---
+
+**Q:** Is there space here that we can reuse to use less space?
+
+- yes, previous lay becomes useless after a row has been iterated. So we can reuse the space in layers
+	- a layer only depends on the previous layer
+		- layers i and i+1
+	- this optimized version would come down to:
+		- **Space Complexity:** `O(k)` because each layer uses O(k) space where k is the column or row length
+
+### End of section summary:
+
+- The n+1 and k+1 are +1 because the empty set is also considered a subset
+- It seems DP allows working with large data safer from stackoverflow.
+	- meaning the benefit I'm seeing is in regards to large data
+- two variables multipled by each other in time complexity is polynomial
+	- O(n*m) is polynomial
+- This uses a topological sorting, but why?
+	- because it's linear ordering with directed acyclic graph.
+	- (n-1,k-1) -> (n,k) & (n-1, k) -> (n,k)
+
+![dai9](./dai9.png)
+
+- I think I understand why we capped at `k` with the min(row,k) but I need to be aware of it when practicing problems. How do I know when to do this? in subsets size of k, we only can count against k it seems.
+
+
+</details>
+
+
+
+
+## Counting unique paths in a grid
+
+<details>
+  <summary>View Notes</summary>
+
+</details>
+
+
+
+
+## Counting unique paths in a grid using DP
+
+<details>
+  <summary>View Notes</summary>
+
+</details>
+
+
+## Maximum path sum
+
+<details>
+  <summary>View Notes</summary>
 
 </details>
