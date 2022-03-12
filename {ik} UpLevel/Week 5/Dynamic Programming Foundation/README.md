@@ -486,13 +486,13 @@ We can see in the diagram that:
 - there is probably a battern with middle even numbers `2` and `6`, lets try it
 
 ```
-			1
-		   1 1
-		  1 2 1
-		 1 3 3 1
-		1 4 6 4 1
-	  1 5 10 10 5 1
-	1 6 50 100 50 6 1
+        1
+       1 1
+      1 2 1
+     1 3 3 1
+    1 4 6 4 1
+  1 5 10 10 5 1
+1 6 50 100 50 6 1
 ```
 
 There might even be a pattern in counting:
