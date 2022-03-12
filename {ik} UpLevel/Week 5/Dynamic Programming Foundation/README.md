@@ -1,5 +1,12 @@
 # Dynamic Programming Foundation
 
+This course notes contains two sections:
+
+1. [Counting problems](#counting-problems)
+2. [Optimization problems](#optimization-problems)
+
+# Counting Problems
+
 ## Dynamic Programming Introduction
 
 <details>
@@ -519,6 +526,20 @@ There might even be a pattern in counting:
 <details>
   <summary>View Notes</summary>
 
+
+Still looking at pascals triangle:
+
+```
+         1
+        1 1
+       1 2 1
+      1 3 3 1
+     1 4 6 4 1
+   1 5 10 10 5 1
+ 1 6 50 100 50 6 1
+```
+
+
 Previously in the recursion class we were able to get the c(n,k) func down to `O(n)` by using factorial
 
 ```
@@ -594,7 +615,7 @@ func c(n,k) {
 	}
 
 	// a 2D array of size (n+1)*(k*1)
-	var table: [Int?] = Array(repeating: nil, count: (n+1)*(k*1))
+	var table: [[Int?]] = Array(repeating: Array(repeating: nil, count: (k*1)), count: (n+1))
 
 	for row in 0...n {
 		table[row][0] = 1 // column 0 is all 1
@@ -666,6 +687,44 @@ func c(n,k) {
 
 - I think I understand why we capped at `k` with the min(row,k) but I need to be aware of it when practicing problems. How do I know when to do this? in subsets size of k, we only can count against k it seems.
 
+### Counting subsets of size k using DP Quiz
+
+> **Q-1:** The number of entries in row n of Pascal’s triangle is (assuming n = 0 for the apex at the top):
+
+**A:** n+1; Row 0 has 1 entry. Row 1 has 2 entries. Row 2 has 3 entries and so on. 
+
+> **Q-2:** The sum of all the entries in row n of Pascal’s triangle is:
+
+**A:** 2^n; C(n,0) + C(n,1) + … + C(n,n) = Number of subsets of any size that can be formed out of the n elements = 2^n
+
+```
+        1 	<- 2^0 = 1 = 1
+       1 1 	<- 2^1 = 1+1 = 2
+      1 2 1 	<- 2^2 = 1+2+1 = 4
+     1 3 3 1 	<- 2^3 = 1+3+3+1 = 8
+    1 4 6 4 1
+  1 5 10 10 5 1
+1 6 50 100 50 6 1
+```
+
+
+> **Q-3:** In the implementation of C(n,k) discussed in the video, if k < n, then the valid entries in table are identical to rows 0 to n in Pascal’s triangle. 
+
+**A:** False; The entries in rows k+1… n would be an incomplete prefix of the entries in the corresponding row of Pascal’s triangle. 
+
+- because it would be a partial triangle
+
+> **Q-4:** In the implementation of C(n,k) discussed in the video, if k = n, then the valid entries in table are identical to rows 0 to n in Pascal’s triangle.
+
+**A:** True; it'll be a full triangle. 
+
+> **Q-5:** Pascal’s triangle can be constructed upto row n in time (pick the tightest asymptotic bound):
+
+**A:** O(2^n); Use the same DP method used to compute C(n,k). Constructing row i will take O(i) time. Summing this for all i in 1 to n, we get T(n) = O(n^2)
+
+> **Q-6:** The value of C(n,k) is (assume k << n)
+
+**A:** O(n^k); Note that the question is not asking about the time to calculate C(n,k). It is asking what is the asymptotic complexity of the VALUE of C(n,k), assuming that k is a small constant. C(n,1) is O(n). C(n,2) = n(n-1)/2 = O(n^2) and so on. 
 
 </details>
 
@@ -677,6 +736,52 @@ func c(n,k) {
 <details>
   <summary>View Notes</summary>
 
+### Quick recap
+
+|Example| type | w/ DP | Arry type |
+|-------|------|----|-----------|
+|fib(n) | recurrence question with one parameter | efficient implimentation with no repeated work | 1D array |
+| fib(n) counting problem w/ decrease and conquer | recurrence question with one parameter | efficient implimentation with no repeated work | 1D array |
+| c(n,k) | recurrence question with two parameter | efficient implimentation with no repeated work | 2D array |
+| counting problem w/ decrease and conquer| recurrence question with two parameter | efficient implimentation with no repeated work | 2D array |
+
+### The problem:
+
+Given a 2D grid with m rows and n columns, count the number of unique paths starting at the top-left corner and getting to the bottom-right corner. All move must either go right or down.
+
+```
+		n = 3
+	________________
+	|__s_|____|____|
+m=2	|____|____|__e_|
+
+// where s is start & e is end
+```
+
+Three different paths the robot can take to from from s to e. as seen in red
+
+![dai10](./dai10.png)
+
+- move right: 0 -> n-1
+- move down: 0 -> m-1
+
+A unique path will include `(m-1)+(n-1)` or `m+n-2`
+
+> This is very similar to the problem with forming a committee or class group problems. because each committee we form, the "path" of selected students.
+
+`c(m+n-2, n-1) = c(m+n-2, m-1) where m-1 = m+n-2-(n-1)`
+
+- move right = c(m+n-2, n-1)
+- move down = c(m+n-2, m-1)
+
+The teacher suggests a better way to address this problem that wil be beneficial for when there are obstacles in the path.
+
+### End of section summary:
+
+- it's n-1 and m-1 because start starts at 0 in the array.
+- this is identical to the grouping problem because you either choose a student or don't. The math looks different to me though.
+	- Group students: `c(n,k) = c(n-1, k) + c(n-1, k-1)`
+
 </details>
 
 
@@ -687,12 +792,176 @@ func c(n,k) {
 <details>
   <summary>View Notes</summary>
 
+### A decrease and conquer approach to counting the number of unique paths
+
+![dai11](./dai11.png)
+
+- We used a d&q approach to climb the stairs but that was 1D by looking at the last move.
+	- it was either 1 step (previous step) or 2 steps (previous previous step).
+	- f(n) = f(n-1)+f(n-2)
+
+We should be able to use the same method in a 2D.
+
+We can reach the final spot from the top or from the left:
+
+![dai12](./dai12.png)
+
+If we know the number of paths from left and top block, we can use lazy manager to calculate the end point.
+
+``` pseudocode
+f(m-1, n-1) = #unique paths to (m-1, n-1) from (0,0)
+	= f(m-2, n-1) + f(m-1, n-2)
+```
+
+**Q:** How many unique subproblems? `m*n`
+
+- we can visualize them as a vertext as in a dependency problem.
+	- m*n vertices w/ edges top and left
+
+Again, another topological sort problem; going left to right in each layer / row.
+
+**Q:** What are the base cases?
+**A:** 0 column and 0 row don't have neighbors, so we can set this initially
+	- only right -> right -> right exclusively
+	- only down -> down -> ddown exclusively.
+
+``` swift
+func countPaths(_ m: Int, _ n: Int) -> Int? {
+    // 2D table of size m*n includes solutions in top sort order
+    var table: [[Int?]] = Array(repeating: Array(repeating: nil, count: (n)), count: (m))
+    
+    // base cases
+    for i in 0...m-1 { // column 0
+        table[i][0] = 1
+    }
+    
+    for j in 0...n-1 { // row 0
+        table[0][j] = 1
+    }
+
+    // go row by row from 1 to m-1 and 1 to n-1
+    for row in 1...m-1 {
+        for col in 1...n-1 {
+            guard 
+                let a = table[row-1][col], // from top
+                let b = table[row][col-1] // from left
+            else { continue }
+            // store the value of table[row][col]
+            table[row][col] = a+b 
+        }
+    }
+
+    return table[m-1][n-1]
+}
+```
+
+**Time Complexity:** `O(mn)` because of the for loop
+
+**Space Complexity:** `O(mn)` because of the table matrix
+
+---
+
+``` swift
+func countPaths(_ m: Int, _ n: Int) -> Int? {
+    // 2D table of size m*n includes solutions in top sort order
+    var table: [[Int?]] = Array(repeating: 
+                                    Array(
+                                        repeating: nil, 
+                                        count: (n)
+                                    ), 
+                                count: (m)
+    )
+    
+    // base cases
+    for i in 0...m-1 { // column 0
+        table[i%2][0] = 1
+    }
+    
+    for j in 0...n-1 { // row 0
+        table[0][j] = 1
+    }
+
+        // go row by row from 1 to m-1 and 1 to n-1
+    for row in 1...m-1 {
+        for col in 1...n-1 {
+            guard 
+                let a = table[(row-1)%2][col], // from top
+                let b = table[row%2][col-1] // from left
+            else { continue }
+            // store the value of table[row][col]
+            table[row%2][col] = a+b 
+        }
+    }
+
+    return table[(m-1)%2][n-1]
+}
+```
+
+**Q:** What if we only used two layers?
+
+**Space Complexity:** `O(2n)` or `O(n)` because only using two rows
+
+If the rows were smaller than the number of columns, this wouldn't be as efficient because it'd better to reuse column space instead of row space. 
+
+**Space Complexity:** `O(2m)` or `O(m)` because only using two rows
+
+### Counting unique paths in a grid using DP Quiz
+
+> **Q-1:** The number of unique paths from the top left to the bottom right cell of a 3 x 3 grid is (assuming each step is a move to the right or down): 
+
+**A:** 6; m = n = 3 in this problem. C(m+n-2, m-1) = C(4,2) = 6
+
+> **Q-2:** The number of unique paths from the top left to the bottom right cell of a 5 x 5 grid is (assuming each step is a move to the right or down): 
+
+**A:** 70; m = n = 5. So C(m+n-2, m-1) = C(8, 4) = (8x7x6x5)/(4x3x2x1) = 70
+
+- what if it was 10x10? c(m+n-2, m-1) = C(18, 9) = （18*17*16*15*14*13*12*11*10)/(9*8*7*6*5*4*3*2*1) = 48,620.
+	- huh, so some kind of cascading (n-1)*(n-2)... 1 thing
+
+> **Q-3:** The number of unique paths from the top right to the bottom left cell of an m x n grid is (assuming each step is a move to the left or down): 
+
+**A:** C(m+n-2,m-1)
+
+> **Q-4:** The number of unique paths from the bottom right to the top left cell of an m x n grid is (assuming each step is a move to the left or up): 
+
+**A:** `C(m+n-2,n-1)` or `C(m+n-2,m-1)`; This is also a flipped version of the same original problem and so the analysis is still the same. Note that C(m+n-2,n-1) = C(m+n-2,m-1) so there are two correct solutions. 
+
+> **Q-5:** If the CountPaths problem was modified to allow for a diagonal move (in the down-right direction) in addition to the two existing moves, the ONLY change needed in the code to handle it is to have the following line inside the nested for loop: 
+
+**A:** `table[row][col] = table[row-1][col] + table[row][col-1] + table[row-1][col-1]`
+
+> **Q-6:** If the CountPaths problem was modified to allow for a diagonal move (in the down-right direction) in addition to the two existing moves, the DP algorithm could be modified to still run in O(mn) time. 
+
+**A:** True
+
+> **Q-7:** If the CountPaths problem was modified to allow for a left move in addition to the two existing moves, the number of unique paths would be: 
+
+**A:** Infinite; Allowing for a left move in addition to right and down moves would lead to the creation of cyclical paths. Once you have cycles, there would be an infinite number of unique paths, each going around a cycle different number of times before exiting it. 
+
+> **Q-7:** If the CountPaths problem was modified to allow for a left move in addition to the two existing moves, we can still get the order in which subproblem vertices need to be solved via topological sort. 
+
+**A:** False
+
+
+### End of section summary:
+
+- Now I understand how to shrink the space complexity now using 2 layers and %2 on rows 🎉
+- if column are larger than rows, it's better to reuse column space instead of row space.
+- Just because we are going from `s` to `e` doesn't mean this is a quickest path problem. So that means, if we our bot could go left, right and down, it would would have inf choices unless the sole purpose was to get to a spot asap.
+
 </details>
 
+---
 
-## Maximum path sum
+# Optimization problems
+
+## Maximum path sum - optimization
 
 <details>
   <summary>View Notes</summary>
+
+### Recap
+1. we started with counting problems
+2. now we will look at optimization problems
 
 </details>
