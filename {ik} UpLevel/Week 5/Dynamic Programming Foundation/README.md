@@ -227,7 +227,7 @@ func fib(n: Int) -> Int {
 
 - Now we can calculate this iteratively, bottom up
 
-``` js
+``` swift
 func fib(_ n: Int) -> Int {
     if n == 0 || n == 1 { return n } // base case
     
@@ -294,7 +294,7 @@ The pattern is as such:
 2. Index-1: if `i % 3 = 1`
 3. Index-2: if `i % 3 = 2`
 
-``` js
+``` swift
 func fib(_ n: Int) -> Int {
     if n == 0 || n == 1 { return n } // base case
     
@@ -340,10 +340,171 @@ func fib(_ n: Int) -> Int {
 
 
 
-
-## Climbing n stairs
+## Climbing `n` stairs
 
 <details>
   <summary>View Notes</summary>
+
+By using decrease and conquer we can break the problem into smaller parts.
+
+1. 1 steps have 1 variation
+2. 2 steps have 2 variations
+3. 3 steps have 3 variations
+
+![dai4](./dai4.png)
+
+From those three whiteboard drawings we can see a pattern and apply that into forming a theory; Can these three be enough to solve any `n` step problems? Why?
+- I believe 4 is going to look like three but with one additional 1 step to 4 step jump. There's a visual pattern I can see. It wouldn't look exactly like two `2s` because there would be a jump between 1st step and third step. 
+
+Turns out this is the exact same math as the fibonacci sequence.
+
+- 1 step or 2 steps no other ability to step. 
+	- which I think I understand it as `n-1 -> n` & `n-2 -> n` 
+	- Why n-1 or n-2?
+		- is it because the last move is 1 for 1+1+1+1
+		- and the last move for 2 is 2+2+2+2
+
+![dai5](./dai5.png)
+The math ^
+
+So the function is nearly the same. The difference being we don't start at zero and we set `1` & `2` as a base case instead of `0` & `1`
+
+``` swift
+func stairCounter(_ n: Int) -> Int {
+    if n == 1 || n == 2 { return n }
+    
+    var table: [Int?] = Array(repeating: nil, count: n+1) // plus 1 because starts at 0 and we need 5 open spots
+    table[1] = 1
+    table[2] = 2
+    
+    for i in 3...n { // starting at 3 since 1 and 2 are base cases
+        guard 
+            let a = table[(i-1)%3], let b = table[(i-2)%3] // same as fib
+        else { continue }
+        table[i%3] = a + b
+    }
+    
+    return table[n%3]!
+}
+```
+
+**Time Complexity:** `O(n)` the for loop
+
+**Space Complexity:** `O(1)` cause table size is 3 or constant, 1
+
+### Climbing `n` stairs Quiz 
+
+> **Q-1:** TYou are climbing a staircase. It takes n steps to reach to the top (n > 3). Each time you can either climb 1 or 2 steps. In how many distinct ways can you climb to the top? Pick the appropriate recurrence equation:
+
+**A:**
+
+f(n) = f(n-1) + f(n-2), f(0) = 1, f(1) = 1
+
+f(n) = f(n-1) + f(n-2), f(1) = 1, f(2) = 2
+
+> **Q-2:** You are climbing a staircase. It takes n steps to reach to the top (n > 3). Each time you can either climb 1, 2 or 3 steps. In how many distinct ways can you climb to the top? Pick the appropriate recurrence equation with base cases:
+
+**A:** f(n) = f(n-1) + f(n-2) + f(n-3), f(0) = 1, f(1) = 1, f(2) = 2
+f(3) should be 4. This means f(0) + f(1) + f(2) = 4. So #4 is the right equation. 
+
+> **Q-3:** How many distinct permutations of the numbers 1 and 2 (in which repetition is allowed) add up to n? Assume that n > 2. For example, if n = 4, the permutations are 2-2, 1-1-2, 1-2-1, 2-1-1, 1-1-1-1. 
+> Suppose f(n) = The number of such permutations. 
+> Pick the recurrence equation for f(n):
+
+**A:** f(n) = f(n-1) + f(n-2)
+
+**Solution:** 
+If we visualize each permutation as a sequence of blanks, the last blank for any of those permutations can be either filled with a 1 or 2. Fo if f(n) is the number of permutations of 1s and 2s adding up to n, it can be split as the number of permutations adding up to n-1 followed by a 1 at the end + the number of permutations adding up to n-2 followed by a 2 at the end. So f(n) = f(n-1) + f(n-2)
+
+This makes total sense because if you add up all the last permutations ending in 2 == n-2 == 2 and all the perms ending in 1 == n-1 = 3
+
+`if n = 4, the permutations are 2-2, 1-1-2, 1-2-1, 2-1-1, 1-1-1-1`
+
+So if we think about the steps problem again, we looked at the final stage of steps, "the ending". The ending ended with either 1 step or 2 steps. If there was a 3rd step, it would be n-3.
+
+### End of section summary:
+
+1. we took a counting problem
+2. with decrease and conquer we found a recurrence equation
+3. with DP, we implimented a recursive / iterative implementation w/o repetition
+	- which turned out to be the same as fib
+
+### Personal thoughts:
+
+~~I kind of get how we got i-1 & i-2 for the steps but I doubt I understand it enough to figure it out on another problem.~~
+
+See what I wrote in `Q-3` but summary: We can look at the final literal step of what is possible. So in the 2 stairs problem, we knew that final move up the staircase would either be 1 step or 2 steps. So n-1 and n-2 respectively. If the child could jump 3 steps, the ending would also have 3 or n-3.
+
+</details>
+
+
+
+
+## Counting subsets of size k
+
+<details>
+  <summary>View Notes</summary>
+
+![dai6](./dai6.png)
+
+Using pascals triangle we can determine the k elements out of a set of n elements.
+
+For example, we have a class room of n students and we want groups of k students. Within each group, order doesn't matter and a student can only belong in a single group.
+
+By using the lazy manager strat, we only make a decision about the 1st student.
+
+This type of counting subsets of size k is visually seen as `c(n,k)` or `n choose k`
+
+`c(n,k) = c(n-1) + c(n-1, n-k)`
+
+**Refresher on pascals triangle**
+- To get any value in the triangle, you add the previous two above it.
+
+In the above diagram, `c(4, 2) = c(3, 1) + c(3, 1)` or `6 = 3 + 3`
+
+
+Original recursive example:
+
+``` swift
+func c(_ n: Int, _ k: Int) -> Int {
+	// base case
+	if k == 0 || k == n { return 1 }
+
+	// recursive case
+	return c(n-1, k) + c(n-1, k-1)
+}
+```
+
+**Time Complexity:** `O(2^n)` 
+(n, 0) + (n, 1) + (n, 2) ... (n, n) = 2^n
+
+---
+
+We can see in the diagram that:
+- the outside edge has `1` going all the way down both sides.
+- the repition of `3` & `4` are visible
+- there is probably a battern with middle even numbers `2` and `6`, lets try it
+
+```
+			1
+		   1 1
+		  1 2 1
+		 1 3 3 1
+		1 4 6 4 1
+	  1 5 10 10 5 1
+	1 6 50 100 50 6 1
+```
+
+There might even be a pattern in counting:
+- cause we can see a 1's on the left and right edge
+- then the second diagonal from left to right || right to left shows: `1, 2, 3, 4, 5 6`
+- but the line after seems to have a weird pattern `1,3,6,10,50`
+- regardless, there is this triangle pattern with each inner pattern that should be taken care of in DP
+
+### End of section summary:
+
+- Seeing the pattern is important but also identifying the time complexity inorder to explain the benefit of DP.
+
+
 
 </details>
