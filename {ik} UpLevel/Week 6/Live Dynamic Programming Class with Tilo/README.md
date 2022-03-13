@@ -70,7 +70,7 @@ Stages of problems:
 	- use the language of the problem 
 	- if you suspect DP, do examples small to large
 
-<details>
+</details>
 
 
 
@@ -140,4 +140,4 @@ So we can formulate:
 
 wrap this into a loop and we have the answer.
 
-<details>
+</details>
