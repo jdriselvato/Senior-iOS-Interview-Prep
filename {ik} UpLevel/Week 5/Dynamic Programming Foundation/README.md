@@ -1101,3 +1101,150 @@ What if we wanted to get the min collected value?
 - Timecomplext and space complexity (currently) are the same as previous O(nm)
 
 </details>
+
+## Minimum cost stair climbing
+
+<details>
+  <summary>View Notes</summary>
+
+### Optimization problem of stair climbing
+
+- this is a 1D optimization problem 
+- so each step has a "cost" that is obtained when landing on it
+
+![dai20](./dai20.png)  
+
+Find the cheapest way to climb up:
+
+- no cost in the floor above or below (in agree)
+- highest: if we took every step `10+15+20=45`
+- min: 15 - stepping the middle stp
+
+![dai21](./dai21.png)  
+
+enumerating this solution would be exponental. we can get this in polynomial time, so we need to solve this without repitition.
+
+### Decrease and conquer method:
+
+- the same prefix claim is valid here where S->E, S->T is optimal. 
+	- optimal substructure
+
+``` swift
+func minCostStair(_ stairs: [Int]) -> Int {
+    var table = stairs
+    table[0] = 0 // give the start a 0 for the green part
+    table.append(0) // give the end a 0 for the green part
+
+    let n = table.count-1
+
+    
+    for i in 2...n { // starting at 3 since 1 and 2 are base cases
+        if i == 0 { continue } // 0 is always the same
+        table[i] = table[i] + min(table[i-1], table[i-2])
+    }
+    
+    return table[n]
+}
+
+print(minCostStair([10,15,20])) // 15
+```
+
+**Time Complexity:** `O(n)` as we are traversing the entire array
+
+**Space Complexity:** `O(n)` // only the array
+
+---
+
+### Maximum path sum Quiz
+
+- I went through them but trying speed up study so paste these in later: 
+https://uplevel.interviewkickstart.com/resource/rc-mcq-205600-491360-103-524-2651235
+
+
+### End of section summary:
+
+- this is a 1D optimization problem
+- we can copy the stairs array and append 0 to start and end to make things eaiser.
+- this isn't that different from the previous matrix s-e path problem just it's 1D
+- it doesn't make since to use max if all the values are positive, unless we are looking for the highest collection path, as max would just be step after step. 
+	- negative numbers would change that.
+
+</details>
+
+
+## Coin change using Greedy strategy
+
+<details>
+  <summary>View Notes</summary>
+
+### The coin change problem
+
+> A cashier gives change to customers (only coins). They need to use the fewest coins possible whenever they give change.
+>
+> Given: coins of different deominations and a total "amount" of money, computer the fewest number of coins that you need to makeup that amount?
+>
+> example: coin: [1,2,5] amount: 11 units
+> 		5+5+1=11 means: 3 coins
+> What is the fews coins with an unlimited supply?
+> 	return -1 if no valid change amount
+
+
+Steps to solve the problems:
+
+1. what kind of problem is this? 
+	- minimization problem (optimization prob), which means DP
+2. How to solve? 
+	- Brute force is exponental so decrease and conquer
+3. 
+
+- [x] I think it can use subtraction, lets see if i'm correct
+	- maybe even division for the DP
+
+### Greedy Strategy
+
+Subtraction and division but can also be addition by bounds and moving down to smaller coins. This is called Greedy Strategy. -- seems I might be right!
+
+Example: 253 = 253/5=Int(50) = 250+2 = 252+1 = 253
+
+---
+
+What if we change the coins to [1, 5, 7] and amount 10:
+
+- if we pick 7 (largest) but then we'd need to pick `1` 3 times.
+	- 7+1+1+1=10 (4)
+- but 5+5=10 would be less coins (2)
+
+in this case the greedy strategy wouldn't work.
+- so I was wrong, it works in some cases but not all.
+
+### End of section summary:
+
+- Greedy Strategy doesn't always work for finding the minimum of a problem
+- the max of the coin problem would be the smallest amount
+
+</details>
+
+
+
+
+## Coin change using DP
+
+<details>
+  <summary>View Notes</summary>
+
+
+</details>
+
+
+
+
+## Footnote
+
+<details>
+  <summary>View Notes</summary>
+
+### Richard Bellman invented DP
+
+- due to politic avoidance, he picked the word programming and dynamic to hide that he was working in mathmatics and research.
+
+</details>
