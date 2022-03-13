@@ -599,7 +599,7 @@ This is the entry point in repeating patterns for our bottom up approach
 We know `c(n, 0) = 1` & `(n,n) = 1` where `k = n`
 
 - the fact that `(n,n)` means there'll be a diagonal that goes all the way down to `(k,k)``
-	- but this doesn't mean `(n,k)` is where `(n,k)` ends
+	- but this doesn't mean `(n,k)` is where `(k,k)` ends
 	- anything above the diagonal are not useful, as seen in red below
 
 ![dai9](./images/dai9.png)
@@ -821,9 +821,11 @@ f(m-1, n-1) = #unique paths to (m-1, n-1) from (0,0)
 Again, another topological sort problem; going left to right in each layer / row.
 
 **Q:** What are the base cases?
+
 **A:** 0 column and 0 row don't have neighbors, so we can set this initially
-	- only right -> right -> right exclusively
-	- only down -> down -> ddown exclusively.
+
+- only right -> right -> right exclusively
+- only down -> down -> ddown exclusively.
 
 ``` swift
 func countPaths(_ m: Int, _ n: Int) -> Int? {
@@ -1116,7 +1118,7 @@ What if we wanted to get the min collected value?
 
 Find the cheapest way to climb up:
 
-- no cost in the floor above or below (in agree)
+- no cost in the floor above or below (in degree)
 - highest: if we took every step `10+15+20=45`
 - min: 15 - stepping the middle stp
 
@@ -1220,7 +1222,7 @@ in this case the greedy strategy wouldn't work.
 ### End of section summary:
 
 - Greedy Strategy doesn't always work for finding the minimum of a problem
-- the max of the coin problem would be the smallest amount
+	- the max of the coin problem wouldn't be the smallest amount
 
 </details>
 
