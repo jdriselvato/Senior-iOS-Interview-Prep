@@ -28,7 +28,7 @@ func fib(n: Int) -> Int {
 }
 ```
 
-![fib tree](./fibTree.png)
+![fib tree](./images/fibTree.png)
 
 - We can notice that in this tree there is repeating fib(1), feb(2), etc
 - Many sub-problems appear multiple times
@@ -63,7 +63,7 @@ func fib(n: Int) -> Int {
   <summary>View Notes</summary>
 
 
-![fibTree2](./fibTree2.png)
+![fibTree2](./images/fibTree2.png)
 
 
 *Original:*
@@ -137,7 +137,7 @@ func fib(_ n: Int) -> Int {
 **Space Complexity:** `O(n)` because of memo
 	- space trade off for better T(n)
 
-![dai1](./dai1.png)
+![dai1](./images/dai1.png)
 
 ---
 
@@ -151,7 +151,7 @@ func fib(_ n: Int) -> Int {
 
 **A:** True - This was shown via the example of calculating fib(n) or tribonacci(n). 
 
-![slide_22.jpg](./slide_22.jpg)
+![slide_22.jpg](./images/slide_22.jpg)
 
 I got Q-2 wrong, so here's an examply of all the `T(n)`
 - Polynomial time is `n^k`
@@ -222,7 +222,7 @@ func fib(n: Int) -> Int {
 	- it'll never have a cycle
 - Making this a `DAG` -> `Dependency Acyclic Graph`
 
-![dai2](./dai2.png)
+![dai2](./images/dai2.png)
 
 **Topological Sort:** When we have a `DAG` we can sort the vertices of the graph so that the edges are going in a single direct (left to right).
 
@@ -231,7 +231,7 @@ func fib(n: Int) -> Int {
 2. Then cache them
 3. Then return table[n]
 
-![dai3](./dai3.png)
+![dai3](./images/dai3.png)
 
 - Now we can calculate this iteratively, bottom up
 
@@ -359,7 +359,7 @@ By using decrease and conquer we can break the problem into smaller parts.
 2. 2 steps have 2 variations
 3. 3 steps have 3 variations
 
-![dai4](./dai4.png)
+![dai4](./images/dai4.png)
 
 From those three whiteboard drawings we can see a pattern and apply that into forming a theory; Can these three be enough to solve any `n` step problems? Why?
 - I believe 4 is going to look like three but with one additional 1 step to 4 step jump. There's a visual pattern I can see. It wouldn't look exactly like two `2s` because there would be a jump between 1st step and third step. 
@@ -372,7 +372,7 @@ Turns out this is the exact same math as the fibonacci sequence.
 		- is it because the last move is 1 for 1+1+1+1
 		- and the last move for 2 is 2+2+2+2
 
-![dai5](./dai5.png)
+![dai5](./images/dai5.png)
 The math ^
 
 So the function is nearly the same. The difference being we don't start at zero and we set `1` & `2` as a base case instead of `0` & `1`
@@ -453,7 +453,7 @@ See what I wrote in `Q-3` but summary: We can look at the final literal step of 
 <details>
   <summary>View Notes</summary>
 
-![dai6](./dai6.png)
+![dai6](./images/dai6.png)
 
 Using pascals triangle we can determine the k elements out of a set of n elements.
 
@@ -578,7 +578,7 @@ If we compute each subproblem once, we should improve the time complexity with l
 
 In this problem we create a dependency graph:
 
-![dai7](./dai7.png)
+![dai7](./images/dai7.png)
 
 Ultimately, we want to solve the red circled `c(n,k)`.
 
@@ -588,7 +588,7 @@ Ultimately, we want to solve the red circled `c(n,k)`.
 
 **Q:** What does this look like in the graph?
 
-![dai8](./dai8.png)
+![dai8](./images/dai8.png)
 
 This is the entry point in repeating patterns for our bottom up approach
 
@@ -602,7 +602,7 @@ We know `c(n, 0) = 1` & `(n,n) = 1` where `k = n`
 	- but this doesn't mean `(n,k)` is where `(n,k)` ends
 	- anything above the diagonal are not useful, as seen in red below
 
-![dai9](./dai9.png)
+![dai9](./images/dai9.png)
 
 Topological sort order would be left to right as seen in blue
 - at the very end we'd reach `(n,k)` and have our solution.
@@ -646,7 +646,7 @@ func c(n,k) {
 	- for layer 2 it's column 2
 	- as seen in the dia below (green to yellow circle):
 
-![dai9](./dai9.png)
+![dai9](./images/dai9.png)
 
 - Why not just be row number? well if the row number passes k (it's getting closer and closer to `n`) once the number exceeds `k` it should be capped at k
 	- Still don't understand
@@ -683,7 +683,7 @@ func c(n,k) {
 	- because it's linear ordering with directed acyclic graph.
 	- (n-1,k-1) -> (n,k) & (n-1, k) -> (n,k)
 
-![dai9](./dai9.png)
+![dai9](./images/dai9.png)
 
 - I think I understand why we capped at `k` with the min(row,k) but I need to be aware of it when practicing problems. How do I know when to do this? in subsets size of k, we only can count against k it seems.
 
@@ -760,7 +760,7 @@ m=2	|____|____|__e_|
 
 Three different paths the robot can take to from from s to e. as seen in red
 
-![dai10](./dai10.png)
+![dai10](./images/dai10.png)
 
 - move right: 0 -> n-1
 - move down: 0 -> m-1
@@ -794,7 +794,7 @@ The teacher suggests a better way to address this problem that wil be beneficial
 
 ### A decrease and conquer approach to counting the number of unique paths
 
-![dai11](./dai11.png)
+![dai11](./images/dai11.png)
 
 - We used a d&q approach to climb the stairs but that was 1D by looking at the last move.
 	- it was either 1 step (previous step) or 2 steps (previous previous step).
@@ -804,7 +804,7 @@ We should be able to use the same method in a 2D.
 
 We can reach the final spot from the top or from the left:
 
-![dai12](./dai12.png)
+![dai12](./images/dai12.png)
 
 If we know the number of paths from left and top block, we can use lazy manager to calculate the end point.
 
@@ -976,7 +976,7 @@ DP was original created for this kind of problems.
 
 Back to the problem where the robot could move left or down. In the optimization problem version, each grid will have a value. For example, how much it will collect of an item at each block.
 
-![dai13](./dai13.png)
+![dai13](./images/dai13.png)
 
 - The value of the path is the sum of all the steps taken in that path.
 
@@ -989,7 +989,7 @@ We want to find the maximum path - which path collects more? and can we keep tra
 - the movement is the same from top and from left
 - the value of top is x and the vlaue of left is y, we can compute the max path of the bottom right cell:
 
-![dai14](./dai14.png)
+![dai14](./images/dai14.png)
 
 We can make the following claim (This is called optimal substructure):
 
@@ -1053,7 +1053,7 @@ func maxPath(grid: [[Int]]) -> Int {
 
 - we can view each cell as a vertex and edges as the left or top:
 
-![dai15](./dai15.png)
+![dai15](./images/dai15.png)
 
 **Time Complexity:** `O(mn)` because of the for loop
 
@@ -1071,19 +1071,19 @@ What if we wanted to get the min collected value?
 
 1. Let's try it on the sample grid:
 
-![dai16](./dai16.png)
+![dai16](./images/dai16.png)
 
 2. the optimal value for the edges:
 
-![dai17](./dai17.png)
+![dai17](./images/dai17.png)
 
 3. the optimal value for the first max from left or top:
 
-![dai18](./dai18.png)  
+![dai18](./images/dai18.png)  
 
 4. Final solution:
 
-![dai19](./dai19.png)  
+![dai19](./images/dai19.png)  
 
 
 ### Maximum path sum Quiz
@@ -1112,7 +1112,7 @@ What if we wanted to get the min collected value?
 - this is a 1D optimization problem 
 - so each step has a "cost" that is obtained when landing on it
 
-![dai20](./dai20.png)  
+![dai20](./images/dai20.png)  
 
 Find the cheapest way to climb up:
 
@@ -1120,7 +1120,7 @@ Find the cheapest way to climb up:
 - highest: if we took every step `10+15+20=45`
 - min: 15 - stepping the middle stp
 
-![dai21](./dai21.png)  
+![dai21](./images/dai21.png)  
 
 enumerating this solution would be exponental. we can get this in polynomial time, so we need to solve this without repitition.
 
@@ -1262,11 +1262,11 @@ Optimal Substructure:
 	- because i can now become a lazy manager and determine the last coin that would lead to amount `a`
 - think of the last coin to hit `a`
 
-![dai22](./dai22.png)  
+![dai22](./images/dai22.png)  
 
 Since there are currently 3 different coins, we would have to call 3 separate subordinates to solve their part of the solution for it. "Find the optimal way to get a-5 or a-2 or a-1", they come back with optimal solutions.
 
-![dai22](./dai23.png)  
+![dai22](./images/dai23.png)  
 
 Which of the tree do I pick? min(x,y,z) + "1 coin of any denomination"
 
