@@ -109,7 +109,7 @@ If you're not doing this you're holding yourself back
 
 
 
-## American Football scores - counting
+## 1. American Football scores - counting
 
 <details>
   <summary>View Notes</summary>
@@ -257,9 +257,10 @@ func americanFootball(_ finalScore: Int) {
 
 
 
-## Production plan
+## 2. Production plan - Optimization problems
 
 <details>
+	<summary>View Notes</summary>
 
 ### Production plan
 
@@ -362,9 +363,181 @@ When `p > 2`:
 **Space complexity:** O(d*p) which could be O(p)
 
 
-### Print 1 optimal example:
+### Print 1 optimal path example:
 
 - this would be a follow up question, can you?
 	- if you save memory %ing, no you couldn't
+- go backwards from solution
+
+![dai3](./dai3.png)
+
+### Leetcode
+
+- check out the mailbox problem for more counting
+
+</details>
+
+
+## 3. Interleaving Strings - Validation problems
+
+<details>
+	<summary>View Notes</summary>
+
+### Interleaving Strings
+
+Question: An interleaving of two strings (a/b) is valid if it has all the characters of A/B with respective order preserved. Is this valid?
+
+Example:
+
+```
+a = "xxyz"
+b = "xzy"
+
+x | xz | xy | y | x |
+a 	b 	 a    b   a     <---Valid
+```
+
+`xxyyxzx` <-- invalid cause charact ers ar eout of order
+`xzyxxyx` <-- valid, special case b+a
+`xxxyzy` <-- missing character
+
+### The actual interview question:
+
+Given three strings `[a,b,c]` return true if `c` is a valid interleaving of `a` and `b`
+
+- can't use brute force because a and b may contain c.
+
+```
+a = 123
+b = xyz
+c = 12x3yz
+
+```
+
+^ this looks like it would be valid with a brute force two pointer approach but let looks at another example:
+
+```
+a = xxy
+b = xxz
+c = xxzxxy <-- looks like b + a
+```
+
+^ which x do we move to if 2 pointer approach. we'd need to go through both a + b o(2^|a|+|b|), which isn't optimal. 
+
+### How could we do this problem with a formula right away?
+
+look at valid vs false chars to visual a solution
+
+``` pseudocode
+
+a = xxyx
+b = xzy
+c = xxzxyyx
+
+func valid(_, _) -> is this problem a valid interleaving of the corresponding first characters from a
+
+valid(A,B) -> look at the first 0 characters from c; is this a valid interleaving thus far?
+	-> answer is true
+
+valid("x","") -> x against empty string
+	-> answer is true
+
+valid("", "x") -> empty against x
+	-> answer is true
+
+valid("x", "x")
+	-> answer is true
+
+valid("", "xz") 
+	-> answer is false, because `c` doesn't start with `xz`
+
+valid(first ai chars from a, first bj chars from b)
+
+valid(first ai char from n) + "x", first bj chars from b
+
+valid if x appears at position ai+bj+1 in c and it was valid before
+
+```
+
+So the recursion is going backwards from c and two pointers on a & b
+
+---
+
+### second way to visualize the problem
+
+use a DP table
+
+``` pseudocode
+a = xxyx
+b = xzy
+c = xxzxyyx
+```
+
+![dai4](./dai4.png)
+
+ways to find the next value in a DP table. These are the 4 possible ways to do such:
+
+![dai5](./dai5.png)
+
+Takeaway: It's enough to look at the last character if we know the preview was valid
+
+---
+
+### The solution:
+
+Formula:
+
+valid(ai, bj) ==
+	if valid(ai-1, bj) & a[ai] == c[ai+bj]
+				or 
+	if valid(ai, bj-1) & b[bj] == c[ai+bj] 
+
+
+``` swift
+
+func valid(_ a: [Character], _ b: [Character], _ c: [Character]) -> Bool {
+    // base case if a + b < c or > c
+    
+    var table: [[Bool?]] = Array(
+        repeating: Array(
+            repeating: nil, // has to nil else it wont override
+            count: b.count+1
+        ), 
+        count: a.count+1
+    )
+    
+    for ai in 0..<a.count {
+        for bj in 0..<b.count {
+            table[ai][bj] = (ai == 0 && bj == 0) ||
+                (ai >= 1 && table[ai-1][bj] && a[ai-1] == c[ai+bj-1]) ||
+                (bj >= 1 && table[ai][bj-1] && b[bj-1] == c[ai+bj-1])
+        }
+    }
+    
+    return table[a.count][b.count]
+}
+
+```
+
+**Time complexity:** O(ab)
+
+**Space complexity:** O(ab) but could be O(min(a,b))
+
+</details>
+
+## After class notes
+
+<details>
+	<summary>View Notes</summary>
+
+Recommended book:
+
+- "Introduction to Algorithms" has a section at DP
+- "Algorithm Design" by Jon kleinberg & Eva tardos
+
+Read up on Active Practice
+- it's better to look at the same problem for longer without looking at the solution
+
+Quicksort cannot be done in optimal solution
 
 </details>
