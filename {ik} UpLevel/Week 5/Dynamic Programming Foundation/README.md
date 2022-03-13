@@ -1232,6 +1232,154 @@ in this case the greedy strategy wouldn't work.
 <details>
   <summary>View Notes</summary>
 
+### The coin change problem
+
+> Given: coins of different denominations
+>		coins=[1,2,5]
+>
+> and a total amount of money:
+>		amount=11
+>
+> computer the fewest # coins needed to make that amount
+
+- [x] Always be thinking "the greedy" problem will never work!
+
+### Steps to solve the problems:
+
+1. what kind of problem is this? 
+	- minimization problem (optimization prob), which means DP
+2. How to solve? 
+	- Brute force is exponental so decrease and conquer
+		- this is the hardest part so:
+		- break it up into any optimal solutions
+3. Identify all the different prossible subproblems
+4. Identify the dependency graph
+5. Identify the data structure - cache the solution to the subproblem 1D or 2D table
+
+Optimal Substructure:
+
+- why is it so important?
+	- because i can now become a lazy manager and determine the last coin that would lead to amount `a`
+- think of the last coin to hit `a`
+
+![dai22](./dai22.png)  
+
+Since there are currently 3 different coins, we would have to call 3 separate subordinates to solve their part of the solution for it. "Find the optimal way to get a-5 or a-2 or a-1", they come back with optimal solutions.
+
+![dai22](./dai23.png)  
+
+Which of the tree do I pick? min(x,y,z) + "1 coin of any denomination"
+
+### step 2: recursion problem:
+
+``` pseudocode
+let f(a) = fewest # of coins needed to make amount a // my problem
+
+coins = [c, c2, c3, ... ck] // can be any sequence. so we call k subords
+
+f(a-c1) <- subord
+f(a-c2) <- subord
+f(a-ck) <- subord
+
+then I use the fews number of the subord
+
+f(a) = min_k(f(a-ck))+1 // step 2 is complete
+```
+
+### step 3: Identify all the different prossible subproblems
+
+- a+1 distinct subproblems possible
+
+### step 4: Identify the dependency graph
+
+- why? so we can determine which order to compute the subprob solution in
+	- top sort order to compute the solution
+		- left to right
+- each subprogram -> vertex
+- the edge depends on (a-ck)
+
+
+### step 5: Identify the data structure used to store subproblem solutions
+
+`table[i] = the solution of subproblem of size i = f(i)`
+
+### step 6: program the DP algo
+
+``` swift
+func coinChange(amount: Int, coins: [Int]) -> Int {
+	var table: [Int?] = Array(repeating: nil, count: amount+1)
+
+	// base case
+	table[0] = 0 // no coins needed
+
+	var minValue = Int.max
+
+	// traverse the array
+	for i in 1...amount {
+		// compute and store the solution of f(i)
+		for c in coins {
+			if i-c >= 0 {
+				minValue = min(minValue, table[i-c]) // which of the minValues is the smallest
+
+			}
+		}
+		table[i] = 1 + minValue 
+	}
+
+	return table[amount] ?? -1
+}
+
+```
+
+We could do the above without the minValue by just initializing the table with `Int.max`
+
+``` swift
+func coinChange(amount: Int, coins: [Int]) -> Int {
+    var table: [Int] = Array(repeating: Int.max, count: amount+1)
+    
+    // base case
+    table[0] = 0 // no coins needed
+    
+    // traverse the array
+    for i in 1...amount {
+        // compute and store the solution of f(i)
+        for c in coins {
+            if i-c >= 0 {
+                table[i] = min(table[i], table[i-c]) // which of the minValues is the smallest
+                
+            }
+        }
+        table[i] = table[i] + 1
+    }
+    
+    return table[amount] ?? -1
+}
+
+print(coinChange(amount: 10, coins: [1,5,7])) // 2
+
+```
+
+
+---
+
+**Time Complexity:** `O(a*k)` as we are traversing the k and amount
+
+**Space Complexity:** `O(a)` // only the k array
+
+### Quiz
+
+
+### End of section summary:
+
+- Greedy strategy should be avoided at all costs, even if it's possible to do. You'll need to prove it to the interviewer and it might take longer than just doing DP
+
+The 6 steps to solving a DP problem:
+
+1. what kind of problem? Is it optimization or counting?
+2. How do you solve it? Decrease and conquer seem to always be the answer
+3. Identify all the different possible subproblems?
+4. Identify the dependency graph
+5. Identify the data structure - 1D or 2D table
 
 </details>
 
