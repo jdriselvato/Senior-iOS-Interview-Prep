@@ -68,7 +68,7 @@ func count_ways_to_climb(steps: [Int], n: Int) -> Int {
     return table[n]!
 }
 
-print(count_ways_to_climb(steps: [3,4,5], n: 3))
+print(count_ways_to_climb(steps: [1,2,3,4,5], n: 3))
 
 
 // After completion thoughts:
