@@ -17,3 +17,11 @@ My journey through leetcode & Interview Kickstart to get a FAANG+ job
 ### Problem Explainations
 - Graphs / Trees / Recursion / Sorting / Heaps / Searching: [link](https://zunayed.dev)
 
+### DP
+- Dynamic Programming Patterns: [link](https://leetcode.com/discuss/general-discussion/458695/dynamic-programming-patterns)
+- DP for Beginners [Problems | Patterns | Sample Solutions]: [link](https://leetcode.com/discuss/study-guide/662866/DP-for-Beginners-Problems-or-Patterns-or-Sample-Solutions)
+
+
+### FAANG+ Problems:
+- Sean Prashad list: [link](https://leetcode.com/discuss/general-discussion/458695/dynamic-programming-patterns)
+- 
