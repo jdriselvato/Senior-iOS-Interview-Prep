@@ -26,13 +26,15 @@ class Solution {
         table[1] = cost[0] // 10
 
         // [0, 10, 15, _]
+        var value = Int.Max
 
         for i in 2..<cost.count {
-
+        	// (15 + 20) = 35 vs (10+20) = 30
         	table[i] = min(table[i-1] + cost[i-1], table[i-2] + cost[i-1])
+        	value = min(valu, table[i])
         }
 
-        return table[cost.count]
+        return value
     }
 }
 
