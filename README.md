@@ -32,3 +32,10 @@ My journey through leetcode & Interview Kickstart to get a FAANG+ job
 ### iOS
 
 - https://www.toptal.com/ios/interview-questions
+
+### System Design
+
+- https://www.codekarle.com/ 
+- https://www.educative.io/courses/grokking-the-system-design-interview
+- https://www.educative.io/courses/grokking-the-system-design-interview/B8rpM8E16LQ
+- Latency Numbers Every Programmer Should Know: https://gist.github.com/jboner/2841832
