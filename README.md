@@ -39,3 +39,15 @@ My journey through leetcode & Interview Kickstart to get a FAANG+ job
 - https://www.educative.io/courses/grokking-the-system-design-interview
 - https://www.educative.io/courses/grokking-the-system-design-interview/B8rpM8E16LQ
 - Latency Numbers Every Programmer Should Know: https://gist.github.com/jboner/2841832
+
+### Scalability
+
+- [Facebook's New Realtime Analytics System: HBase To Process 20 Billion Events Per Day](http://highscalability.com/blog/2011/3/22/facebooks-new-realtime-analytics-system-hbase-to-process-20.html)
+- [Thoughts on Time-series Databases](http://jmoiron.net/blog/thoughts-on-timeseries-databases)
+- [Designing Data-Intensive Applications Refs](https://github.com/ept/ddia-references)
+
+### Recommended Books
+
+- [Programming Pearls 2nd Edition](https://www.amazon.com/Programming-Pearls-2nd-Jon-Bentley/dp/0201657880)
+- [Designing Data-Intensive Applications: The Big Ideas Behind Reliable, Scalable, and Maintainable Systems 1st Edition](https://www.amazon.com/Designing-Data-Intensive-Applications-Reliable-Maintainable/dp/1449373321)
+- 
