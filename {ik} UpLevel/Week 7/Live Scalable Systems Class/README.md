@@ -213,7 +213,7 @@ I pick which MS to discuss but the interviewer might say let's look at something
 #### High-level MS arch
 
 - In general each MS can have up to three tiers
-	- backend teier with business logic (App) where you signle machine code goes
+	- backend tier with business logic (App) where you signle machine code goes
 	- cache tier for faster response time cache
 		- reduce the load on data storage
 		- subset of database tier but can be stored in any format / DS

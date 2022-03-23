@@ -1,0 +1,41 @@
+PDF from Google Drive
+
+1. Open the document in Google Docs
+2. Scroll to the bottom of the document, so all the pages are present
+3. Open Developer Tools on separate window and choose the Console tab
+4. Paste the code below (and hit enter)
+
+```
+
+let jspdf = document.createElement("script");
+ 
+jspdf.onload = function () {
+ 
+    let pdf = new jsPDF();
+    let elements = document.getElementsByTagName("img");
+    for (let i in elements) {
+        let img = elements[i];
+        console.log("add img ", img);
+        if (!/^blob:/.test(img.src)) {
+            console.log("invalid src");
+            continue;
+        }
+        let can = document.createElement('canvas');
+        let con = can.getContext("2d");
+        can.width = img.width;
+        can.height = img.height;
+        con.drawImage(img, 0, 0, img.width, img.height);
+        let imgData = can.toDataURL("image/jpeg", 1.0);
+        pdf.addImage(imgData, 'JPEG', 0, 0);
+        pdf.addPage();
+    }
+ 
+    pdf.save("download.pdf");
+};
+ 
+jspdf.src = 'https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.debug.js';
+document.body.appendChild(jspdf);
+
+```
+
+source: https://codingcat.codes/2019/01/09/download-view-protected-pdf-google-drive-js-code/
