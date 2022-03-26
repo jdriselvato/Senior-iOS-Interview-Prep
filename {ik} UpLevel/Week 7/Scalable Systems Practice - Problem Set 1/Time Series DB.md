@@ -274,10 +274,12 @@ timestamp       value1     value2
 - Only read the data we need
 - Must support sharding
 - Data is stored sorted by appending data
+- the latest data is visible on a user dashboard
 
 ## Design constraints:
 
-- Storing 1000 data points per second
+- Storing 100 data points per second synced every 5 minutes
+	- 100 data points * 60 seconds * 5 minutes = 30,000 columns
 - Store two different sensor's data at the same time for future comparison
 - Data will live for 5 years
 
@@ -307,4 +309,100 @@ timestamp       value1     value2
 [storage]
 
 ```
+
+# Step 4: Deep dive in MS
+
+## syncData(timestamp, data)
+
+- Since data is syncing in real time and we have a dashboard that'll display the current value in real time, we'll have a pub-sub.
+- with the large amount of data, the data syncing will be split between the system horizontally.
+
+```
+[syncData] <-> [pub-sub] <-> cache <-> storage
+
+```
+
+1. we post messages to a publisher
+2. the module retrieves data from a subscriber and the publisher publishes data back to the app dashboard.
+
+### Database structure
+
+1. Time series Database
+	- since we are syncing data from multiple devices and storing them at the same timestamp, we can use a column-oriented approach. 
+	- This will allow us to read data quickly by only getting data we need
+	- Allows for 1000 data points to be stored in a single row
+	- can be compressed if the sensors are reporting the same data
+
+- 100 data points * 60 seconds * 5 minutes = 30,000 columns per sensor ever 5 minutes
+
+## getData(timestamp)
+
+- since the data is stored in a column-oriented structure, read is quick.
+- The data can be sharded by two groupings:
+1. by timestamp
+
+```
+01_01_2022_00:00:00:
+	sensor1.dat
+	sensor2.dat
+01_01_2022_00:05:00:
+	sensor1.dat
+	sensor2.dat
+```
+
+2. by N sections named by first timestamp
+
+```
+01_01_2022_00:
+	sensor1.dat
+	sensor2.dat
+01_02_2022_00:
+	sensor1.dat
+	sensor2.dat
+```
+
+
+# Step 5: Scale
+
+- Scale for: 
+	- Storage: yes, we can use sharding
+	- Throughput: Yes, since data is syncing in real time we use a sub-pub to sync data and show data after it is stored
+	- Hotspot: no
+	- Availability: Yes, near instant notification
+	- Geo-distribution: Yes, if the sensors are globally synced
+
+- Capacity: 
+	- 5 minute syncing:
+		- 100 data points * 60 seconds * 5 minutes = 30,000 columns per sensor ever 5 minutes
+	- 1 second syncing a day:
+		- 100 data points * 1 second = timestamp+100 data points per second per row per sensor
+		- 100 * 60 * 60 * 24 = ~= 9 million data points a day per sensor * 4 (bytes int) = 35mb per day per sensor
+	- sharing across 100 gb
+	- saving an entire years worth of data per sensor: 35mb * 365 = 13,000mb = 13gb per year per sensor
+		- I suppose scaling depends on how many sensors. Data is pretty small.
+
+- Key/value storage
+	key = timestamp
+	value = data
+
+# Step 6: Distrubuted architecture
+
+```
+[get]  [sync] 	  [dashboard]
+  |		|			   	  \
+  |     V 				Notify
+  |	  [app]					|
+  |	    |				  [App]
+  |-> [cache]->	[queue]->	|
+  	   |				[cache]
+	  [DB]					^
+	    |					|
+	     -> [pubsub] -------
+```
+
+## Architecture
+
+- write to cache for sync
+- sync to cache to display latest data (pub-sub)
+- storage: TSDB
 

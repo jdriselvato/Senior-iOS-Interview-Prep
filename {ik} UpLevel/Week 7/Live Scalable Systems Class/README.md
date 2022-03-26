@@ -661,3 +661,7 @@ Useful data:
 ![dai50](./images/dai50.png)
 
 Need to know: https://gist.github.com/jboner/2841832
+
+---
+
+- Finally know what AP vs CP is: available priority (AP) vs consistent priority (CP)
