@@ -30,7 +30,7 @@ jspdf.onload = function () {
         pdf.addPage();
     }
  
-    pdf.save("download.pdf");
+    pdf.save(document.title + ".pdf");
 };
  
 jspdf.src = 'https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.debug.js';

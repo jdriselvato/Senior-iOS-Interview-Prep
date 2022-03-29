@@ -22,3 +22,6 @@
 4. postOrder Traversal Without Recursion - Had to look up the answer
 5. Upside Down - I was close but I was doing one to many recursions
 6. Merge Two BSTs - Mine was 4x slower than the rest of the class but I figured it out off the top of my head
+
+#### Week 8
+1. Design a cache (single server) - cache coding part in PDF
