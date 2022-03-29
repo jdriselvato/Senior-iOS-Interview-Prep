@@ -46,6 +46,10 @@ My journey through leetcode & Interview Kickstart to get a FAANG+ job
 - [Thoughts on Time-series Databases](http://jmoiron.net/blog/thoughts-on-timeseries-databases)
 - [Designing Data-Intensive Applications Refs](https://github.com/ept/ddia-references)
 
+### Sharding 
+
+- [Horizontal Sharding for MySQL Made Easy @ different companies](https://planetscale.com/blog/horizontal-sharding-for-mysql-made-easy)
+
 ### Recommended Books
 
 - [Programming Pearls 2nd Edition](https://www.amazon.com/Programming-Pearls-2nd-Jon-Bentley/dp/0201657880)

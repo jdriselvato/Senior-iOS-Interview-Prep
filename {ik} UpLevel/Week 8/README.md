@@ -375,4 +375,68 @@ This problem sharding:
 <details>
 	<summary>Read more</summary>
 
+# step 1
+
+## Functional requirements
+
+- Paid streaming service subscription
+- Log into the system and watch moves/tv on various platforms (Phone, laptop, TV)
+- search
+- personalized content
+- stored content
+- user dashbaord
+- user, content savepoints
+- notification
+- trending
+- watch history
+- content management
+	- metadata
+	- upload and device specific delivery
+	- rights and license
+	- categorization
+
+## Non-functional requirements
+
+# step 2 - MS
+
+- subscription
+- search
+- payment
+- user personalization
+	- user activity tracking
+	- offline generation
+	- trending items
+	- user dashboard
+- content ingestion and delivery
+	- rights and license
+- notifications
+
+# step 3
+
+- draw logical arch
+	- block diagram for each ms
+	- use API gateway
+- draw and explain data / logic flow, rule of thumb
+	- high volume of data needs to be pushed in real time between tow MS
+		- use a pub-sub
+	- pub-sub is a microserver is its own
+		- kafka or rabbitmq
+	- if data needs to be pulled from server from client us REST API
+	- all sync go through REST
+	- if data is offline, can use batch ETL (extract transform load) jobs
+
+![d13](./images/d13.png)
+
+- explain the diagram in plan english in the interview
+
+# step 4 - deep dive
+
+![d14](./images/d14.png)
+
+![d15](./images/d15.png)
+
+![d16](./images/d16.png)
+
+![d17](./images/d17.png)
+
 </details>
