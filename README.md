@@ -6,7 +6,7 @@ IMPORTANT! I will get into a FAANG+ company
 
 ## Leetcode
 
-- [Leetcode problems](<./{ik} UpLevel>)
+- [Leetcode problems](<./Leetcode>)
 
 ## Interview Kickstart
 
