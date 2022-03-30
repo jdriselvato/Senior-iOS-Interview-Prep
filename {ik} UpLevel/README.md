@@ -25,3 +25,10 @@
 
 #### Week 8
 1. Design a cache (single server) - cache coding part in PDF
+2. Ask myself these questions when scaling. 
+	- The `Designing URL Shortener Example` explains this really well
+	- need to scale for storage:
+	- need to scale for throughput:
+	- need to scale for api parallelization:
+	- need to remove hotspots:
+	- availabiliy and geo-distribution:
