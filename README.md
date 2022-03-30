@@ -1,13 +1,16 @@
 # Interview Prep
+
 My journey through leetcode & Interview Kickstart to get a FAANG+ job
+
+IMPORTANT! I will get into a FAANG+ company
 
 ## Leetcode
 
-// coming soon
+- [Leetcode problems](<./{ik} UpLevel>)
 
 ## Interview Kickstart
 
-// coming soon
+- [Weekly Material](<./{ik} UpLevel>)
 
 ## Resources
 
