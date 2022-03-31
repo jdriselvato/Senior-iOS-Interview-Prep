@@ -52,15 +52,18 @@ IMPORTANT! I will get into a FAANG+ company
 ### Sharding 
 
 - [Horizontal Sharding for MySQL Made Easy @ different companies](https://planetscale.com/blog/horizontal-sharding-for-mysql-made-easy)
+- [scatter/gather](https://www.oreilly.com/library/view/designing-distributed-systems/9781491983638/ch07.html)
 
 ### Recommended Books
 
 - [Programming Pearls 2nd Edition](https://www.amazon.com/Programming-Pearls-2nd-Jon-Bentley/dp/0201657880)
 - [Designing Data-Intensive Applications: The Big Ideas Behind Reliable, Scalable, and Maintainable Systems 1st Edition](https://www.amazon.com/Designing-Data-Intensive-Applications-Reliable-Maintainable/dp/1449373321)
-- 
+
 
 
 ---
+
+
 
 ### Latency Comparison Numbers (~2012)
 
