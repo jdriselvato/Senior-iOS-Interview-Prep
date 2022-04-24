@@ -4,6 +4,11 @@
 
 - Design a parking lot
 
+1. A class diagram, showing relationships with each other where appropriate. Classes should show state and methods. Use any convenient notation. UML is more widely known.
+2. Main() method, showing how you'll initialize your system and start using it.
+3. Identify the design pattern.
+4. A REST API
+
 # 2. come up with list of requirements *( 5 minutes )*
 
 ## Requirements:
@@ -32,7 +37,35 @@
 
 # 3. Design a subset of the system *( 10 minutes )*
 
+- ID the nouns (classes) and verbs (methods in cases)
 
+1. A class diagram, showing relationships with each other where appropriate. Classes should show state and methods. Use any convenient notation. UML is more widely known.
+
+- https://excalidraw.com/#room=82794bcaf20fef9b9d04,ujMdbtYlpwgOjPX8FcHMVQ
+
+2. Main() method, showing how you'll initialize your system and start using it.
+
+- https://excalidraw.com/#room=82794bcaf20fef9b9d04,ujMdbtYlpwgOjPX8FcHMVQ
+
+3. Identify the design pattern.
+
+- Singleton: parking lot
+- Decorator Pattern
+
+4. A REST API
+
+- Payment
+	- GET /payment/{ticket_id}
+	- POST /payment/{ticket_ID}
+		- process payments w/ credit card
+		- process payment w/ card
+- parking lot
+	- GET /ticket/
+		- returns new ticket
+- floor
+	- GET /spots/
+	- POST /spots/{ticket_id}?claim=true
+	- DELETE /spots/{ticket_id}?claim=false
 
 # 4. Deisgn the full system *( 15 minutes )*
 
