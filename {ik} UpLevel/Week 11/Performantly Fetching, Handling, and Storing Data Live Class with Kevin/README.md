@@ -211,4 +211,31 @@ Task { // or could use `async`
 }
 ```
 
+Pro:
+
+- looks like swift
+- less boiler plate
+
+Cons:
+
+- new / evolving
+
+# Interview Questions
+
+- How would you fix this code?
+
+```
+func getData() {
+	let data = downloadData()
+	headerText = data
+}
+```
+
+---
+
+# Networking and communication
+
+- handling the response (codable)
+- network request
+- deep linking (high level)
 
