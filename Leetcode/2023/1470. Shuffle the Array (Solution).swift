@@ -23,9 +23,28 @@ class Solution {
         if x > xMax && y > yMax { return }
         let removed = nums.remove(at: y)
         nums.insert(removed, at: x+1)
-        shuffler(&nums, x: x + 2, y: y + 1, xMax: xMax, yMax: yMax)
+        shuffler(&nums, x: x + 2, y: y + 1)
     }
 }
 
 // decided to practice this as a form of recursion. Not a very common swift way to do it. 
 // I'm happy it worked first try
+
+
+// Optimization: remove the max x and y
+class Solution {
+    func shuffle(_ nums: [Int], _ n: Int) -> [Int] {
+        var nums = nums
+        shuffler(&nums, x: 0, y: n)
+        return nums
+    }
+    
+    func shuffler(_ nums: inout [Int], x: Int, y: Int) {
+        if y > nums.count - 1 { return }
+        let removed = nums.remove(at: y)
+        nums.insert(removed, at: x+1)
+        shuffler(&nums, x: x + 2, y: y + 1)
+    }
+}
+
+// TODO: but can it be optimized with just passing x?
