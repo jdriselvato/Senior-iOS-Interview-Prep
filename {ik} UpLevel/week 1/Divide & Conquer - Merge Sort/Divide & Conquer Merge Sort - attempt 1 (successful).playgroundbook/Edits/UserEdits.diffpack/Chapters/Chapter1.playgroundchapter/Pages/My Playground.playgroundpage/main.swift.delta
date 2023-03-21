@@ -48,7 +48,7 @@
  Due to the recursion, the index at some point is beyond the size of the array. but why?
  - I looked at it for about 30 minutes and couldn't figure it out, so returning to the lesson.
  😔 Reason:
- *    - watching the lesson for far, there is no a or b returned and they are not against a[i] or b[j] but he also doesn't return tempArray = helper(...) but... how does the recursion work?
+ *    - watching the lesson so far, there is no a or b returned and they are not against a[i] or b[j] but he also doesn't return tempArray = helper(...) but... how does the recursion work?
  *     - Since he doesn't return the array, I think it has something to do with address since I think the psuedo code is prob c. So maybe inout on array? but that didn't work first attemp. Might be one more thing missing. It's changing the array but in some weird order not sorted.
  *    - ‼️ So turns out, replacing the entire address of the array with sorted was wrong. I needed to replace the specific start and end points of the newly sorted. `array[start+index] = sortedArray[index]`
  *    - additionally, see the final result sorted actually made me want to cry. 
@@ -109,7 +109,7 @@ print("🥲 Final: \(mergeSort(shuffled))")
  */
 </string>
 			<key>ModifiedRange</key>
-			<string>{0, 3537}</string>
+			<string>{0, 3536}</string>
 			<key>OriginalContent</key>
 			<string>
 </string>
