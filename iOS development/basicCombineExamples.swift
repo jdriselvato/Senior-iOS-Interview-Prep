@@ -2,39 +2,51 @@ import Combine
 import Foundation
 
 class ViewModel {
-    @Published var text: String = "First"
+    @Published var text: String = "Initial text"
     
     func setText(string: String) {
         self.text = string
     }
 }
 
-class Test1 { // Test 1: sink only the first initial setting of text
+
+
+/// -- Test 1 sink only the first initial setting of text
+
+class Test1 {
     let viewModel = ViewModel()
     func run() {
         viewModel.$text.first().sink { value in
             print("first:", value)
         }
-        viewModel.setText(string: "New") // never calls the above sink
-        viewModel.setText(string: "Text") // never calls the above sink
+        viewModel.setText(string: "Hello") // never calls the above sink
+        viewModel.setText(string: "World") // never calls the above sink
     }
 }
 Test1().run()
 
-class Test2 { // Test 2: drop first
+
+
+/// -- Test 2 drop first
+
+class Test2 {
     let viewModel = ViewModel()
     func run() {
         viewModel.$text.dropFirst().sink { value in
             print("second:", value)
         }
         // both called
-        viewModel.setText(string: "New") 
-        viewModel.setText(string: "Text") 
+        viewModel.setText(string: "Hello") 
+        viewModel.setText(string: "World") 
     }
 }
 Test2().run()
 
-class Test3 { // Test 3: cancel after first sink
+
+
+/// -- Test 3 cancel after first sink
+
+class Test3 {
     private let viewModel = ViewModel()
     private var cancellables: Set<AnyCancellable> = []
     
@@ -43,14 +55,18 @@ class Test3 { // Test 3: cancel after first sink
             print("third:", value)
         }.store(in: &cancellables) // 
         
-        viewModel.setText(string: "New") // both called
+        viewModel.setText(string: "Hello") // both called
         cancellables.removeAll()
-        viewModel.setText(string: "Text") // never called in sink
+        viewModel.setText(string: "World") // never called in sink
     }
 }
 Test3().run()
 
-class Test4 { // using Timer w/ Combine
+
+
+/// -- Test 4 using Timer w/ Combine
+
+class Test4 { // 
     private var cancellables: Set<AnyCancellable> = []
 
     func run() {
@@ -64,3 +80,27 @@ class Test4 { // using Timer w/ Combine
     }
 }
 Test4().run() // works in xcode, seems playground doesn't like inf scripts
+
+
+
+/// -- Test 5 map and filter
+
+class Test5 { // Test 1: sink only the first initial setting of text
+    let viewModel = ViewModel()
+    func run() {
+        viewModel.$text
+            .dropFirst()
+            .filter { value in 
+                return value != "Hello"
+            }
+            .map { value in 
+                return "mapping w/ \(value)"
+            }
+            .sink { value in
+                print("first:", value)
+            }
+        viewModel.setText(string: "Hello") // wont print because of filtering
+        viewModel.setText(string: "World") 
+    }
+}
+Test5().run()
