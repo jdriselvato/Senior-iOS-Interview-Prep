@@ -58,7 +58,7 @@ class FlatMapping {
         var dicts = [
             [1,2,3,4],
             [4,6,7,8],
-            [9, 10, 11, 12]
+            [9,10,11,12]
         ]
         let combined = dicts.flatMap { $0.map { $0 } } // combine both dictionary collections
         print("Combine:", combined)
@@ -79,3 +79,10 @@ FlatMapping().run()
 
 //    - compactMap will remove nils
 //    - flatMap transform collection (dict of dicts) into a sequence (single dict)
+
+
+// 1. Map - manipulate each element and return same type
+// 2. Filter - filter out or in a collection of elements
+// 3. Reduce - collection of elements to a single new element
+// 4. CompactMap - filter out nils
+// 5. FlatMap - combine a collection of objects into a single collection
