@@ -31,6 +31,7 @@ IMPORTANT! I will get into a FAANG+ company
 ### FAANG+ Problems:
 
 - Sean Prashad list: [link](https://leetcode.com/discuss/general-discussion/458695/dynamic-programming-patterns) with a a breakdown of algos and general tips
+- Github repo with a list of common LeetCode problems asked at top companies [link](https://github.com/hxu296/leetcode-company-wise-problems-2022#airbnb)
 
 ### iOS System design / Interview questions
 
