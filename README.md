@@ -30,11 +30,12 @@ IMPORTANT! I will get into a FAANG+ company
 
 ### FAANG+ Problems:
 
-- Sean Prashad list: [link](https://leetcode.com/discuss/general-discussion/458695/dynamic-programming-patterns)
+- Sean Prashad list: [link](https://leetcode.com/discuss/general-discussion/458695/dynamic-programming-patterns) with a a breakdown of algos and general tips
 
-### iOS
+### iOS System design / Interview questions
 
-- https://www.toptal.com/ios/interview-questions
+- [Grokking the Mobile System Design interview](https://artem-goncharov.medium.com/grokking-the-mobile-system-design-interview-6a06fa94491b)
+- [A Simple Framework For Mobile System Design Interviews](https://github.com/weeeBox/mobile-system-design) (Github)
 
 ### System Design
 
